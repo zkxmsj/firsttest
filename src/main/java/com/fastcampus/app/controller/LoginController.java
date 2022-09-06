@@ -21,7 +21,7 @@ import com.fastcampus.app.dao.UserDao;
 import com.fastcampus.app.domain.User;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/member")
 public class LoginController {
 	
 	@Autowired
