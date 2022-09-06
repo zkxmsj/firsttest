@@ -13,8 +13,8 @@
         WHERE  bno = #{bno}
     </select>
 
-    <delete id="delete" parameterType="map">
-        DELETE FROM comment WHERE cno = #{cno}  AND commenter = #{commenter}
+    <delete id="delete" parameterType="int">
+        DELETE FROM comment WHERE cno = #{cno}
     </delete>
 
     <insert id="insert" parameterType="CommentDto">

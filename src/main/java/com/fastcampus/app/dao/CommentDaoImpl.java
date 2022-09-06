@@ -25,11 +25,9 @@ public class CommentDaoImpl implements CommentDao{
 		public int count(int bno) {
 			return session.selectOne(namespace+"count", bno);
 		}
-		 public int delete(int cno, String commenter) {
+		 public int delete(int cno) {
 		        Map map = new HashMap();
-		        map.put("cno", cno);
-		        map.put("commenter", commenter);
-		        return session.delete(namespace+"delete", map);
+		          return session.delete(namespace+"delete", cno);
 		    } 
 		@Override
 		public int insert(CommentDto commentDto) {

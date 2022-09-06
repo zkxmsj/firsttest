@@ -55,7 +55,7 @@ public class LoginController {
 			cookie.setMaxAge(0); // 쿠키를 삭제
 //		       2. 응답에 저장
 			response.addCookie(cookie);
-			return "redirect:/login/login?msg="+msg;
+			return "redirect:/member/login?msg="+msg;
 			
 		
 		// 2-2. id와 pwd가 일치하면,

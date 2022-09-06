@@ -31,7 +31,6 @@
 	let bno = param.get('bno');
 	
     $(document).ready(function(){
-    	alert(window.sessionStorage.length);
     	getCommentList();
     	
  	});
@@ -43,7 +42,7 @@
     	}
     	$.ajax({
     		type:'POST',
-    		url:'/app/comments/?bno='+bno,
+    		url:'/comments/?bno='+bno,
     		headers : {"content-type": "application/json"},
     		data: JSON.stringify({bno:bno,comment:comment}),
     		success:function(list){
@@ -58,7 +57,7 @@
     	let cno = $(this).parent().attr("data-cno");
     	$.ajax({
     		type:'DELETE',
-    		url:'/app/comments/'+cno+'?bno='+bno,
+    		url:'/comments/'+cno+'?bno='+bno,
     		success:function(list){
     			getCommentList();	
     		},
@@ -70,7 +69,7 @@
     function getCommentList(){
     	$.ajax({
     		type:'GET',
-    		url:'/app/comments/?bno='+bno,
+    		url:'/comments/?bno='+bno,
     		success:function(list){
     			var comments = "<ul>";
     			$(list).each(function(){

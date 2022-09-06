@@ -7,7 +7,6 @@
 <head>
 	<meta charset="UTF-8">
     <title>게시판</title>
-     <link rel="stylesheet" href="<c:url value='/resources/css/menu.css'/>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <style>
     	.soso a{
@@ -22,13 +21,16 @@
     		float:left;
     	
     	}
+    	table{
+    		margin-top:200px;
+    	}
     </style>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<%@include file="header.jsp"%>
 <div style="text-align:center">
 <h2>게시글 목록</h2>
-<table border=1>
+<table class="table">
 	<tr>
 		<th>번호</th>
 		<th>제목</th>
@@ -106,5 +108,6 @@
 	<input type="submit" value="검색">
 </form>
 </div>
+<%@include file="footer.jsp"%>
 </body>
 </html>

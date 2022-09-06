@@ -10,7 +10,7 @@ public interface CommentDao {
 
 	int count(int bno);
 
-	int delete(int cno,String commenter);
+	int delete(int cno);
 
 	int insert(CommentDto commentDto);
 

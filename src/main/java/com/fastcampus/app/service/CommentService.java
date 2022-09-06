@@ -21,7 +21,7 @@ public class CommentService {
 	public int removeCnt(int cno,int bno,String commenter) {
 		int rowCnt = boardDao.updateCommentCnt(bno,-1);
 		System.out.println(rowCnt);
-		rowCnt = commentDao.delete(cno,commenter);
+		rowCnt = commentDao.delete(cno);
 		System.out.println(rowCnt);
 		return rowCnt;
 	}
