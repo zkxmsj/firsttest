@@ -26,12 +26,16 @@
           font-size: 3.5rem;
         }
       }
-    
+    .btn-space {
+    	margin-right:10px; 
+    	padding-right:10px;
+    }
     </style>
 	<meta charset="UTF-8">
     <title>쇼핑몰</title>    
 </head>
 <body>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <jsp:include page="header.jsp"/>
         <!-- Product section-->
         <section class="py-5">
@@ -47,11 +51,12 @@
                         </div>
                         <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <input name="amount" class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                            <button class="btn btn-outline-dark flex-shrink-0 addCart btn-space" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 장바구니 담기
                             </button>
+                            <a href="/cart"><button class="btn btn-primary flex-shrink-0 btn-space cartList" type="button"><i class="bi-cart-fill me-1"></i>장바구니 가기</button></a>
                         </div>
                     </div>
                 </div>
@@ -165,5 +170,30 @@
         </section>
 
 <jsp:include page="footer.jsp"/>
+<script>
+	let query = window.location.search;
+	let param = new URLSearchParams(query);
+	let pno = param.get('pno');
 
+	$(".addCart").click(function(){
+    	let amount = $("input[name=amount]").val();
+    	if(amount<=0){
+    		alert("0보다 같거나 작을수 없습니다");
+    		return;
+    	}
+    	$.ajax({
+    		type:'POST',
+    		url:'/cart',
+    		headers : {"content-type": "application/json"},
+    		data: JSON.stringify({pno:pno,amount:amount}),
+    		success:function(list){
+    			alert("장바구니에 추가하였습니다");
+    		},
+    		error: function(){alert("error");
+    		}
+    			
+    	});	
+    });
+	
+</script>
 </body>

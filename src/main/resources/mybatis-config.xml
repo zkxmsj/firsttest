@@ -8,6 +8,7 @@
 		<typeAlias alias="SearchCondition" type="com.fastcampus.app.domain.SearchCondition"/>
 		<typeAlias alias="CommentDto" type="com.fastcampus.app.domain.CommentDto"/>
 		<typeAlias alias="productDto" type="com.fastcampus.app.domain.ProductDto"/>
+		<typeAlias alias="CartDto" type="com.fastcampus.app.domain.CartDto"/>
 	</typeAliases>
 </configuration>
 	
