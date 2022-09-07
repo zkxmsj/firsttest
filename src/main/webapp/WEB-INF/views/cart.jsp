@@ -66,14 +66,14 @@
       </tr>-->
     </tbody>
     <tfoot>
-      <tr class="visible-xs">
+      <!-- <tr class="visible-xs">
         <td class="text-center"><strong>Total $ 5.11</strong></td>
-      </tr>
+      </tr> -->
       <tr>
-        <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+        <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i>쇼핑하러 가기</a></td>
         <td colspan="2" class="hidden-xs"></td>
-        <td class="hidden-xs text-center"><strong>Total $ 5.11</strong></td>
-        <td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+        <td class="hidden-xs text-center"><strong>${data.sum}</strong></td>
+        <td><a href="#" class="btn btn-success btn-block">주문하기 <i class="fa fa-angle-right"></i></a></td>
       </tr>
     </tfoot>
   </table>
@@ -92,27 +92,25 @@ function getCartList(){
     		success:function(data){
     			var str = "";
     			$(data).each(function(){
-					alert(JSON.stringify(data));
     				 str += '<tr>';
     				 str += '<td data-th="Product">';
     				 str += '<div class="row">';
-    				 str +='<div class="col-sm-2 hidden-xs"><img src="" alt="..." class="img-responsive" /></div>';
+    				 str +='<div class="col-sm-2 hidden-xs"><img src="/resources/img/'+this.productImg+'" alt="..." class="img-responsive" width="100" height="100" /></div>';
     				 str +='<div class="col-sm-10">';
-    				 str +=    '<h4 class="nomargin"></h4>';
+    				 str +=    '<h4 class="nomargin">'+this.productName+'</h4>';
     				 str +=   '</div>';
     				 str +=    '</div>';
     				 str +=   '</td>';
-    				 str +='<td data-th="Price">'+data.productPrice+'</td>';
+    				 str +='<td data-th="Price">'+this.productPrice+'</td>';
     				 str +='<td data-th="Quantity">';
-    				 str +=    '<input type="number" class="form-control text-center" value="1">';
+    				 str +=    '<input type="number" class="form-control text-center" value="'+this.amount+'">';
     				 str +=  '</td>';
-    				 str +='<td data-th="Subtotal" class="text-center">$5.11</td>';
+    				 str +='<td data-th="Subtotal" class="text-center">'+this.sum+'</td>';
     				 str += '<td class="actions" data-th="">';
     				 str +='<button class="btn btn-danger btn-lg deleteBtn"><i class="fa fa-trash-o"></i>삭제</button>';
     				 str +=  '</td>';
     				 str +='</tr>';	
 	  			});
-    			alert(str);
     			$("#cart").html(str);
     		},
     		error: function(){alert("error");}
