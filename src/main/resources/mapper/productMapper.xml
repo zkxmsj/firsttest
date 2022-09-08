@@ -31,4 +31,10 @@
     <delete id="delete" parameterType="int">
         DELETE FROM product WHERE pno = #{pno}
     </delete>
+    <select id="relative" parameterType="String" resultType="ProductDto">
+    	select * from product
+    	where category = #{category}
+		order by rand()
+		limit 3
+    </select>
 </mapper>

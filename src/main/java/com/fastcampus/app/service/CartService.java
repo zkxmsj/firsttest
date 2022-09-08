@@ -23,10 +23,14 @@ public class CartService {
 	public int insertCart(CartDto dto) {
 		return dao.insert(dto);
 	}
-	public int deleteCart(String pno,String userId) {
+	public int deleteCart(int cno,int pno,String userId) {
 		Map map = new HashMap();
 		map.put("userId",userId);
 		map.put("pno", pno);
+		map.put("cno",cno);
 		return dao.delete(map);
+	}
+	public int getTotal(String userId) {
+		return dao.getTotal(userId);
 	}
 }

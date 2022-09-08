@@ -8,4 +8,5 @@ public interface CartDao {
     List<CartDto> select(String userId);
     int delete(Map map);
     int insert(CartDto dto);
+    int getTotal(String userId);
 }

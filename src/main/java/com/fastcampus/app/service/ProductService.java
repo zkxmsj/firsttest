@@ -34,6 +34,9 @@ public class ProductService {
 			productDao.delete(pno);
 		
 	}
+	public List<ProductDto> relativeList(String category){
+		return productDao.relative(category);
+	}
 //	public int getTotal() {
 //		try {
 //			return productDao.count();

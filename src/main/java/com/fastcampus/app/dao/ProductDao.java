@@ -13,6 +13,6 @@ public interface ProductDao {
     int insert(ProductDto dto);
     int update(ProductDto dto);
     int updateStock(Integer pno,Integer amount);
-
+    List<ProductDto> relative(String category);
     List<ProductDto> selectAll() ;
 }

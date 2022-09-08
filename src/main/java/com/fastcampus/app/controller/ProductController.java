@@ -1,15 +1,18 @@
 package com.fastcampus.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fastcampus.app.domain.ProductDto;
 import com.fastcampus.app.service.ProductService;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping
 public class ProductController {
 	@Autowired
 	ProductService service;
@@ -22,7 +25,10 @@ public class ProductController {
 	}
 	@GetMapping("/product")
 	public String productDetail(Model model,int pno) {
-		model.addAttribute("product",service.selectProduct(pno));
+		ProductDto dto = service.selectProduct(pno);
+		model.addAttribute("product",dto);
+		List<ProductDto> list = service.relativeList(dto.getCategory());
+		model.addAttribute("list",list);
 		return "product";
 	}
 }

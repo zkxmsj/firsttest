@@ -66,7 +66,7 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
           <li><a href="#" class="nav-link px-2 text-white">공지사항</a></li>
-          <li><a href="/product/products" class="nav-link px-2 text-white">상품목록</a></li>
+          <li><a href="/products" class="nav-link px-2 text-white">상품목록</a></li>
           <li><a href="/board/list" class="nav-link px-2 text-white">게시판</a></li>
           <li><a href="#" class="nav-link px-2 text-white">유투브</a></li>
         </ul>

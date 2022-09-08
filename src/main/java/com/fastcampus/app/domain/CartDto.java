@@ -13,7 +13,15 @@ public class CartDto {
 	private Integer pno;
 	private Integer amount;
 	private Integer sum;
+	private Integer total;
+	private Integer cno;
 	
+	public Integer getCno() {
+		return cno;
+	}
+	public void setCno(Integer cno) {
+		this.cno = cno;
+	}
 	String getUserId() {
 		return userId;
 	}
@@ -22,6 +30,12 @@ public class CartDto {
 	}
 	public String getProductName() {
 		return productName;
+	}
+	public Integer getTotal() {
+		return total;
+	}
+	public void setTotal(Integer total) {
+		this.total = total;
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;

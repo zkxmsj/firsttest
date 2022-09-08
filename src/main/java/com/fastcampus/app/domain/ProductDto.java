@@ -9,8 +9,15 @@ public class ProductDto {
 	private Integer productPrice;
 	private String productImg;
 	private Integer productStock;
+	private String Category;
 	public Integer getPno() {
 		return pno;
+	}
+	public String getCategory() {
+		return Category;
+	}
+	public void setCategory(String category) {
+		Category = category;
 	}
 	public void setPno(Integer pno) {
 		this.pno = pno;

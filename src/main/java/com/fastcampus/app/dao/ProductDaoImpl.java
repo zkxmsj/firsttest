@@ -55,4 +55,10 @@ public class ProductDaoImpl implements ProductDao{
 		return session.selectList(namespace+"selectAll");
 	}
 
+	@Override
+	public List<ProductDto> relative(String category) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+"relative",category);
+	}
+
 }
