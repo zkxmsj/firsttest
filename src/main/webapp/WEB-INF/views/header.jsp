@@ -73,7 +73,7 @@
       </div>
         <div class="text-end">
           <a href="/member/login"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
-          <a href="/register/add"><button type="button" class="btn btn-warning">Sign-up</button></a>
+          <a href="/member/register"><button type="button" class="btn btn-warning">Sign-up</button></a>
         </div>
     </div>
 </nav>

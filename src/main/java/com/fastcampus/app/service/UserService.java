@@ -14,8 +14,12 @@ import com.fastcampus.app.dao.UserDao;
 
 @Service
 public class UserService {
+	
 	@Autowired
-	UserDao userDao;
+	UserDao dao;
+	public int idCheck(String userId) {
+		return dao.idCheck(userId);
+	}
 		
 	
 }

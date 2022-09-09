@@ -10,7 +10,14 @@ public class BoardDto {
 	private int view_cnt;
 	private int comment_cnt;
 	private Date reg_date;
+	private Date update_date;
 	
+	public Date getUpdate_date() {
+		return update_date;
+	}
+	public void setUpdate_date(Date update_date) {
+		this.update_date = update_date;
+	}
 	public BoardDto() {}
 	public BoardDto(String title, String content, String writer) {
 		this.title = title;

@@ -7,8 +7,11 @@
 <head>
 	<meta charset="UTF-8">
     <title>게시판</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    
     <style>
+    	a{
+ 	   		  text-decoration: none;
+    	}
     	.soso a{
     		font-weight:bold;
     		font-size:20px;
@@ -23,6 +26,9 @@
     	}
     	table{
     		margin-top:200px;
+    	}
+    	td ul{
+    		text-align=center;
     	}
     </style>
 </head>
@@ -56,7 +62,8 @@
 		</tr>
 	</c:forEach>
 	<tr>
-					<td colspan="5" align="center">
+					<td colspan="5">
+					<div style="margin:0 auto; display:inline-block;">
 	               			<ul>
 	               			
 	               				<!-- 2. 이전버튼 활성화 여부 -->
@@ -88,7 +95,7 @@
                         			<li><a class="page" href="<c:url value="list?pageNum=${pageHandler.endPage+1 }&size=${sc.size}&option=${sc.option}&keyword=${sc.keyword}"/>">다음</a></li>
                         		</c:if>
                     			</ul>
-					
+					</div>
 					</td>
 				</tr>
 	
@@ -96,7 +103,8 @@
 <c:if test="${id!=null}">
 <a href="registForm"><button>글 등록</button></a>
 </c:if>
-<a href="list"><button>게시판 홈으로</button></a>
+<a href="list"><button class="btn btn-primary">게시판 홈으로</button></a>
+<br>
 
 <form action="list" method="GET">
 	<select name = "option">

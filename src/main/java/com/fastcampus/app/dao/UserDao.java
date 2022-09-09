@@ -1,12 +1,13 @@
 package com.fastcampus.app.dao;
 
-import com.fastcampus.app.domain.User;
+import com.fastcampus.app.domain.UserDto;
 
 public interface UserDao {
-	public User selectUser(String id);
-	public int insertUser(User user);
+	public UserDto selectUser(String id);
+	public int insertUser(UserDto user);
 	public int deleteUser(String id);
-	public int updateUser(User user);
+	public int updateUser(UserDto user);
 	public void deleteAll();
 	public void seleteAll();
+	public int idCheck(String id);
 }

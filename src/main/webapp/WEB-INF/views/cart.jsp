@@ -72,7 +72,7 @@
         <td class="text-center"><strong>Total $ 5.11</strong></td>
       </tr> -->
       <tr>
-        <td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i>쇼핑하러 가기</a></td>
+        <td><a href="/products" class="btn btn-warning"><i class="fa fa-angle-left"></i>쇼핑하러 가기</a></td>
         <td colspan="2" class="hidden-xs"></td>
         <td class="hidden-xs text-center" id="total">${total}</td>
         <td><a href="#" class="btn btn-success btn-block order">주문하기 <i class="fa fa-angle-right"></i></a></td>

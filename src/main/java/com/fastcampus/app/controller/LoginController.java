@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fastcampus.app.service.UserService;
 import com.fastcampus.app.dao.UserDao;
-import com.fastcampus.app.domain.User;
+import com.fastcampus.app.domain.UserDto;
 
 @Controller
 @RequestMapping("/member")
@@ -89,11 +89,11 @@ public class LoginController {
 	}
 
 	private boolean loginCheck(String id, String pwd) {
-		User user = userDao.selectUser(id);
+		UserDto user = userDao.selectUser(id);
 		System.out.println(user);
 		if(user==null) return false;
 		
 		
-		return user.getPwd().equals(pwd);
+		return user.getuserPwd().equals(pwd);
 	}
 }

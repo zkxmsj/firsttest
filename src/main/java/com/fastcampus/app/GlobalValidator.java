@@ -4,24 +4,24 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.fastcampus.app.domain.User;
+import com.fastcampus.app.domain.UserDto;
 
 
 	public class GlobalValidator implements Validator {
 		@Override
 		public boolean supports(Class<?> clazz) {
 //			return User.class.equals(clazz); // 검증하려는 객체가 User타입인지 확인
-			return User.class.isAssignableFrom(clazz); // clazz가 User 또는 그 자손인지 확인
+			return UserDto.class.isAssignableFrom(clazz); // clazz가 User 또는 그 자손인지 확인
 		}
 
 		@Override
 		public void validate(Object target, Errors errors) { 
 			System.out.println("GlobalValidator.validate() is called");
 
-			User user = (User)target;
+			UserDto user = (UserDto)target;
 			
-			String id = user.getId();
-			String pwd = user.getPwd();
+			String id = user.getuserId();
+			String pwd = user.getuserPwd();
 			
 	//		if(id==null || "".equals(id.trim())) {
 	//			errors.rejectValue("id", "required");

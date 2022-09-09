@@ -2,12 +2,24 @@ package com.fastcampus.app.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,18 +27,24 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fastcampus.app.domain.User;
+import com.fastcampus.app.domain.UserDto;
+import com.fastcampus.app.service.UserService;
 import com.fastcampus.app.dao.UserDao;
 @Controller
-@RequestMapping("/register")
+@RequestMapping("/member")
 public class RegisterController {
 	@Autowired
-	UserDao userDao;
+	UserService service;
 	
-	final int FAIL = 0;
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	
 	@InitBinder
 	public void toDate(WebDataBinder binder) {
@@ -37,29 +55,78 @@ public class RegisterController {
 		List<Validator> validatorList = binder.getValidators();
 		System.out.println(validatorList);
 	}
-	@GetMapping("/add")
+	@GetMapping("/register")
 	public String add() {
 		return "registerForm";
 	}
-	@PostMapping("/add")
-	public String save(@Valid User user,BindingResult result,Model m) throws UnsupportedEncodingException {
-		System.out.println(result);
-		//수동 검증 - Validator를 직접 생성하고, validate()를 직접 호출.
-//		UserValidator userValidator = new UserValidator();
-//		userValidator.validate(user,result);
+	@PostMapping("/register")
+	public String register(UserDto dto,HttpSession session) { 
 		
-		if(result.hasErrors()) {
-			return "registerForm";
-		}
-		int rowCnt = userDao.insertUser(user);
-		System.out.println(user);
-		System.out.println(rowCnt);
-		if(rowCnt==FAIL)
-		return "registerForm";
+		session.setAttribute("userId",dto.getuserId());
 		
-		return "registerInfo";
+		return "index";
+		
 	}
+	@PostMapping("/userIdChk")
+	@ResponseBody
+	public String memberIdChkPOST(@RequestBody String userId){
+		
+		/* logger.info("memberIdChk() 진입"); */
+		String str = userId.substring(0, userId.length() - 1);
+
+		System.out.println(str);		
+		int result = service.idCheck(str);
+		
+		if(result != 0) {
+			
+			return "fail";	// 중복 아이디가 존재
+			
+		} else {
+			
+			return "success";	// 중복 아이디 x
+			
+		}		
+		
+	}
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheck(String email) throws Exception {
+		Random random = new Random();
+		int checkNum = random.nextInt(888888)+111111;
+		System.out.println(email);
+		System.out.println(checkNum); 	
+		String setFrom = "zkxmsj@naver.com";
+        String toMail = email;
+        String title = "회원가입 인증 이메일 입니다.";
+        String content = 
+                "홈페이지를 방문해주셔서 감사합니다." +
+                "<br><br>" + 
+                "인증 번호는 " + checkNum + "입니다." + 
+                "<br>" + 
+                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+        
+        try {
+            
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setFrom(setFrom);
+            helper.setTo(toMail);
+            helper.setSubject(title);
+            helper.setText(content,true);
+            mailSender.send(message);
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        String num = Integer.toString(checkNum);
+        
+        return num;
+	}
+
+		
+}
 //	private boolean isValid(User user) {
 //		return true;
 //	}
-}
+
