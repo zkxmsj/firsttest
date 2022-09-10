@@ -15,6 +15,9 @@
     <delete id="delete" parameterType="map">
         DELETE FROM cart WHERE pno = #{pno} and userid = #{userId} and cno = #{cno}
     </delete>
+    <delete id="deleteall" parameterType="String">
+        DELETE FROM cart WHERE userid = #{userId}
+    </delete>
     <select id="getTotal" parameterType="String" resultType="int">
     	select sum(amount*productPrice)
 			from user u,product p,cart c

@@ -11,14 +11,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.fastcampus.app.dao.UserDao;
+import com.fastcampus.app.domain.UserDto;
 
 @Service
 public class UserService {
 	
 	@Autowired
 	UserDao dao;
+	
 	public int idCheck(String userId) {
 		return dao.idCheck(userId);
+	}
+	public UserDto getUser(String id) {
+		return dao.selectUser(id);
 	}
 		
 	

@@ -157,7 +157,7 @@ function getCartList(){
     	getTotal();
     });
 	$(".order").click(function(){
-		alert("주문");
+		location = "/order";
 	});
 	function getTotal(){
 		 let total = 0;

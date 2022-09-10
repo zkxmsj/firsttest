@@ -28,7 +28,7 @@
 			<div class="id_wrap">
 				<div class="id_name">아이디</div>
 				<div class="id_input_box">
-					<input class="id_input" name="userId">
+					<input class="id_input" name="userId"><button class="btn btn-primary" onclick="idcheck()" type="button">아이디 중복체크</button>
 				</div>
 				<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
 				<span class="id_input_re_2">아이디가 이미 존재합니다.</span>	
@@ -202,7 +202,6 @@
   		return false;
   	});
   });
-
        function formCheck(frm) {
             let msg ='';
             if(frm.id.value.length<3) {
@@ -300,7 +299,46 @@
 			$('.id_input_re_3').css("display","inline-block");
 			$(this).val("");
 			return;
-       	}else{
+       	}
+       	
+       	
+       	   });// function 종료
+       	   $(".mail_check_button").click(function(){
+       		  var email = $(".mail_input").val();
+       		  if(email==""){
+       			  alert("이메일을 입력해 주세요");
+       			  return;
+       		  }
+       		var checkBox = $(".mail_check_input");        // 인증번호 입력란
+       	    var boxWrap = $(".mail_check_input_box"); 	//인증번호 입력란 박스
+       		  alert(email);
+       		  $.ajax({
+       			type : 'get',
+       			url : '/member/mailCheck?email='+email,
+       			success : function(data){
+       				alert(data);
+       	            checkBox.attr("disabled",false);
+       	         	boxWrap.attr("id", "mail_check_input_box_true");
+       	         	code=data;
+       			}
+       		  });
+       	   });
+       	$(".mail_check_input").blur(function(){
+       	    
+       	    var inputCode = $(".mail_check_input").val();        // 입력코드    
+       	    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과     
+       	    
+       	    if(inputCode == code){                            // 일치할 경우
+       	        checkResult.html("인증번호가 일치합니다.");
+       	        checkResult.attr("class", "correct");
+       	     	mailnumCheck = true;
+       	    } else {                                            // 일치하지 않을 경우
+       	        checkResult.html("인증번호를 다시 확인해주세요.");
+       	        checkResult.attr("class", "incorrect");
+       	    }    
+       	    
+       	});
+       	function idcheck(){
        		var memberId = $('.id_input').val();// .id_input에 입력되는 값
            	var data = {memberId : memberId}				// '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
            	
@@ -324,42 +362,6 @@
            		}// success 종료
            	}); // ajax 종료
        	}
-
-       	
-       	
-       	   });// function 종료
-       	   $(".mail_check_button").click(function(){
-       		  var email = $(".mail_input").val();
-       		var checkBox = $(".mail_check_input");        // 인증번호 입력란
-       	    var boxWrap = $(".mail_check_input_box"); 	//인증번호 입력란 박스
-       		  alert(email);
-       		  $.ajax({
-       			type : 'get',
-       			url : '/member/mailCheck?email='+email,
-       			success : function(data){
-       				alert(data);
-       	            checkBox.attr("disabled",false);
-       	         	boxWrap.attr("id", "mail_check_input_box_true");
-       	         	code=data;
-
-       			}
-       		  });
-       	   });
-       	$(".mail_check_input").blur(function(){
-       	    
-       	    var inputCode = $(".mail_check_input").val();        // 입력코드    
-       	    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과     
-       	    
-       	    if(inputCode == code){                            // 일치할 경우
-       	        checkResult.html("인증번호가 일치합니다.");
-       	        checkResult.attr("class", "correct");
-       	     	mailnumCheck = true;
-       	    } else {                                            // 일치하지 않을 경우
-       	        checkResult.html("인증번호를 다시 확인해주세요.");
-       	        checkResult.attr("class", "incorrect");
-       	    }    
-       	    
-       	});
    </script>
    
 </body>

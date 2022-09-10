@@ -29,6 +29,7 @@ public class CartController {
 	@PostMapping("/cart")
 	@ResponseBody
 	public ResponseEntity addCart(@RequestBody CartDto dto,HttpSession session) {
+		session.setAttribute("userid","admin");
 		dto.setUserId((String)session.getAttribute("userid"));
 		service.insertCart(dto);
 		

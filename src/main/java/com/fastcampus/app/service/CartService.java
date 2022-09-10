@@ -33,4 +33,7 @@ public class CartService {
 	public int getTotal(String userId) {
 		return dao.getTotal(userId);
 	}
+	public int deleteCartAll(String userId) {
+		return dao.deleteAll(userId);
+	}
 }

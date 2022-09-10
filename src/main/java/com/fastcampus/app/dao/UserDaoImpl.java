@@ -26,7 +26,7 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public UserDto selectUser(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return session.selectOne(namespace+"select",id);
 	}
 
 	@Override

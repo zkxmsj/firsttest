@@ -38,5 +38,11 @@ public class CartDaoImpl implements CartDao{
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace+"getTotal", userId);
 	}
+
+	@Override
+	public int deleteAll(String userId) {
+		// TODO Auto-generated method stub
+		return session.delete(namespace+"deleteall",userId);
+	}
 	
 }

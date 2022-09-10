@@ -45,10 +45,10 @@ public class UserDto {
 	public void setuserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
-	public String getuseruserName() {
+	public String getuserName() {
 		return userName;
 	}
-	public void setuseruserName(String useruserName) {
+	public void setuserName(String useruserName) {
 		this.userName = useruserName;
 	}
 	public String getuserEmail() {

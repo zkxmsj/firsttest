@@ -9,4 +9,5 @@ public interface CartDao {
     int delete(Map map);
     int insert(CartDto dto);
     int getTotal(String userId);
+    int deleteAll(String userId);
 }
