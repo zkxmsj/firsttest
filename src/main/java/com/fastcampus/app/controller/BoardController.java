@@ -57,7 +57,7 @@ public class BoardController {
 			m.addAttribute(boardDto);
 		return "boardDetail";
 	}
-	@GetMapping("/registForm")
+	@GetMapping("/registBoard")
 	public String registForm() {
 		return "registBoardForm";
 	}
@@ -77,7 +77,7 @@ public class BoardController {
 	public String modifyBoard(BoardDto boardDto) {
 		System.out.println(boardDto);
 		 boardService.modifyBoard(boardDto);
-		return "boardDetail";
+		 return "redirect:/board/list";
 	}
 	@GetMapping("/deleteBoard")
 	public String deleteBoard(int bno) {

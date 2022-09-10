@@ -9,21 +9,9 @@
     <title>게시판</title>
     
     <style>
-    	a{
- 	   		  text-decoration: none;
-    	}
-    	.soso a{
-    		font-weight:bold;
-    		font-size:20px;
-    	}
-    	ul{
-    		list-style:none;
-    	}
-    	li{
-    		margin-left:10px;
-    		float:left;
+    
+   
     	
-    	}
     	table{
     		margin-top:200px;
     	}
@@ -31,12 +19,13 @@
     		text-align=center;
     	}
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <%@include file="header.jsp"%>
-<div style="text-align:center">
+<div class = "container" style="text-align:center">
 <h2>게시글 목록</h2>
-<table class="table">
+<table class="table table-striped">
 	<tr>
 		<th>번호</th>
 		<th>제목</th>
@@ -63,12 +52,12 @@
 	</c:forEach>
 	<tr>
 					<td colspan="5">
-					<div style="margin:0 auto; display:inline-block;">
-	               			<ul>
+					<nav aria-label="Page navigation example">
+	               			<ul class="pagination">
 	               			
 	               				<!-- 2. 이전버튼 활성화 여부 -->
 	               				<c:if test="${pageHandler.prev}">
-                        			<li><a class="page" href="<c:url value="list?pageNum=${pageHandler.startPage-10 }&size=${sc.size}&option=${option}&keyword=${keyword}"/>">이전</a></li>
+                        			<li class="page-item previous"><a class="page-link" href="<c:url value="list?pageNum=${pageHandler.startPage-10 }&size=${sc.size}&option=${option}&keyword=${keyword}"/>">이전</a></li>
 								</c:if>
 								                        		
                         		<!-- 1. 페이지번호 처리 -->
@@ -76,12 +65,12 @@
 	                        		
 	                        	 <c:choose>
 	                        	 	<c:when test="${sc.pageNum eq num }">
-	                 			   		<li class="soso">
-	                        			<a href="list?pageNum=${num }&size=${sc.size}&option=${sc.option}&keyword=${sc.keyword}">${num }</a></li>
+	                 			   		<li class="active paginate_button page-item">
+	                        			<a class="page-link" href="list?pageNum=${num }&size=${sc.size}&option=${sc.option}&keyword=${sc.keyword}">${num }</a></li>
 	                        		</c:when>
 	                        		<c:otherwise>
 	                        			<li>
-	                        			<a href="list?pageNum=${num }&size=${sc.size}&option=${sc.option}&keyword=${sc.keyword}">${num }</a></li>
+	                        			<a class="page-link" href="list?pageNum=${num }&size=${sc.size}&option=${sc.option}&keyword=${sc.keyword}">${num }</a></li>
 	                        		</c:otherwise>
 	                        		
 	                        	</c:choose>
@@ -92,10 +81,10 @@
                         		
                         		<!-- 3. 다음버튼 활성화 여부 -->
                         		<c:if test="${pageHandler.next}">
-                        			<li><a class="page" href="<c:url value="list?pageNum=${pageHandler.endPage+1 }&size=${sc.size}&option=${sc.option}&keyword=${sc.keyword}"/>">다음</a></li>
+                        			<li><a class="page-link" href="<c:url value="list?pageNum=${pageHandler.endPage+1 }&size=${sc.size}&option=${sc.option}&keyword=${sc.keyword}"/>">다음</a></li>
                         		</c:if>
                     			</ul>
-					</div>
+					</nav>
 					</td>
 				</tr>
 	
@@ -104,7 +93,8 @@
 <a href="registForm"><button>글 등록</button></a>
 </c:if>
 <a href="list"><button class="btn btn-primary">게시판 홈으로</button></a>
-<br>
+<a href="registBoard"><button class="btn btn-dark">글 등록</button></a>
+<br><br>
 
 <form action="list" method="GET">
 	<select name = "option">
@@ -116,6 +106,8 @@
 	<input type="submit" value="검색">
 </form>
 </div>
+
+
 <%@include file="footer.jsp"%>
 </body>
 </html>

@@ -63,13 +63,13 @@ public class RegisterController {
 	public String register(UserDto dto,HttpSession session) { 
 		
 		session.setAttribute("userId",dto.getuserId());
-		
+		service.insertUser(dto);
 		return "index";
 		
 	}
 	@PostMapping("/userIdChk")
 	@ResponseBody
-	public String memberIdChkPOST(@RequestBody String userId){
+	public String memberIdCheck(@RequestBody String userId){
 		
 		/* logger.info("memberIdChk() 진입"); */
 		String str = userId.substring(0, userId.length() - 1);

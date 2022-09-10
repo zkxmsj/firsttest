@@ -54,8 +54,8 @@
         <td data-th="Product">
           <div class="row">
             <div class="col-sm-2 hidden-xs"><img src="/resources/img/${list.productImg}" alt="..." class="img-responsive" width="100" height="100" /></div>
-            <div class="col-sm-12">
-              <h4 class="nomargin">${list.productName }</h4>
+            <div class="col-sm-12 ">
+              <h4 class="nomargin pName">${list.productName }</h4>
             </div>
           </div>
         </td>
@@ -157,7 +157,7 @@
 				</div>
 			</div>
 			<div class="total_info_btn_div">
-						<button class="btn btn-success payment">결제하기</button>
+						<button class="btn btn-success" onclick="requestPay()">결제하기</button>
 					</div>
 			
 
@@ -176,6 +176,7 @@
 
 </body>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script>
 $(document).ready(function(){
 	$(".payment").click(function(){
@@ -192,7 +193,9 @@ $(document).ready(function(){
 		$("#cart").find("tr").each(function(index,obj){
 			var pno = $(this).find(".actions").attr("data-pno");
 			var amount = $(this).find(".amount").val();
-			var price = $(this).find(".price").html();
+			var price = $(this).find(".price").html().trim();
+			
+			
 			
 			let pno_input = "<input name='orders[" + index + "].pno' type='hidden' value='" + pno + "'>";
 			form_contents += pno_input;
@@ -229,6 +232,39 @@ function showAdress(className){
 	/* 선택한 selectAdress T만들기 */
 		$(".addressInfo_input_div_" + className).find(".selectAddress").val("T");			
 }
+function requestPay() {
+	let productAll = "";
+	$("#cart").find("tr").each(function(index,obj){
+		var pno = $(this).find(".actions").attr("data-pno");
+		var amount = $(this).find(".amount").val();
+		var price = $(this).find(".price").html();
+		var pName = $(this).find(".pName").text();
+		productAll += pName+ " ";
+		
+		
+	});
+	  IMP.init('iamport'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+	  IMP.request_pay({
+	    pg: "inicis",
+	    pay_method: "card",
+	    merchant_uid : 'merchant_'+new Date().getTime(),
+	    name : productAll,
+	    amount : 100,
+	    buyer_email : 'iamport@siot.do',
+	    buyer_name : '구매자',
+	    buyer_tel : '010-1234-5678',
+	    buyer_addr : '서울특별시 강남구 삼성동',
+	    buyer_postcode : '123-456'
+	  }, function (rsp) { // callback
+	      if (rsp.success) {
+	       	alert("성공");
+	      } else {
+	    	  alert("실패");
+	        
+	      }
+	  });
+	}
+
 
 /* 다음 주소 연동 */
 function execution_daum_address(){
@@ -282,7 +318,9 @@ function execution_daum_address(){
 	            
 	            
 	        }
-	    }).open();  	
+	    }).open();
+	   
+	   
 	
 }
 	

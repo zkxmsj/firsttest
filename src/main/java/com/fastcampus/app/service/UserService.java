@@ -25,6 +25,9 @@ public class UserService {
 	public UserDto getUser(String id) {
 		return dao.selectUser(id);
 	}
+	public int insertUser(UserDto dto){
+		return dao.insertUser(dto);
+	}
 		
 	
 }

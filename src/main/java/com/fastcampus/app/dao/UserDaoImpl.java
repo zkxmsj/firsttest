@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public int insertUser(UserDto user) {
 		// TODO Auto-generated method stub
-		return 0;
+		return session.insert(namespace+"insert",user);
 	}
 
 	@Override
