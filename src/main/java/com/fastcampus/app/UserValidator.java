@@ -20,8 +20,8 @@ import com.fastcampus.app.domain.UserDto;
 			
 			UserDto user = (UserDto)target;
 			
-			String id = user.getuserId();
-			String pwd = user.getuserPwd();
+			String id = user.getUserId();
+			String pwd = user.getUserPwd();
 			
 	//		if(id==null || "".equals(id.trim())) {
 	//			errors.rejectValue("id", "required");

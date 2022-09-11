@@ -62,7 +62,7 @@ public class RegisterController {
 	@PostMapping("/register")
 	public String register(UserDto dto,HttpSession session) { 
 		
-		session.setAttribute("userId",dto.getuserId());
+		session.setAttribute("userId",dto.getUserId());
 		service.insertUser(dto);
 		return "index";
 		
