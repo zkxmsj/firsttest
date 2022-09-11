@@ -10,6 +10,7 @@
 		<typeAlias alias="productDto" type="com.fastcampus.app.domain.ProductDto"/>
 		<typeAlias alias="CartDto" type="com.fastcampus.app.domain.CartDto"/>
 		<typeAlias alias="UserDto" type="com.fastcampus.app.domain.UserDto"/>
+		<typeAlias alias="UserOrderDto" type="com.fastcampus.app.domain.UserOrderDto"/>
 	</typeAliases>
 </configuration>
 	

@@ -30,7 +30,7 @@ public class CartService {
 		map.put("cno",cno);
 		return dao.delete(map);
 	}
-	public int getTotal(String userId) {
+	public int getTotal(String userId) throws Exception{
 		return dao.getTotal(userId);
 	}
 	public int deleteCartAll(String userId) {

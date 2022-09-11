@@ -8,6 +8,6 @@ public interface CartDao {
     List<CartDto> select(String userId);
     int delete(Map map);
     int insert(CartDto dto);
-    int getTotal(String userId);
+    int getTotal(String userId) throws Exception;
     int deleteAll(String userId);
 }

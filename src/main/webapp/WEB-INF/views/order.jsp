@@ -16,7 +16,6 @@
         -moz-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -157,7 +156,7 @@
 				</div>
 			</div>
 			<div class="total_info_btn_div">
-						<button class="btn btn-success" onclick="requestPay()">결제하기</button>
+						<button type="button" class="btn btn-success payment"  >결제하기</button>
 					</div>
 			
 
@@ -166,8 +165,9 @@
 <form class="order_form" action="/order" method="post">
 			<!-- 주문자 회원번호 -->
 			<input name="userId" value="${user.userId}" type="hidden">
-			<input name="orderName" value="${user.userName}" type="hidden">
+			<input name="userName" value="${user.userName}" type="hidden">
 			<!-- 주소록 & 받는이-->
+			<input name="orderName" value="" type="hidden">
 			<input name="orderAddr1" type="hidden">
 			<input name="orderAddr2" type="hidden">
 			<input name="orderAddr3" type="hidden">
@@ -203,6 +203,8 @@ $(document).ready(function(){
 			form_contents += amount_input;
 			let price_input = "<input name='orders[" + index + "].productPrice' type='hidden' value='" + price + "'>";
 			form_contents += price_input;
+			let totalprice_input = "<input name='orders[" + index + "].totalPrice' type='hidden' value='" + amount*price + "'>";
+			form_contents += totalprice_input;
 				
 			});	
 			$(".order_form").append(form_contents);	
@@ -218,7 +220,6 @@ function showAdress(className){
 	$(".addressInfo_input_div").css('display', 'none');
 	/* 컨텐츠 보이기 */
 	$(".addressInfo_input_div_" + className).css('display', 'block');		
-
 /* 버튼 색상 변경 */
 	/* 모든 색상 동일 */
 		$(".address_btn").css('backgroundColor', '#555');
@@ -264,8 +265,6 @@ function requestPay() {
 	      }
 	  });
 	}
-
-
 /* 다음 주소 연동 */
 function execution_daum_address(){
  		console.log("동작");

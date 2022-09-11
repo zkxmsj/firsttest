@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fastcampus.app.UserOrderDao">
+	<select id="select" parameterType="String" resultType="UserOrderDto">
+		 select *
+			from userorder
+			where userid = #{userId}
+	</select>
+	<insert id="insert" parameterType="UserOrderDto">
+		insert into userorder (userId,orderaddr1,orderaddr2,orderaddr3,ordername,username,pno,amount,productPrice,totalPrice)
+			values (#{userId},#{orderAddr1},#{orderAddr2},#{orderAddr3},#{orderName},#{userName},#{pno},#{amount},#{productPrice},#{totalPrice})
+	</insert>
+</mapper>

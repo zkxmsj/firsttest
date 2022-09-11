@@ -1,8 +1,6 @@
 package com.fastcampus.app.domain;
 
-import java.util.List;
-
-public class OrderDto {
+public class UserOrderDto {
 	private Integer orderno;
 	private String userId;
 	private String orderAddr1;
@@ -10,14 +8,11 @@ public class OrderDto {
 	private String orderAddr3;
 	private String orderName;
 	private String userName;
-	private List<OrderItemDto> orders;
+	private Integer pno;
+	private Integer amount;
+	private Integer productPrice;
+	private Integer totalPrice;
 	
-	public String getOrderName() {
-		return orderName;
-	}
-	public void setOrderName(String orderName) {
-		this.orderName = orderName;
-	}
 	public Integer getOrderno() {
 		return orderno;
 	}
@@ -48,11 +43,11 @@ public class OrderDto {
 	public void setOrderAddr3(String orderAddr3) {
 		this.orderAddr3 = orderAddr3;
 	}
-	public List<OrderItemDto> getOrders() {
-		return orders;
+	public String getOrderName() {
+		return orderName;
 	}
-	public void setOrders(List<OrderItemDto> orders) {
-		this.orders = orders;
+	public void setOrderName(String orderName) {
+		this.orderName = orderName;
 	}
 	public String getUserName() {
 		return userName;
@@ -60,15 +55,30 @@ public class OrderDto {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	@Override
-	public String toString() {
-		return "OrderDto [orderno=" + orderno + ", userId=" + userId + ", orderAddr1=" + orderAddr1 + ", orderAddr2="
-				+ orderAddr2 + ", orderAddr3=" + orderAddr3 + ", orderName=" + orderName + ", userName=" + userName
-				+ ", orders=" + orders + "]";
+	public Integer getPno() {
+		return pno;
 	}
-
-	
-
+	public void setPno(Integer pno) {
+		this.pno = pno;
+	}
+	public Integer getAmount() {
+		return amount;
+	}
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+	public Integer getProductPrice() {
+		return productPrice;
+	}
+	public void setProductPrice(Integer productPrice) {
+		this.productPrice = productPrice;
+	}
+	public Integer getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Integer totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	
 	
 }

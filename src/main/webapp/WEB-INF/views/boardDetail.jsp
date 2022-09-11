@@ -47,6 +47,19 @@
                             </tr>
                         </tbody>
                     </table>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <span style='float:right'>
+                                        <a href="/board/list"><button type="button" id="list" class="btn btn-info">목록</button></a>
+                                        <a href="/board/modifyBoardForm?bno=${boardDto.bno}"><button type="button" id="modify" class="btn btn-warning">수정</button></a>
+                                        <a href="/board/deleteBoard?bno=${boardDto.bno}"><button type="button" id="delete" class="btn btn-danger">삭제</button></a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
                     <table id="commentTable" class="table table-condensed"></table>
                     <table class="table table-condensed">
                         <tr>
@@ -58,23 +71,29 @@
                             </td>
                         </tr>
                     </table>
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <td>
-                                    <span style='float:right'>
-                                        <button type="button" id="list" class="btn btn-info">목록</button>
-                                        <a href="/board/modifyBoardForm?bno=${boardDto.bno}"><button type="button" id="modify" class="btn btn-warning">수정</button></a>
-                                        <button type="button" id="delete" class="btn btn-danger">삭제</button>
-                                    </span>
-                                </td>
-                            </tr>
-                        </thead>
-                    </table>
 </div>
             </div>
             <hr/>
-        </div>    
+        </div>
+        <div class="modal" tabindex="-1" id="testModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">댓글 수정하기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	<input type="hidden" name="cno" id="cno" value="">
+        <input type="text" name="comment" id="reply" value="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창 닫기</button>
+        <button type="button" class="btn btn-warning modifysubmit">수정하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
 
 
 <c:if test="${id eq boardDto.writer or id eq 'admin'}">
@@ -89,6 +108,7 @@
     </tbody>
     </table>
 </div>
+<%@include file="footer.jsp"%>
 <script>
 	let query = window.location.search;
 	let param = new URLSearchParams(query);
@@ -102,23 +122,25 @@
     	let comment = $("#comment").val();
     	if(comment.trim()==''){
     		alert("댓글을 입력해 주세요");
+    		$("#comment").focus();
     		return;
+    	}else{
+    		$.ajax({
+    			type:'POST',
+    			url:'/comments/?bno='+bno,
+    			headers : {"content-type": "application/json"},
+    			data: JSON.stringify({bno:bno,comment:comment}),
+    			success:function(list){
+    				getCommentList();
+    			},
+    			error: function(){alert("error");
+    			}    		
+    		});
+    		$("#comment").val("");	
     	}
-    	$.ajax({
-    		type:'POST',
-    		url:'/comments/?bno='+bno,
-    		headers : {"content-type": "application/json"},
-    		data: JSON.stringify({bno:bno,comment:comment}),
-    		success:function(list){
-    			getCommentList();	
-    		},
-    		error: function(){alert("error");
-    		}
-    			
-    	});	
     });
     $("#commentList").on("click",".delBtn",function(){
-    	let cno = $(this).parent().attr("data-cno");
+    	let cno = $(this).closest("tr").attr("data-cno");
     	$.ajax({
     		type:'DELETE',
     		url:'/comments/'+cno+'?bno='+bno,
@@ -130,6 +152,14 @@
     			
     	});	
 	  });
+    $("#commentList").on("click",".modifyBtn",function(){
+    	let cno = $(this).closest("tr").attr("data-cno");
+    	var replyComment = $(this).closest("tr");
+    	var reply = replyComment.find("td:eq(1)").text().trim();
+    	$("#reply").val(reply);
+    	$("#cno").val(cno);
+    	$('#testModal').modal("show");
+    });
     function getCommentList(){
     	$.ajax({
     		type:'GET',
@@ -137,14 +167,13 @@
     		success:function(list){
     			var comments = "";
     			$(list).each(function(){
-    				comments += '<tr>';
-    				comments += '<td data-cno='+this.cno+' ';
+    				comments += '<tr data-cno='+this.cno+' ';
     				comments += 'data-pcno='+this.pcno+' ';
     				comments += 'data-bno='+this.bno+' ';
-    				comments += "><strong>";
+    				comments += "><td><strong>";
     				comments += this.commenter+"</strong></td>";
-    				comments += '<td><strong>'+this.comment+"</strong>&nbsp;&nbsp;&nbsp;&nbsp;";
-    				comments += '<button type="button" class="modifyBtn btn btn-warning">수정</button>&nbsp;&nbsp;<button type="button" class = "delBtn btn btn-danger">삭제</button></td>';
+    				comments += '<td class="replyCommment"><strong>'+this.comment+"</strong>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+    				comments += '<td><button type="button" class="modifyBtn btn btn-warning">수정</button>&nbsp;&nbsp;<button type="button" class = "delBtn btn btn-danger">삭제</button></td>';
     				comments += "</td>";
     				comments += "</tr>";	
 	  			});
@@ -154,6 +183,23 @@
     		error: function(){alert("error");}
     	});
     };
+    $(".modifysubmit").click(function(){
+    	var cno = $("#cno").val();
+    	var reply = $("#reply").val();
+    	$.ajax({
+    		type:'PATCH',
+    		url:'/comments/'+cno,
+    		headers : {"content-type": "application/json"},
+    		data: JSON.stringify({cno:cno,comment:reply}),
+    		success:function(list){
+    			getCommentList();	
+    		},
+    		error: function(){alert("error");
+    		}
+    			
+    	});
+    	
+    });
     	
  </script>
  </body>

@@ -20,9 +20,7 @@ public class CommentService {
 	@Transactional(rollbackFor = Exception.class)
 	public int removeCnt(int cno,int bno,String commenter) {
 		int rowCnt = boardDao.updateCommentCnt(bno,-1);
-		System.out.println(rowCnt);
 		rowCnt = commentDao.delete(cno);
-		System.out.println(rowCnt);
 		return rowCnt;
 	}
 	
@@ -34,5 +32,9 @@ public class CommentService {
 	
 	public List<CommentDto> getList(int bno){
 		return commentDao.selectAll(bno);
+	}
+	
+	public int update(CommentDto dto) {
+		return commentDao.update(dto);
 	}
 }

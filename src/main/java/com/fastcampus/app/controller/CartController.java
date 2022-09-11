@@ -38,7 +38,13 @@ public class CartController {
 	@GetMapping("/cart")
 	public String cart(HttpSession session,Model model) {
 		session.setAttribute("userid","admin");
-		int total = service.getTotal((String)session.getAttribute("userid"));
+		int total=0;
+		try{
+			total = service.getTotal((String)session.getAttribute("userid"));
+		}
+		catch(Exception e) {
+			total=0;
+		}
 		List<CartDto> list = service.getCart((String)session.getAttribute("userid"));
 		model.addAttribute("total",total);
 		model.addAttribute("list",list);

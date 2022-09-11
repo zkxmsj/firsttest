@@ -46,6 +46,12 @@ public class ProductDto {
 	public void setProductStock(Integer productStock) {
 		this.productStock = productStock;
 	}
+	@Override
+	public String toString() {
+		return "ProductDto [pno=" + pno + ", productName=" + productName + ", productPrice=" + productPrice
+				+ ", productImg=" + productImg + ", productStock=" + productStock + ", Category=" + Category + "]";
+	}
+	
 	
 	
 }

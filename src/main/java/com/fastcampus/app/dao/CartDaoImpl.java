@@ -34,7 +34,7 @@ public class CartDaoImpl implements CartDao{
 	}
 
 	@Override
-	public int getTotal(String userId) {
+	public int getTotal(String userId) throws Exception{
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace+"getTotal", userId);
 	}
