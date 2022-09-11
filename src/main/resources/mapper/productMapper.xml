@@ -37,4 +37,16 @@
 		order by rand()
 		limit 3
     </select>
+    <select id="selectCategory" parameterType="String" resultType="ProductDto">
+        select *
+		 from product
+        WHERE true
+         <choose>
+            <when test='category!="all"'>
+                AND category = #{category}
+            </when>
+            
+        </choose>
+        ORDER BY pno asc
+    </select>
 </mapper>

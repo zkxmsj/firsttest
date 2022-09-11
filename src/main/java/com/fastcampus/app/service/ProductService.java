@@ -37,6 +37,9 @@ public class ProductService {
 	public List<ProductDto> relativeList(String category){
 		return productDao.relative(category);
 	}
+	public List<ProductDto> selectCategory(String category){
+		return productDao.selectCategory(category);
+	}
 //	public int getTotal() {
 //		try {
 //			return productDao.count();

@@ -15,4 +15,5 @@ public interface ProductDao {
     int updateStock(Integer pno,Integer amount);
     List<ProductDto> relative(String category);
     List<ProductDto> selectAll() ;
+    List<ProductDto> selectCategory(String category);
 }

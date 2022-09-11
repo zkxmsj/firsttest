@@ -140,7 +140,7 @@ function getCartList(){
     		error: function(){alert("error");}
     	});
     }
-	$(document).on("click","#delBtn",function(){
+$(document).on("click","#delBtn",function(){
 		alert("삭제되었습니다.");
 		
     	let pno = $(this).parent().attr("data-pno");
@@ -149,13 +149,15 @@ function getCartList(){
     		type:'DELETE',
     		url:'/cart/'+pno+'/'+cno,
     		success:function(list){
-    			getCartList();
+    			
+    			location.reload();
     		},
     		error: function(){alert("error");
-    		}		
+    		}
+    		
     	});
-    	getTotal();
-    });
+    	
+   });
 	$(".order").click(function(){
 		location = "/order";
 	});
@@ -164,8 +166,9 @@ function getCartList(){
 	 		$(".sum").each(function(i,e){
 		 
 		 	total += parseInt($(e).text());
-			 
+				 
 	 		});
+	 		alert(total);
 		 	$("#total").text(total);
 	}
 	

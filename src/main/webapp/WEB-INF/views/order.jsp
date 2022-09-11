@@ -156,7 +156,7 @@
 				</div>
 			</div>
 			<div class="total_info_btn_div">
-						<button type="button" class="btn btn-success payment"  >결제하기</button>
+						<button type="button" class="btn btn-success" onclick="requestPay()"  >결제하기</button>
 					</div>
 			
 
@@ -179,40 +179,7 @@
  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
 <script>
 $(document).ready(function(){
-	$(".payment").click(function(){
-		/* 주소 정보 & 받는이*/
-		$(".addressInfo_input_div").each(function(i, obj){
-			if($(obj).find(".selectAddress").val() === 'T'){
-				$("input[name='orderName']").val($(obj).find(".addressee_input").val());
-				$("input[name='orderAddr1']").val($(obj).find(".address1_input").val());
-				$("input[name='orderAddr2']").val($(obj).find(".address2_input").val());
-				$("input[name='orderAddr3']").val($(obj).find(".address3_input").val());
-			}
-		});
-		let form_contents='';
-		$("#cart").find("tr").each(function(index,obj){
-			var pno = $(this).find(".actions").attr("data-pno");
-			var amount = $(this).find(".amount").val();
-			var price = $(this).find(".price").html().trim();
-			
-			
-			
-			let pno_input = "<input name='orders[" + index + "].pno' type='hidden' value='" + pno + "'>";
-			form_contents += pno_input;
-			let amount_input = "<input name='orders[" + index + "].amount' type='hidden' value='" + amount + "'>";
-			form_contents += amount_input;
-			let price_input = "<input name='orders[" + index + "].productPrice' type='hidden' value='" + price + "'>";
-			form_contents += price_input;
-			let totalprice_input = "<input name='orders[" + index + "].totalPrice' type='hidden' value='" + amount*price + "'>";
-			form_contents += totalprice_input;
-				
-			});	
-			$(".order_form").append(form_contents);	
-		
-			/* 서버 전송 */
-			$(".order_form").submit();
-		
-	});
+	
 });
 function showAdress(className){
 	/* 컨텐츠 동작 */
@@ -259,12 +226,47 @@ function requestPay() {
 	  }, function (rsp) { // callback
 	      if (rsp.success) {
 	       	alert("성공");
+	       	order();
 	      } else {
 	    	  alert("실패");
 	        
 	      }
 	  });
 	}
+function order(){
+	/* 주소 정보 & 받는이*/
+	$(".addressInfo_input_div").each(function(i, obj){
+		if($(obj).find(".selectAddress").val() === 'T'){
+			$("input[name='orderName']").val($(obj).find(".addressee_input").val());
+			$("input[name='orderAddr1']").val($(obj).find(".address1_input").val());
+			$("input[name='orderAddr2']").val($(obj).find(".address2_input").val());
+			$("input[name='orderAddr3']").val($(obj).find(".address3_input").val());
+		}
+	});
+	let form_contents='';
+	$("#cart").find("tr").each(function(index,obj){
+		var pno = $(this).find(".actions").attr("data-pno");
+		var amount = $(this).find(".amount").val();
+		var price = $(this).find(".price").html().trim();
+		
+		
+		
+		let pno_input = "<input name='orders[" + index + "].pno' type='hidden' value='" + pno + "'>";
+		form_contents += pno_input;
+		let amount_input = "<input name='orders[" + index + "].amount' type='hidden' value='" + amount + "'>";
+		form_contents += amount_input;
+		let price_input = "<input name='orders[" + index + "].productPrice' type='hidden' value='" + price + "'>";
+		form_contents += price_input;
+		let totalprice_input = "<input name='orders[" + index + "].totalPrice' type='hidden' value='" + amount*price + "'>";
+		form_contents += totalprice_input;
+			
+		});	
+		$(".order_form").append(form_contents);	
+	
+		/* 서버 전송 */
+		$(".order_form").submit();
+	
+}
 /* 다음 주소 연동 */
 function execution_daum_address(){
  		console.log("동작");
