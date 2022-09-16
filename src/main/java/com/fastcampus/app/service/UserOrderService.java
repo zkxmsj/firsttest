@@ -1,5 +1,7 @@
 package com.fastcampus.app.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,7 @@ public class UserOrderService {
 			orderDto.setOrderAddr3(dto.getOrderAddr3());
 			orderDto.setOrderName(dto.getOrderName());
 			orderDto.setPno(dto.getOrders().get(i).getPno());
+			orderDto.setProductName(dto.getOrders().get(i).getProductName());
 			orderDto.setAmount(dto.getOrders().get(i).getAmount());
 			orderDto.setProductPrice(dto.getOrders().get(i).getProductPrice());
 			orderDto.setTotalPrice(dto.getOrders().get(i).getTotalPrice());
@@ -35,6 +38,18 @@ public class UserOrderService {
 		cartDao.deleteAll(dto.getUserId());
 		return 1; 
 	}
+	public List<UserOrderDto> selectList(String userId){
+		return userorderDao.selectList(userId);
+	}
 	
-	 
+	public UserOrderDto select(Integer orderno) {
+		return userorderDao.selectOrder(orderno);
+	}
+	
+	public List<UserOrderDto> selectAll(){
+		return userorderDao.selectAll();
+	}
+	public List<UserOrderDto> selectUserOrder(String userId){
+		return userorderDao.selectUserOrder(userId);
+	}
 }

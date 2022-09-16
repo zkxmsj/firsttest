@@ -4,6 +4,7 @@ package com.fastcampus.app.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -25,9 +26,9 @@ public class UserOrderDaoImpl implements UserOrderDao{
 	private String namespace = "com.fastcampus.app.UserOrderDao.";
 	
 	@Override
-	public UserDto selectUserOrder(String id) {
+	public List<UserOrderDto> selectList(String id) {
 		// TODO Auto-generated method stub
-		return session.selectOne(namespace+"select", id);
+		return session.selectList(namespace+"selectList", id);
 	}
 	@Override
 	public int insertUserOrder(UserOrderDto dto) {
@@ -39,6 +40,22 @@ public class UserOrderDaoImpl implements UserOrderDao{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	@Override
+	public UserOrderDto selectOrder(Integer orderno) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+"select"+orderno);
+	}
+	@Override
+	public List<UserOrderDto> selectAll() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+"selectAll");
+	}
+	@Override
+	public List<UserOrderDto> selectUserOrder(String userId) {
+		// TODO Auto-generated method stub
+		System.out.println(userId);
+		return session.selectList(namespace+"selectUserOrder",userId);	
+		}
 	
 	
 		

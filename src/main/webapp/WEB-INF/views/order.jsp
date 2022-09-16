@@ -36,7 +36,7 @@
 <body>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <jsp:include page="header.jsp"/>
-<div class="container">
+<div class="container py-5">
   <table class="table table-hover table-condensed">
     <thead>
       <tr>
@@ -201,13 +201,15 @@ function showAdress(className){
 		$(".addressInfo_input_div_" + className).find(".selectAddress").val("T");			
 }
 function requestPay() {
-	let productAll = "";
+	let product = "";
+	var count=0;
 	$("#cart").find("tr").each(function(index,obj){
 		var pno = $(this).find(".actions").attr("data-pno");
 		var amount = $(this).find(".amount").val();
 		var price = $(this).find(".price").html();
 		var pName = $(this).find(".pName").text();
-		productAll += pName+ " ";
+		product = pName;
+		count++;
 		
 		
 	});
@@ -216,7 +218,7 @@ function requestPay() {
 	    pg: "inicis",
 	    pay_method: "card",
 	    merchant_uid : 'merchant_'+new Date().getTime(),
-	    name : productAll,
+	    name : product+" 등 "+count+"종",
 	    amount : 100,
 	    buyer_email : 'iamport@siot.do',
 	    buyer_name : '구매자',
@@ -248,6 +250,7 @@ function order(){
 		var pno = $(this).find(".actions").attr("data-pno");
 		var amount = $(this).find(".amount").val();
 		var price = $(this).find(".price").html().trim();
+		var pName = $(this).find(".pName").text();
 		
 		
 		
@@ -259,6 +262,8 @@ function order(){
 		form_contents += price_input;
 		let totalprice_input = "<input name='orders[" + index + "].totalPrice' type='hidden' value='" + amount*price + "'>";
 		form_contents += totalprice_input;
+		let pName_input = "<input name='orders[" + index + "].productName' type='hidden' value='" + pName + "'>";
+		form_contents += pName_input;
 			
 		});	
 		$(".order_form").append(form_contents);	

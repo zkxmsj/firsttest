@@ -21,7 +21,7 @@ import com.fastcampus.app.dao.UserDao;
 import com.fastcampus.app.domain.UserDto;
 
 @Controller
-@RequestMapping("/member")
+@RequestMapping
 public class LoginController {
 	
 	@Autowired
@@ -81,8 +81,7 @@ public class LoginController {
 		return "redirect:"+session.getAttribute("prevPage");
 	}
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request) {
-		 HttpSession session = request.getSession();
+	public String logout(HttpSession session) {
 	        
 		 session.invalidate();
 		return "redirect:/";
@@ -94,6 +93,6 @@ public class LoginController {
 		if(user==null) return false;
 		
 		
-		return user.getuserPwd().equals(pwd);
+		return user.getUserPwd().equals(pwd);
 	}
 }

@@ -5,6 +5,7 @@ public class OrderItemDto {
 	private Integer amount;
 	private Integer productPrice;
 	private Integer totalPrice;
+	private String productName;
 	
 	public Integer getPno() {
 		return pno;
@@ -30,11 +31,19 @@ public class OrderItemDto {
 	public void setTotalPrice(Integer totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 	@Override
 	public String toString() {
 		return "OrderItemDto [pno=" + pno + ", amount=" + amount + ", productPrice=" + productPrice + ", totalPrice="
-				+ totalPrice + "]";
+				+ totalPrice + ", productName=" + productName + "]";
 	}
+	
+	
 	
 	
 	

@@ -7,25 +7,23 @@
 <head>
 	<meta charset="UTF-8">
     <title>게시판</title>
-    
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> 
     <style>
     
-   
-    	
-    	table{
-    		margin-top:200px;
-    	}
-    	td ul{
-    		text-align=center;
-    	}
+   td a{
+   	text-decoration:none;
+   	color:black;
+   }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
 </head>
 <body>
-<%@include file="header.jsp"%>
-<div class = "container" style="text-align:center">
-<h2>게시글 목록</h2>
-<table class="table table-striped">
+<jsp:include page="header.jsp"/>
+<div class = "container mt-5 py-5" style="text-align:center">
+	<div class="row">
+		<h2><Strong>자유게시판</Strong></h2>
+	</div>
+<table class="table table-striped mt-5 mb-5">
 	<tr>
 		<th>번호</th>
 		<th>제목</th>
@@ -53,7 +51,7 @@
 	<tr>
 					<td colspan="5">
 					<nav aria-label="Page navigation example">
-	               			<ul class="pagination">
+	               			<ul class="pagination justify-content-center">
 	               			
 	               				<!-- 2. 이전버튼 활성화 여부 -->
 	               				<c:if test="${pageHandler.prev}">
@@ -102,12 +100,14 @@
 		<option value="T" ${sc.option eq "T" ? "selected" :""}>제목</option>
 		<option value="W" ${sc.option eq "W" ? "selected" :""}>작성자</option>
 	</select>
+	
 	<input type="text" name="keyword" value="${sc.keyword }">
-	<input type="submit" value="검색">
+	<button  class="btn btn-secondary">검색</button>
 </form>
 </div>
 
 
-<%@include file="footer.jsp"%>
+<jsp:include page="footer.jsp"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

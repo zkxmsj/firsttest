@@ -26,7 +26,7 @@
           font-size: 3.5rem;
         }
       }
-    
+
     </style>
 	<meta charset="UTF-8">
     <title>쇼핑몰</title>    

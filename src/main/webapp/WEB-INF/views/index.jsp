@@ -21,7 +21,7 @@
           font-size: 3.5rem;
         }
       }
-    
+
     </style>
 	<meta charset="UTF-8">
     <title>쇼핑몰</title>    
@@ -30,7 +30,7 @@
 <jsp:include page="header.jsp"/>
 <main>
 
-  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" >
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -85,9 +85,9 @@
   <!-- Marketing messaging and featurettes
   ================================================== -->
   <!-- Wrap the rest of the page in another container to center all the content. -->
-
+	
+	
   <div class="container marketing">
-
     <!-- Three columns of text below the carousel -->
     <div class="row">
       <div class="col-lg-4">

@@ -21,6 +21,8 @@
         UPDATE user
         SET   userEmail = #{userEmail}
           , userAddr1 = #{userAddr1}
+          , userAddr2 = #{userAddr2}
+          , userAddr3 = #{userAddr3}
         WHERE userId = #{userId}
     </update>
     <delete id="delete" parameterType="String">

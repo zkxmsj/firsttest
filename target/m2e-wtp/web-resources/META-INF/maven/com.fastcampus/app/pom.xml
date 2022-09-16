@@ -14,6 +14,10 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+	<!-- https://mvnrepository.com/artifact/hikari-cp/hikari-cp -->
+	<!-- https://mvnrepository.com/artifact/hikari-cp/hikari-cp -->
+
+	
 	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 	<dependency>
     <groupId>org.springframework</groupId>

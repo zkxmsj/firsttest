@@ -35,7 +35,7 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <jsp:include page="header.jsp"/>
 <div class="container">
-  <table class="table table-hover table-condensed">
+  <table class="table table-hover table-condensed mt-5">
     <thead>
       <tr>
         <th style="width:50%">상품명</th>

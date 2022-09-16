@@ -67,6 +67,7 @@
                                 <span class="form-inline" role="form">
                                    <textarea id="comment" class="form-control col-lg-12" style="width:100%" rows="4"></textarea>
                                 </span>
+                                <br>
                                 <button type="button" id="commentParentSubmit" name="commentParentSubmit" class="btn btn-secondary writeBtn">댓글 등록</button>
                             </td>
                         </tr>
@@ -192,7 +193,8 @@
     		headers : {"content-type": "application/json"},
     		data: JSON.stringify({cno:cno,comment:reply}),
     		success:function(list){
-    			getCommentList();	
+    			getCommentList();
+    			$('#testModal').modal("hide");
     		},
     		error: function(){alert("error");
     		}
@@ -202,5 +204,6 @@
     });
     	
  </script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
  </body>
 </html>

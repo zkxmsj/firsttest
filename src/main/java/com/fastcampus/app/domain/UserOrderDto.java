@@ -1,5 +1,9 @@
 package com.fastcampus.app.domain;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class UserOrderDto {
 	private Integer orderno;
 	private String userId;
@@ -12,6 +16,10 @@ public class UserOrderDto {
 	private Integer amount;
 	private Integer productPrice;
 	private Integer totalPrice;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date reg_date;
+	private String productName;
+	private String state;
 	
 	public Integer getOrderno() {
 		return orderno;
@@ -79,6 +87,35 @@ public class UserOrderDto {
 	public void setTotalPrice(Integer totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	public Date getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	@Override
+	public String toString() {
+		return "UserOrderDto [orderno=" + orderno + ", userId=" + userId + ", orderAddr1=" + orderAddr1
+				+ ", orderAddr2=" + orderAddr2 + ", orderAddr3=" + orderAddr3 + ", orderName=" + orderName
+				+ ", userName=" + userName + ", pno=" + pno + ", amount=" + amount + ", productPrice=" + productPrice
+				+ ", totalPrice=" + totalPrice + ", reg_date=" + reg_date + ", productName=" + productName + ", state="
+				+ state + "]";
+	}
+	
+	
+	
 	
 	
 }

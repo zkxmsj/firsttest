@@ -28,6 +28,8 @@ public class UserService {
 	public int insertUser(UserDto dto){
 		return dao.insertUser(dto);
 	}
-		
+	public int updateUser(UserDto dto) {
+		return dao.updateUser(dto);
+	}
 	
 }

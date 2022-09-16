@@ -27,6 +27,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,26 +35,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fastcampus.app.domain.UserDto;
+import com.fastcampus.app.domain.UserOrderDto;
+import com.fastcampus.app.service.UserOrderService;
 import com.fastcampus.app.service.UserService;
 import com.fastcampus.app.dao.UserDao;
 @Controller
-@RequestMapping("/member")
-public class RegisterController {
+@RequestMapping("/user")
+public class UserController {
 	@Autowired
-	UserService service;
+	private UserService service;
+	
+	@Autowired
+	private UserOrderService orderService;
 	
 	@Autowired
 	private JavaMailSender mailSender;
 	
 	
-	@InitBinder
-	public void toDate(WebDataBinder binder) {
-		ConversionService conversionService = binder.getConversionService();
-		//binder.registerCustomEditor(String[].class,new StringArrayPropertyEditor("#"));
-		//binder.setValidator(new UserValidator()); //UserValidator만 사용
-		//binder.addValidators(new UserValidator()); //GlobalValidator와 UserValidator를 함께 사용
-		List<Validator> validatorList = binder.getValidators();
-		System.out.println(validatorList);
+//	@InitBinder
+//	public void toDate(WebDataBinder binder) {
+//		ConversionService conversionService = binder.getConversionService();
+//		//binder.registerCustomEditor(String[].class,new StringArrayPropertyEditor("#"));
+//		//binder.setValidator(new UserValidator()); //UserValidator만 사용
+//		//binder.addValidators(new UserValidator()); //GlobalValidator와 UserValidator를 함께 사용
+//		List<Validator> validatorList = binder.getValidators();
+//		System.out.println(validatorList);
+//	}
+	@PatchMapping("/modify")
+	@ResponseBody
+	public String modifyUser(@RequestBody UserDto dto) {
+		System.out.println(dto);
+		service.updateUser(dto);
+		return "success";
+	}
+	@GetMapping("/myPage")
+	public String myPage(HttpSession session,Model model) {
+		return "myPage";
+	}
+	@GetMapping("/userInfo")
+	@ResponseBody
+	public UserDto userInfo(HttpSession seesion) {
+		UserDto dto = service.getUser("admin");
+		return dto;
+	}
+	@GetMapping("/userOrder")
+	@ResponseBody
+	public List<UserOrderDto> userOrder(HttpSession session){
+		//List<UserOrderDto> list = orderService.selectUserOrder("admin");
+		List<UserOrderDto> list = orderService.selectUserOrder("admin");
+		System.out.println(list);
+		return list;
 	}
 	@GetMapping("/register")
 	public String add() {
@@ -123,6 +154,7 @@ public class RegisterController {
         
         return num;
 	}
+	
 
 		
 }
