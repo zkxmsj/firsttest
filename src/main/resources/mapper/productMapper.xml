@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fastcampus.app.ProductDao">
+	<select id="select" parameterType="int" resultType="ProductDto">
+		 select *
+		 from product
+		 where pno = #{pno}
+	</select>
+	<insert id="insert" parameterType="ProductDto">
+		insert into product(pno,productName,productPrice,productImg,productStock)
+		values(${pno},#{productName},#{productPridce},#{productImg},#{productStock})
+	</insert>
+	<select id="selectAll" resultType="ProductDto">
+		 select *
+		 from product
+		 order by pno
+	</select>
+	<update id="update" parameterType="ProductDto">
+        UPDATE product
+        SET   productPrice = #{productPrice}
+          , productImg = #{productImg}
+        WHERE pno = #{pno}
+    </update>
+    <update id="updateStock" parameterType="map">
+        UPDATE product
+        SET   productStock = productStock + #{amount}
+        WHERE pno = #{pno}
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM product WHERE pno = #{pno}
+    </delete>
+    <select id="relative" parameterType="String" resultType="ProductDto">
+    	select * from product
+    	where category = #{category}
+		order by rand()
+		limit 3
+    </select>
+    <select id="selectCategory" parameterType="String" resultType="ProductDto">
+        select *
+		 from product
+        WHERE true
+         <choose>
+            <when test='category!="all"'>
+                AND category = #{category}
+            </when>
+            
+        </choose>
+        ORDER BY pno asc
+    </select>
+</mapper>

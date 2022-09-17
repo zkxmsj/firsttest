@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fastcampus.app.CartDao">
+	<select id="select" parameterType="String" resultType="CartDto">
+		 select u.userid,productName,productPrice,productImg,c.pno,amount*productPrice sum,amount,cno
+			from user u,product p,cart c
+			where u.userid =c.userid and p.pno = c.pno and u.userid = #{userId}
+	</select>
+	<insert id="insert" parameterType="CartDto">
+		insert into cart (userId,pno,amount)
+			values (#{userId},#{pno},#{amount})
+	</insert>
+    <delete id="delete" parameterType="map">
+        DELETE FROM cart WHERE pno = #{pno} and userid = #{userId} and cno = #{cno}
+    </delete>
+    <delete id="deleteall" parameterType="String">
+        DELETE FROM cart WHERE userid = #{userId}
+    </delete>
+    <select id="getTotal" parameterType="String" resultType="int">
+    	select sum(amount*productPrice)
+			from user u,product p,cart c
+			where u.userid =c.userid and p.pno = c.pno and u.userid = #{userId}
+    </select>
+</mapper>

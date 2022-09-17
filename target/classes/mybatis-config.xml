@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="BoardDto" type="com.fastcampus.app.domain.BoardDto"/>
+		<typeAlias alias="SearchCondition" type="com.fastcampus.app.domain.SearchCondition"/>
+		<typeAlias alias="CommentDto" type="com.fastcampus.app.domain.CommentDto"/>
+		<typeAlias alias="productDto" type="com.fastcampus.app.domain.ProductDto"/>
+		<typeAlias alias="CartDto" type="com.fastcampus.app.domain.CartDto"/>
+		<typeAlias alias="UserDto" type="com.fastcampus.app.domain.UserDto"/>
+		<typeAlias alias="UserOrderDto" type="com.fastcampus.app.domain.UserOrderDto"/>
+	</typeAliases>
+</configuration>
+	
