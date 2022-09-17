@@ -28,14 +28,21 @@ public class AdminController {
 	UserOrderService orderService;
 
 	@GetMapping("/adminPage")
-	String MemberList(Model model) {		
+	String adminPage(Model model) {		
 		return "adminPage";
 	}
 	@GetMapping("/orderList")
 	@ResponseBody
-	public List<UserOrderDto> userOrder(HttpSession session){
+	public List<UserOrderDto> orderList(){
 		//List<UserOrderDto> list = orderService.selectUserOrder("admin");
 		List<UserOrderDto> list = orderService.selectAll();
+		return list;
+	}
+	@GetMapping("/userList")
+	@ResponseBody
+	public List<UserDto> userList(){
+		//List<UserOrderDto> list = orderService.selectUserOrder("admin");
+		List<UserDto> list = userService.getUserList();
 		return list;
 	}
 	

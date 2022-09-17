@@ -48,6 +48,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 function getOrderList(className){
+	
 	$.ajax({
 		type:'GET',
 		url:'/admin/orderList',
@@ -106,48 +107,46 @@ function getOrderList(className){
 function getUserList(className){
 	$.ajax({
 		type:'GET',
-		url:'/user/userInfo',
+		url:'/admin/userList',
 		success:function(data){
-			var str = '<table class="py-5 mt-5">';
-			str +=' <colgroup>';
-			str +='<col width="25%">';
-			str +='<col width="*">';
-			str +='</colgroup>';
-			str +='<tbody>';
-			str += '<tr>';
-			str += '<th>아이디</th>';
-			str += '<td>';
-			str +=data.userId;
-			str +='</td>';
-			str +='</tr>';
-			str += '<tr>';
-			str += '<th>이름</th>';
-			str += '<td>';
-			str +=data.userName;
-			str +='</td>';
-			str +='</tr>';
-			str += '<tr>';
-			str += '<th>이메일</th>';
-			str += '<td>';
-			str +=data.userEmail;
-			str +='</td>';
-			str +='</tr>';
-			str += '<tr>';
-			str += '<th>주소</th>';
-			str += '<td>';
-			str +=data.userAddr1+" "+data.userAddr2+"<br>"+data.userAddr3;
-			str +='</td>';
-			str +='</tr>';
-			str +='</tbody>';
-			str +='</table';
-			var str2 ='<div class="button-group">';
-			str2+=	'<button type="button" class="btn btn-secondary" onclick="modify()" >회원정보수정</button>';
-			str2+=	'</div>';	
-
-
-				 
-			$("#adminPage").html(str);
+			var str = '<table class="table table-hover table-condensed mt-5">';
+			str+= '<tr>';
+			str+='<th>아이디</th>';
+			str+='<th>이름</th>';	
+	        str+='<th>이메일</th>';
+	        str+='<th>우편번호</th>';
+	        str+='<th>주소</th>';
+	        str+='<th>상세주소</th>';
+	        str+='</tr>';
 			
+	        $(data).each(function(){
+				str+='<tr>';
+				str+='<td>';
+				str+=this.userId;
+				str+='</td>';
+				str+='<td>';
+				str+=this.userName;
+				str+='</td>';
+				str+='<td>';
+				str+=this.userEmail;
+				str+='</td>';
+				str+='<td>';
+				str+=this.userAddr1;
+				str+='</td>';
+				str+='<td>';
+				str+=this.userAddr2;
+				str+='</td>';
+				str+='<td>';
+				str+=this.userAddr3;
+				str+='</td>';
+				str+='<td>';
+				str+='<button type="button" class="btn btn-danger" id="delBtn">회원탈퇴처리</button>';
+				str+='</td>';
+				str+='</tr>';
+				
+			});
+			str+='</table>';
+			$("#adminPage").html(str);
 		},
 		error: function(){alert("error");}
 	});

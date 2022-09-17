@@ -16,7 +16,6 @@
 	<dependencies>
 	<!-- https://mvnrepository.com/artifact/hikari-cp/hikari-cp -->
 	<!-- https://mvnrepository.com/artifact/hikari-cp/hikari-cp -->
-<<<<<<< HEAD
 	<dependency>
 	<groupId>org.springframework.security</groupId>
 	<artifactId>spring-security-web</artifactId>
@@ -32,19 +31,13 @@
 	<artifactId>spring-security-taglibs</artifactId>
 	<version>${org.springframework-version}</version>
 </dependency>
-=======
->>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 
 	
 	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 	<dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-context-support</artifactId>
-<<<<<<< HEAD
     <version>${org.springframework-version}</version>
-=======
-    <version>5.3.22</version>
->>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
@@ -102,11 +95,7 @@
 	<dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-jdbc</artifactId>
-<<<<<<< HEAD
     <version>${org.springframework-version}</version>
-=======
-    <version>5.3.22</version>
->>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 	</dependency>
 	
 	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->

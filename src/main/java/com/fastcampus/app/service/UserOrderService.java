@@ -52,10 +52,9 @@ public class UserOrderService {
 	public List<UserOrderDto> selectUserOrder(String userId){
 		return userorderDao.selectUserOrder(userId);
 	}
-<<<<<<< HEAD
+
 	public int shipping(Integer orderno) {
 		return userorderDao.shippingUserOrder(orderno);
 	}
-=======
->>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
+
 }

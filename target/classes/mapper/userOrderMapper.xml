@@ -28,12 +28,11 @@
 		where userId = #{userId}
 		order by reg_date desc
 	</select>
-<<<<<<< HEAD
+
 	<update id="shipping" parameterType="Integer">
 		update userorder
 		set state = '배송 중'
 		where orderno = #{orderno}
 	</update>
-=======
->>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
+
 </mapper>
