@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+<<<<<<< HEAD
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+=======
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!--  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -59,8 +66,11 @@
       </props>
      </property>
     </bean>
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 
 
 	<context:component-scan base-package="com.fastcampus.ch3"/>

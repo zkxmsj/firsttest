@@ -56,11 +56,14 @@ public class UserOrderDaoImpl implements UserOrderDao{
 		System.out.println(userId);
 		return session.selectList(namespace+"selectUserOrder",userId);	
 		}
+<<<<<<< HEAD
 	@Override
 	public int shippingUserOrder(Integer orderno) {
 		// TODO Auto-generated method stub
 		return session.update(namespace+"shipping",orderno);
 	}
+=======
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 	
 	
 		

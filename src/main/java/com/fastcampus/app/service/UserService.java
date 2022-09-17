@@ -1,7 +1,10 @@
 package com.fastcampus.app.service;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +36,11 @@ public class UserService {
 	public int updateUser(UserDto dto) {
 		return dao.updateUser(dto);
 	}
+<<<<<<< HEAD
 	public List<UserDto> getUserList(){
 		return dao.seleteAll();
 	}
+=======
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 	
 }

@@ -6,7 +6,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+<<<<<<< HEAD
     <title>관리자페이지</title>
+=======
+    <title>게시판</title>
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="/resources/css/myPage.css"> 
@@ -36,7 +40,11 @@
 		<div class="addressInfo_div">
 					<div class="addressInfo_button_div">
 						<button class="address_btn address_btn_1" onclick="getUserInfo()" style="background-color: #3c3838;">내 정보</button>
+<<<<<<< HEAD
 						<button class="address_btn address_btn_2" onclick="getUserOrder()">나의 주문 내역</button>
+=======
+						<button class="address_btn address_btn_2" onclick="getUserOrder()">주문 내역</button>
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 					</div>
 					<div class="addressInfo_input_div_wrap">
 						<div class="addressInfo_input_div addressInfo_input_div_1" style="display: block" id="myPage">

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -82,4 +83,90 @@
         SET   comment_cnt = comment_cnt + #{cnt}
         WHERE bno = #{bno}
     </update>
+=======
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fastcampus.app.BoardDao">
+	<select id="select" parameterType="int" resultType="BoardDto">
+		 select *
+		 from board
+		 where bno = #{bno}
+	</select>
+	<insert id="insert" parameterType="BoardDto">
+		insert into board(title,content,writer)
+		values(#{title},#{content},#{writer})
+	</insert>
+	<select id="selectAll" resultType="BoardDto">
+		 select *
+		 from board
+		 order by bno desc
+	</select>
+	<update id="update" parameterType="BoardDto">
+        UPDATE board
+        SET   title = #{title}
+          , content = #{content}
+        WHERE bno = #{bno}
+    </update>
+    <update id="increaseViewCnt" parameterType="int">
+        UPDATE board
+        SET   view_cnt = view_cnt + 1
+        WHERE bno = #{bno}
+    </update>
+    <delete id="delete" parameterType="map">
+        DELETE FROM board WHERE bno = #{bno}
+    </delete>
+    <select id="selectPage" parameterType="map" resultType="BoardDto">
+        select *
+        from board
+        ORDER BY bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <select id="count" resultType="int">
+        SELECT count(*) FROM board
+    </select>
+     <select id="searchSelectPage" parameterType="SearchCondition" resultType="BoardDto">
+        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM  board
+        WHERE true
+         <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND writer LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title   LIKE concat('%', #{keyword}, '%')
+                OR   content LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+        ORDER BY bno DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM  board
+        WHERE true
+         <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND writer LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title   LIKE concat('%', #{keyword}, '%')
+                OR   content LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </select>
+    <update id="updateCommentCnt" parameterType="map">
+        UPDATE board
+        SET   comment_cnt = comment_cnt + #{cnt}
+        WHERE bno = #{bno}
+    </update>
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 </mapper>

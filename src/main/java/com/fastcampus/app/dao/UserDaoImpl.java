@@ -4,7 +4,10 @@ package com.fastcampus.app.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 
 import javax.sql.DataSource;
 
@@ -54,18 +57,29 @@ public class UserDaoImpl implements UserDao{
 		
 	}
 
+<<<<<<< HEAD
+=======
+	@Override
+	public void seleteAll() {
+		// TODO Auto-generated method stub
+		
+	}
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 
 	@Override
 	public int idCheck(String userId) {
 		// TODO Auto-generated method stub
 		return session.selectOne(namespace+"idCheck",userId);
 	}
+<<<<<<< HEAD
 
 	@Override
 	public List<UserDto> seleteAll() {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+"selectAll");
 	}
+=======
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 	
 		
 	

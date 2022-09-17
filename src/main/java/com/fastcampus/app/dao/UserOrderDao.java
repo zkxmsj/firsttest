@@ -12,5 +12,8 @@ public interface UserOrderDao {
 	public UserOrderDto selectOrder(Integer orderno);
 	public List<UserOrderDto> selectAll();
 	public List<UserOrderDto> selectUserOrder(String userId);
+<<<<<<< HEAD
 	public int shippingUserOrder(Integer orderno);
+=======
+>>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
 }
