@@ -43,12 +43,12 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/resources/img/${product.productImg}" alt="..." /></div>
                     <div class="col-md-6">
-                        <div class="small mb-1">SKU: BST-498</div>
+                        <div class="small mb-1">${product.category}</div>
                         <h1 class="display-5 fw-bolder">${product.productName }</h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">${product.productPrice+1000}</span>
-                            <span>-> ${product.productPrice}원</span>
+                            <span> ${product.productPrice}원</span>
                         </div>
+                        <div class="fs-5 mb-5">수량:${product.productStock}</div>
                         <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
                         <div class="d-flex">
                             <input name="amount" class="form-control text-center me-3 mb-5" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />  
@@ -174,13 +174,31 @@
                 </div>
             </div>
         </section>
+        <div class="container">
+        	<div class="row text-center">
+				<h2><Strong>리뷰 페이지</Strong></h2>
+			</div>
+    	<table class="table table-hover mt-5 py-5">
+    	<tr>
+    	<th></th>
+        <th>작성자</th>
+        <th>리뷰</th>
+        <th>작성일</th>
+    </tr>
+    <tbody id="commentList">
+    </tbody>
+    </table>
+</div>
 
 <jsp:include page="footer.jsp"/>
 <script>
 	let query = window.location.search;
 	let param = new URLSearchParams(query);
 	let pno = param.get('pno');
-
+	$(document).ready(function(){
+    	getCommentList();
+    	
+ 	});
 	$(".addCart").click(function(){
     	let amount = $("input[name=amount]").val();
     	if(isNaN(amount)){
@@ -200,10 +218,34 @@
     			alert("장바구니에 추가하였습니다");
     		},
     		error: function(){alert("error");
-    		}
-    			
+    		}	
     	});	
     });
+	function getCommentList(){
+    	$.ajax({
+    		type:'GET',
+    		url:'/review/'+pno,
+    		success:function(list){
+    			var comments = "";
+    			$(list).each(function(){
+    				comments += '<tr data-cno='+this.cno+' ';
+    				comments += 'data-pno='+this.pno+' ';
+    				comments += "><td></td><td><strong>";
+    				comments += this.commenter+"</strong></td>";
+    				comments += '<td class="replyCommment"><strong>'+this.comment+"</strong>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+    				var time= new Date(this.reg_date);
+    				var date=time.toLocaleDateString(); 
+    				comments += '<td>'+date+"</td>";
+    				comments += '<td><button type="button" class="modifyBtn btn btn-warning">수정</button>&nbsp;&nbsp;<button type="button" class = "delBtn btn btn-danger">삭제</button></td>';
+    				comments += "</td>";
+    				comments += "</tr>";	
+	  			});
+    			
+    			$("#commentList").html(comments);
+    		},
+    		error: function(){alert("error");}
+    	});
+    };
 	
 </script>
 </body>

@@ -5,34 +5,22 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<security:http auto-config="true" use-expressions="true">
+	<security:http use-expressions="true">
 
 		<!-- 정적 리소스는 모두 접근 허용 -->
-		<security:intercept-url pattern="/resources/**" access="permitAll" />
-		<security:intercept-url pattern="/board/registBoard" access="hasRole('ROLE_ADMIN')" />
+		<security:form-login default-target-url="/" username-parameter="userId" password-parameter="userPwd"/>
+		<security:logout logout-url="/logout" logout-success-url="/"/>
+		<security:intercept-url pattern="/board/registBoard" access="hasRole('USER')" />
+		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/**" access="permitAll()" />
+		<security:intercept-url pattern="/user/**" access="permitAll()" />
+		<security:csrf disabled = "true"/>
 
 		<!-- 로그인된 상태에서는 로그인이나 회원가입 화면에 접근 못하도록 함 -->
 		<security:intercept-url pattern="/login" access="isAnonymous()" />
 		<security:intercept-url pattern="/user/register" access="isAnonymous()" />
-
-		<!-- 관리자페이지는 관리자만 접근 허용 -->
-		<!-- <security:intercept-url pattern="/admin/**" access="hasRole('admin')" /> -->
-
-		<!-- 로그인 설정 -->
-		<security:form-login	
-			username-parameter="userId" 
-			password-parameter="userPwd"
-			login-processing-url="/login" 
-			login-page="/login" default-target-url="/"
-			authentication-failure-url="/loginView" />
-
-		<!-- 로그아웃 설정 -->
-		<security:logout 
-			logout-url="/logoutAsk"
-			logout-success-url="/"
-			invalidate-session="true"
-			delete-cookies="true" />
 	</security:http>
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>		 
 
 	<!-- 권한이 없어서 금지된 URI 접속할 때 보여줄 페이지(403 에러 페이지 대체) -->
 
@@ -40,8 +28,8 @@
 	<security:authentication-manager>
 		<security:authentication-provider>
 			 <security:user-service>
-			 	<security:user name="admin" password="1234" authorities="ROLE_USER,ROLE_ADMIN"/>
-                <security:user name="guest" password="123" authorities="ROLE_USER" />
+			 	<security:user name="admin" password="{noop}1234" authorities="ROLE_USER,ROLE_ADMIN"/>
+                <security:user name="user" password="1234" authorities="ROLE_USER" />
             </security:user-service>
            </security:authentication-provider>
 	</security:authentication-manager>

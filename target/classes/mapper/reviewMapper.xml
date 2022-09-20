@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fastcampus.app.ReviewDao">
+    <delete id="deleteAll" parameterType="int">
+        DELETE FROM comment
+        WHERE  bno = #{bno}
+    </delete>
+
+    <select id="count" parameterType="int" resultType="int">
+        SELECT count(*) FROM comment
+        WHERE  bno = #{bno}
+    </select>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM comment WHERE cno = #{cno}
+    </delete>
+
+    <insert id="insert" parameterType="CommentDto">
+        INSERT INTO review
+            (pno, comment, commenter)
+        VALUES
+            (#{pno},#{comment}, #{commenter})
+    </insert>
+
+    <select id="selectAll" parameterType="int" resultType="ReviewDto">
+        SELECT *
+        FROM review
+        WHERE pno = #{pno}
+        ORDER BY cno ASC
+    </select>
+
+    <select id="select" parameterType="int" resultType="CommentDto">
+        SELECT cno, bno, pcno, comment, commenter, reg_date
+        FROM comment
+        WHERE cno = #{cno}
+    </select>
+
+    <update id="update" parameterType="CommentDto">
+        UPDATE comment
+        SET comment = #{comment}
+        WHERE cno = #{cno} and commenter = #{commenter}
+    </update>
+    <update id="review" parameterType="Integer">
+		update userorder
+		set review = '작성 완료'
+		where orderno = #{orderno}
+	</update>
+</mapper>

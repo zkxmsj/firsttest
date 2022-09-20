@@ -20,6 +20,7 @@ public class UserOrderDto {
 	private Date reg_date;
 	private String productName;
 	private String state;
+	private String review;
 	
 	public Integer getOrderno() {
 		return orderno;
@@ -104,6 +105,14 @@ public class UserOrderDto {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	
+	public String getReview() {
+		return review;
+	}
+	public void setReview(String review) {
+		this.review = review;
 	}
 	@Override
 	public String toString() {

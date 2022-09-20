@@ -6,11 +6,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-<<<<<<< HEAD
+
     <title>관리자페이지</title>
-=======
+
     <title>게시판</title>
->>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
+
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="/resources/css/myPage.css"> 
@@ -39,12 +39,10 @@
 <div class="container mt-5 py-5">
 		<div class="addressInfo_div">
 					<div class="addressInfo_button_div">
-						<button class="address_btn address_btn_1" onclick="getUserInfo()" style="background-color: #3c3838;">내 정보</button>
-<<<<<<< HEAD
-						<button class="address_btn address_btn_2" onclick="getUserOrder()">나의 주문 내역</button>
-=======
-						<button class="address_btn address_btn_2" onclick="getUserOrder()">주문 내역</button>
->>>>>>> 7c26d0eca97397b4f0d4be9c7bb7abdb5a96c78f
+						<button class="address_btn address_btn_1" onclick="getUserInfo(1)" style="background-color: #3c3838;">내 정보</button>
+
+						<button class="address_btn address_btn_2" onclick="getUserOrder(2)">나의 주문 내역</button>
+
 					</div>
 					<div class="addressInfo_input_div_wrap">
 						<div class="addressInfo_input_div addressInfo_input_div_1" style="display: block" id="myPage">
@@ -59,12 +57,31 @@
 		<div class = "container mt-5 py-5" style="text-align:center" id="button-group">
 	
 </div>
+<div class="modal" tabindex="-1" id="testModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">리뷰 작성하기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	<input type="hidden" name="pno" id="pno" value="">
+      	<input type="hidden" name="orderno" id="orderno" value="">
+        <textarea class="form-control h-25" rows="10" style="width:100%" name="comment" id="comment"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창 닫기</button>
+        <button type="button" class="btn btn-warning" id="reviewsubmit">작성</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <jsp:include page="footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-function getUserOrder(){
+function getUserOrder(className){
 	$.ajax({
 		type:'GET',
 		url:'/user/userOrder',
@@ -76,9 +93,10 @@ function getUserOrder(){
 	        str+='<th>금액</th>';
 	        str+='<th>주문 날짜</th>';
 	        str+='<th>배송상태</th>';
+	        str+='<th>리뷰</th>';
 	        str+='</tr>';
 			$(data).each(function(){
-			str+='<tr>';
+			str+='<tr data-pno="'+this.pno+'">';
 			str+='<td>';
 			str+=this.productName;
 			str+='</td>';
@@ -96,7 +114,17 @@ function getUserOrder(){
 			str+='<td>';
 			str+=this.state;
 			str+='</td>';
+			if(this.review=='미작성'){
+				str+='<td data-orderno ="'+this.orderno+'">';
+				str+='<button type="button" class="btn btn-primary" id="writeBtn">리뷰 작성</button>';
+				str+='</td>';
+			}else{
+			str+='<td data-orderno ="'+this.orderno+'">';
+			str+='작성 완료';
+			str+='</td>';
+			}
 			str+='</tr>';
+			
 			
 
 			});
@@ -106,6 +134,9 @@ function getUserOrder(){
 		},
 		error: function(){alert("error");}
 	});
+	$(".address_btn").css('backgroundColor', '#555');
+	/* 지정 색상 변경 */
+		$(".address_btn_"+className).css('backgroundColor', '#3c3838');
 }
 
 function modify(){
@@ -181,7 +212,7 @@ function modifyPost(){
 			
 	});
 }
-function getUserInfo(){
+function getUserInfo(className){
 	$.ajax({
 		type:'GET',
 		url:'/user/userInfo',
@@ -229,6 +260,9 @@ function getUserInfo(){
 		},
 		error: function(){alert("error");}
 	});
+	$(".address_btn").css('backgroundColor', '#555');
+	/* 지정 색상 변경 */
+		$(".address_btn_"+className).css('backgroundColor', '#3c3838');
 }
 function execution_daum_address(){
 	
@@ -277,9 +311,33 @@ function execution_daum_address(){
             $(".address_input_3").focus();
             
         }
-    }).open();   
-    
+    }).open();  
 }
+$("#reviewsubmit").click(function(){
+	var pno = $("#pno").val();
+	var orderno = $("#orderno").val();
+	var comment = $("#comment").val();
+	$.ajax({
+		type:'POST',
+		url:'/review/'+orderno,
+		headers : {"content-type": "application/json"},
+		data: JSON.stringify({pno:pno,comment:comment}),
+		success:function(list){
+			getUserOrder(2);
+			$('#testModal').modal("hide");
+		},
+		error: function(){alert("error");
+		}
+			
+	});
+});
+$("#myPage").on("click","#writeBtn",function(){
+	let pno = $(this).closest("tr").attr("data-pno");
+	let orderno = $(this).parent().attr("data-orderno");
+	$("#pno").val(pno);
+	$("#orderno").val(orderno);
+	$('#testModal').modal("show");
+});
 </script>
 </body>
 </html>

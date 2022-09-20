@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    
    <script
   src="https://code.jquery.com/jquery-3.4.1.js"
   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
@@ -192,7 +193,7 @@
   		
   		/* 최종 유효성 검사 */
   		if(idCheck&&idckCheck&&pwCheck&&pwckCheck&&pwckcorCheck&&nameCheck&&mailCheck&&mailnumCheck&&addressCheck ){
-  			$("#join_form").attr("action", "/member/register");
+  			$("#join_form").attr("action", "/user/register");
   			$("#join_form").submit();			
   			alert("검사 성공");
   		}else{
@@ -314,7 +315,7 @@
        		  alert(email);
        		  $.ajax({
        			type : 'get',
-       			url : '/member/mailCheck?email='+email,
+       			url : '/user/mailCheck?email='+email,
        			success : function(data){
        				alert(data);
        	            checkBox.attr("disabled",false);
@@ -344,9 +345,10 @@
            	
            	$.ajax({
            		type : "post",
-           		url : "/member/userIdChk",
+           		url : "/user/userIdChk",
            		data : memberId,
            		success : function(result){
+           			alert(result);
            			// console.log("성공 여부" + result);
            			if(result != 'fail'){
            				$('.id_input_re_1').css("display","inline-block");

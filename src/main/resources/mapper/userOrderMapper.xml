@@ -10,7 +10,7 @@
 	</select>
 	<insert id="insert" parameterType="UserOrderDto">
 		insert into userorder (userId,orderaddr1,orderaddr2,orderaddr3,ordername,username,pno,amount,productPrice,totalPrice,productName)
-			values (#{userId},#{orderAddr1},#{orderAddr2},#{orderAddr3},#{orderName},#{userName},#{pno},#{amount},#{productPrice},#{totalPrice},#{productName)
+			values (#{userId},#{orderAddr1},#{orderAddr2},#{orderAddr3},#{orderName},#{userName},#{pno},#{amount},#{productPrice},#{totalPrice},#{productName})
 	</insert>
 	<select id="select" parameterType="int" resultType="UserOrderDto">
 		select *

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 
 
@@ -73,8 +75,15 @@
         </ul>
       </div>
         <div class="text-end">
+        <sec:authorize access="isAnonymous()">
           <a href="/login"><button type="button" class="btn btn-outline-light me-2">로그인</button></a>
           <a href="/user/register"><button type="button" class="btn btn-warning">회원가입</button></a>
+          </sec:authorize>
+          <sec:authorize access="isAuthenticated()">
+          	<form:form action="/logout" methos="post">
+          		<button type="submit" class="btn btn-danger">로그아웃</button>
+          	</form:form>	
+          </sec:authorize>
         </div>
     </div>
 </nav>

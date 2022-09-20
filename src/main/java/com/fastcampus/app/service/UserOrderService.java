@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fastcampus.app.dao.CartDao;
+import com.fastcampus.app.dao.ProductDao;
 import com.fastcampus.app.dao.UserOrderDao;
 import com.fastcampus.app.domain.OrderDto;
 import com.fastcampus.app.domain.UserOrderDto;
@@ -15,6 +16,9 @@ public class UserOrderService {
 	
 	@Autowired
 	UserOrderDao userorderDao;
+	
+	@Autowired
+	ProductDao productDao;
 	
 	@Autowired
 	CartDao cartDao;
@@ -34,6 +38,7 @@ public class UserOrderService {
 			orderDto.setProductPrice(dto.getOrders().get(i).getProductPrice());
 			orderDto.setTotalPrice(dto.getOrders().get(i).getTotalPrice());
 			userorderDao.insertUserOrder(orderDto);
+			productDao.updateStock(dto.getOrders().get(i).getPno(),dto.getOrders().get(i).getAmount());
 		}
 		cartDao.deleteAll(dto.getUserId());
 		return 1; 

@@ -32,58 +32,57 @@ public class LoginController {
 	
 	@GetMapping("/login")
 	public String loginForm(HttpServletRequest request) {
-		String uri = request.getHeader("Referer");
-	    if (uri != null && !uri.contains("/login")) {
-	        request.getSession().setAttribute("prevPage", uri);
-	    }
-	    System.out.println(uri);
+//		String uri = request.getHeader("Referer");
+//	    if (uri != null && !uri.contains("/login")) {
+//	        request.getSession().setAttribute("prevPage", uri);
+//	    }
+//	    System.out.println(uri);
 		return "loginForm";
 		
 	}
 
-	@PostMapping("/login")
-	public String login(String id, String pwd,String toURL, boolean rememberId, HttpServletResponse response,HttpSession session) throws Exception {
-		System.out.println("id="+id);
-		System.out.println("pwd="+pwd);
-		System.out.println("rememberId="+rememberId);
-		
-		// 1. id와 pwd를 확인
-		if(!loginCheck(id, pwd)) {
-			// 2-1   일치하지 않으면, loginForm으로 이동
-			String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
-			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
-			cookie.setMaxAge(0); // 쿠키를 삭제
-//		       2. 응답에 저장
-			response.addCookie(cookie);
-			return "redirect:/member/login?msg="+msg;
-			
-		
-		// 2-2. id와 pwd가 일치하면,
-		}if(rememberId) {
-		//     1. 쿠키를 생성
-			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
-//		       2. 응답에 저장
-			response.addCookie(cookie);
-		} else {
-// 		       1. 쿠키를 삭제
-			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
-			cookie.setMaxAge(0); // 쿠키를 삭제
-//		       2. 응답에 저장
-			response.addCookie(cookie);
-		}
-		session.setAttribute("id",id);
-		System.out.println(session.getAttribute("id"));
-
-//		3. 홈으로 이동
-		if(session.getAttribute("prevPage")==null)
-		return "index";
-		else
-		return "redirect:"+session.getAttribute("prevPage");
-	}
+//	@PostMapping("/login")
+//	public String login(String id, String pwd,String toURL, boolean rememberId, HttpServletResponse response,HttpSession session) throws Exception {
+//		System.out.println("id="+id);
+//		System.out.println("pwd="+pwd);
+//		System.out.println("rememberId="+rememberId);
+//		
+//		// 1. id와 pwd를 확인
+//		if(!loginCheck(id, pwd)) {
+//			// 2-1   일치하지 않으면, loginForm으로 이동
+//			String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
+//			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
+//			cookie.setMaxAge(0); // 쿠키를 삭제
+////		       2. 응답에 저장
+//			response.addCookie(cookie);
+//			return "redirect:/member/login?msg="+msg;
+//			
+//		
+//		// 2-2. id와 pwd가 일치하면,
+//		}if(rememberId) {
+//		//     1. 쿠키를 생성
+//			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
+////		       2. 응답에 저장
+//			response.addCookie(cookie);
+//		} else {
+//// 		       1. 쿠키를 삭제
+//			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
+//			cookie.setMaxAge(0); // 쿠키를 삭제
+////		       2. 응답에 저장
+//			response.addCookie(cookie);
+//		}
+//		session.setAttribute("id",id);
+//		System.out.println(session.getAttribute("id"));
+//
+////		3. 홈으로 이동
+//		if(session.getAttribute("prevPage")==null)
+//		return "index";
+////		else
+////		return "redirect:"+session.getAttribute("prevPage");
+//	}
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 	        
-		 session.invalidate();
 		return "redirect:/";
 	}
 

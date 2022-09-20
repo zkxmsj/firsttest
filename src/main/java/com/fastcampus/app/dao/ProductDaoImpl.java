@@ -43,8 +43,8 @@ public class ProductDaoImpl implements ProductDao{
 	@Override
 	public int updateStock(Integer pno,Integer amount) {
 		// TODO Auto-generated method stub
-			Map map = new HashMap<>();
-			map.put("amount",amount);
+			Map map = new HashMap();
+			map.put("amount",-amount);
 			map.put("pno",pno);
 		return session.update(namespace+"updateStock",map);
 	}

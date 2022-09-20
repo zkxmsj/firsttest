@@ -58,15 +58,15 @@
     </style>
 </head>
 <body>
-    <form action="<c:url value='/member/login'/>" method="post" onsubmit="return formCheck(this);">
+    <form action="<c:url value='/login'/>" method="post" onsubmit="return formCheck(this);">
         <h3 id="title">Login</h3>
         <div id="msg">
 	    <c:if test="${not empty param.msg}">
 		<i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>            
 	    </c:if>        
 	</div>
-        <input type="text" name="id" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
-        <input type="password" name="pwd" placeholder="비밀번호">
+        <input type="text" name="userId" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
+        <input type="password" name="userPwd" placeholder="비밀번호">
         <!-- input type="text" name="toURL" value="${param.toURL }">-->
         <button>로그인</button>
         <div>

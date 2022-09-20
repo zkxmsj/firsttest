@@ -20,6 +20,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,6 +43,10 @@ import com.fastcampus.app.dao.UserDao;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
 	@Autowired
 	private UserService service;
 	
@@ -92,8 +97,8 @@ public class UserController {
 	}
 	@PostMapping("/register")
 	public String register(UserDto dto,HttpSession session) { 
-		
-		session.setAttribute("userId",dto.getUserId());
+		String encPassword = passwordEncoder.encode(dto.getUserPwd());
+		dto.setUserPwd(encPassword);
 		service.insertUser(dto);
 		return "index";
 		

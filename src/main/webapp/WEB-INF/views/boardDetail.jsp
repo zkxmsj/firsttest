@@ -72,11 +72,11 @@
                             </td>
                         </tr>
                     </table>
-</div>
+				</div>
             </div>
             <hr/>
         </div>
-        <div class="modal" tabindex="-1" id="testModal">
+<div class="modal" tabindex="-1" id="testModal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
