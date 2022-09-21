@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fastcampus.app.dao.ProductDao;
+import com.fastcampus.app.domain.CategoryDto;
 import com.fastcampus.app.domain.ProductDto;
 
 @Service
@@ -39,6 +40,9 @@ public class ProductService {
 	}
 	public List<ProductDto> selectCategory(String category){
 		return productDao.selectCategory(category);
+	}
+	public List<CategoryDto> getCategory(){
+		return productDao.getCategory();
 	}
 //	public int getTotal() {
 //		try {

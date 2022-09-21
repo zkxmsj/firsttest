@@ -35,57 +35,15 @@
 <jsp:include page="header.jsp"/>
 <section class="py-5">
 		
-            <div class="container px-4 px-lg-5 mt-5">
-            <div class="form-check form-check-inline ">
-  <input class="form-check-input" type="radio" value="all" name="category" checked>
-  <label class="form-check-label" for="flexCheckDefault">
-    전체보기
-  </label>
-</div>
-            
-            <div class="form-check form-check-inline ">
-  <input class="form-check-input" type="radio" value="fruit" name="category">
-  <label class="form-check-label" for="flexCheckDefault">
-    과일
-  </label>
-</div>
-<div class="form-check form-check-inline ">
-  <input class="form-check-input" type="radio" value="electronic" name="category">
-  <label class="form-check-label" for="flexCheckDefault">
-    전자기기
-  </label>
-</div>
-<div class="form-check form-check-inline ">
-  <input class="form-check-input" type="radio" value="sports" name="category">
-  <label class="form-check-label" for="flexCheckDefault">
-    스포츠 용품
-  </label>
+   <div class="container px-4 px-lg-5 mt-5" >
+   <div id="category">
+ 
 </div>
 <br><br>
 
             
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="list">
-                <c:forEach var="product" items="${list}">
-					<div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="/resources/img/${product.productImg}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">${product.productName }</h5>
-                                    <!-- Product price-->
-                                    ${product.productPrice}원
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product?pno=${product.pno}">상품정보 보기</a></div>
-                            </div>
-                        </div>
-                    </div>	
-			</c:forEach>
+
                 </div>
             </div>
         </section>
@@ -95,7 +53,9 @@
 <script>
 
 $(document).ready(function(){
-    $(".form-check-input").change(function(){
+	getCategorytList();	
+	getProductList();
+	$(document).on("change",".form-check-input",function(){
         if($(".form-check-input").is(":checked")){
         	var category=$(this).val();
         	$.ajax({
@@ -106,7 +66,8 @@ $(document).ready(function(){
         			$(data).each(function(){
         				str+='<div class="col mb-5">';
                         str+='<div class="card h-100">';
-                            str+='<img class="card-img-top" src="/resources/img/'+this.productImg+'" alt="..." />';
+                        let fileCallPath = encodeURIComponent(this.uploadPath + "/s_" + this.uuid + "_" + this.fileName);
+                            str += "<img class = 'card-img-top' src='/display?fileName=" + fileCallPath +"'>";
                             str+='<div class="card-body p-4">';
                                 str+='<div class="text-center">';
                                  str+='<h5 class="fw-bolder">'+this.productName+'</h5>';
@@ -129,5 +90,68 @@ $(document).ready(function(){
             alert("체크박스 체크 해제!");
         }
     });
+    
+    var obj = "<c:out value='${list}'/>";
+    alert(obj);
+   
+    function getProductList(){
+    	$.ajax({
+    		type:'GET',
+    		url:'/productsSearch?category=all',
+    		success:function(data){
+    			var str = "";
+    			$(data).each(function(){
+    				str+='<div class="col mb-5">';
+                    str+='<div class="card h-100">';
+                    let fileCallPath = encodeURIComponent(this.uploadPath + "/s_" + this.uuid + "_" + this.fileName);
+                        str += "<img class = 'card-img-top' src='/display?fileName=" + fileCallPath +"'>";
+                        str+='<div class="card-body p-4">';
+                            str+='<div class="text-center">';
+                             str+='<h5 class="fw-bolder">'+this.productName+'</h5>';
+                        str+=+this.productPrice+'원';
+                        str+='</div>';
+                        str+='</div>';
+                        str+='<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                        str+='<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product?pno='+this.pno+'">상품정보 보기</a></div>';
+                        str+='</div>';
+                    str+='</div>';
+                str+='</div>';
+    				 
+	  			});
+
+    			$("#list").html(str);
+    		},
+    		error: function(){alert("error");}
+    	});
+    }
+    function getCategorytList(){
+    	$.ajax({
+    		type:'GET',
+    		url:'/getCategory',
+    		success:function(data){
+    			var str = "";
+    			str+='<div class="form-check form-check-inline ">';
+    		    str+='<input class="form-check-input" type="radio" value="all" name="category" checked>';
+    		    str+='<label class="form-check-label" for="flexCheckDefault">';
+    		    str+='전체보기';
+    		    str+='</label>';
+    		  	str+='</div>';
+    			$(data).each(function(){
+    				
+    				str+='<div class="form-check form-check-inline ">';    				
+    			    str+='<input class="form-check-input" type="radio" value="'+this.category+'" name="category">';
+    			    str+='<label class="form-check-label" for="flexCheckDefault">';
+    			     str+=this.category;
+    			    str+='</label>';
+    			  str+='</div>';
+	  			});
+
+    			$("#category").html(str);
+    		},
+    		error: function(){alert("error");}
+    	});
+    }
+              
+
 });
 </script>

@@ -9,16 +9,27 @@ public class ProductDto {
 	private Integer productPrice;
 	private String productImg;
 	private Integer productStock;
-	private String Category;
+	private String category;
+	private String productIntro;
+	private String uploadPath;
+	private String uuid;
+	private String fileName;
+	
 	public Integer getPno() {
 		return pno;
 	}
+	
+	
 	public String getCategory() {
-		return Category;
+		return category;
 	}
+
+
 	public void setCategory(String category) {
-		Category = category;
+		this.category = category;
 	}
+
+
 	public void setPno(Integer pno) {
 		this.pno = pno;
 	}
@@ -46,11 +57,43 @@ public class ProductDto {
 	public void setProductStock(Integer productStock) {
 		this.productStock = productStock;
 	}
+	public String getProductIntro() {
+		return productIntro;
+	}
+	public void setProductIntro(String productIntro) {
+		this.productIntro = productIntro;
+	}
+	public String getUploadPath() {
+		return uploadPath;
+	}
+	public void setUploadPath(String uploadPath) {
+		this.uploadPath = uploadPath;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	@Override
 	public String toString() {
 		return "ProductDto [pno=" + pno + ", productName=" + productName + ", productPrice=" + productPrice
-				+ ", productImg=" + productImg + ", productStock=" + productStock + ", Category=" + Category + "]";
+				+ ", productImg=" + productImg + ", productStock=" + productStock + ", Category=" + category
+				+ ", productIntro=" + productIntro + ", uploadPath=" + uploadPath + ", uuid=" + uuid + ", fileName="
+				+ fileName + "]";
 	}
+
+	
+	
+	
+	
+	
 	
 	
 	

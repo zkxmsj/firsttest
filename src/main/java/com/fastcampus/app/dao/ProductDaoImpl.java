@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fastcampus.app.domain.BoardDto;
+import com.fastcampus.app.domain.CategoryDto;
 import com.fastcampus.app.domain.ProductDto;
 @Repository
 public class ProductDaoImpl implements ProductDao{
@@ -65,6 +66,12 @@ public class ProductDaoImpl implements ProductDao{
 	public List<ProductDto> selectCategory(String category) {
 		// TODO Auto-generated method stub
 		return session.selectList(namespace+"selectCategory",category);
+	}
+
+	@Override
+	public List<CategoryDto> getCategory() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+"getCategory");
 	}
 
 }

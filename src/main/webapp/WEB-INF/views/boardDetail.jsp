@@ -165,8 +165,11 @@
     	$.ajax({
     		type:'GET',
     		url:'/comments/?bno='+bno,
+    		async: false,
+    		datatype: 'JSON',
     		success:function(list){
     			var comments = "";
+    			alert(list);
     			$(list).each(function(){
     				comments += '<tr data-cno='+this.cno+' ';
     				comments += 'data-pcno='+this.pcno+' ';

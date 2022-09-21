@@ -11,6 +11,33 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <link rel="stylesheet" href="/resources/css/adminPage.css"> 
     <style>
+    #result_card img{
+		max-width: 100%;
+	    height: auto;
+	    display: block;
+	    padding: 5px;
+	    margin-top: 10px;
+	    margin: auto;	
+	}
+	#result_card {
+		position: relative;
+	}
+	.imgDeleteBtn{
+	    position: absolute;
+	    top: 0;
+	    right: 5%;
+	    background-color: #ef7d7d;
+	    color: wheat;
+	    font-weight: 900;
+	    width: 30px;
+	    height: 30px;
+	    border-radius: 50%;
+	    line-height: 26px;
+	    text-align: center;
+	    border: none;
+	    display: block;
+	    cursor: pointer;	
+	}
     
    td a{
    	text-decoration:none;
@@ -31,7 +58,7 @@
 					<div class="addressInfo_button_div">
 						<button class="address_btn address_btn_1" onclick="getUserList(1)" >유저리스트</button>
 						<button class="address_btn address_btn_2" onclick="getOrderList(2)">주문 내역</button>
-						<button class="address_btn address_btn_3" onclick="getUserOrder(3)">상품 등록</button>
+						<button class="address_btn address_btn_3" onclick="getRegistForm(3)">상품 등록</button>
 					</div>
 					<div class="addressInfo_input_div_wrap">
 						<div class="addressInfo_input_div addressInfo_input_div_1" style="display: block" id="adminPage">
@@ -173,6 +200,230 @@ $(document).on("click","#shipping",function(){
 	});
 	
 });
+function getRegistForm(className){
+	var str ='<form action="/admin/registProduct" method="post" id="enrollForm">';
+	str +='  <div class=" row col-lg-6 container pt-5">';
+	str +='<div class="d-inline-flex align-items-center">';
+	str +='<label class="form-label" style="min-width: 100px">상품명</label>';
+	str += '<input type="text" name="productName" class="form-control">';
+	str += '</div>'; 
+	str +='</div>';
+	str +='  <div class=" row col-lg-6 container pt-5">';
+	str +='<div class="d-inline-flex align-items-center">';
+	str +='<label class="form-label" style="min-width: 100px">상품번호</label>';
+	str += '<input type="text" name="pno" class="form-control">';
+	str += '</div>'; 
+	str +='</div>';
+	str +='  <div class=" row  col-lg-6 container pt-5">';
+	str +='<div class="d-inline-flex align-items-center">';
+	str +='<label class="form-label" style="min-width: 100px">가격</label>';
+	str += '<input type="text" name="productPrice" class="form-control">';
+	str += '</div>'; 
+	str +='</div>';
+	str +='  <div class="row col-lg-6 container pt-5">';
+	str +='<div class="d-inline-flex align-items-center">';
+	str +='<label class="form-label" style="min-width: 100px">재고</label>';
+	str += '<input type="text" name="productStock" class="form-control">';
+	str += '</div>'; 
+	str +='</div>';
+	str +='  <div class=" row col-lg-6 container pt-5">';
+	str +='<div class="d-inline-flex align-items-center">';
+	str +='<label class="form-label" style="min-width: 100px">카테고리</label>';
+	str += '<select style="btn-info" id="category" name="category">';
+	str += '<option value="none">==선택==</option>';
+	str += '</select>';
+	str += '</div>'; 
+	str +='</div>';
+	str +='  <div class="row col-lg-6 container pt-5">';
+	str +='<div class="d-inline-flex align-items-center">';
+	str +='<label class="form-label" style="min-width: 100px">상품소개</label>';
+	str +='<textarea class="form-control" rows="10" name="productIntro" id="intro"></textarea>';
+	str += '</div>'; 
+	str +='</div>';
+	str +='  <div class="row col-lg-6 container pt-5">';
+	str +='<div class="d-inline-flex align-items-center">';
+	str +='<label class="form-label" style="min-width: 100px">재고</label>';
+	str += '<input type="file" id="fileitem" class="form-control" name="productImg" style="height : 30px;">'; 
+	str += '<div id="uploadResult">';
+	str += '</div>';
+	str +='</div>';
+	str +='  <div class="col-lg-8 container pt-5">';
+	str +='<button class="btn btn-primary " id="regist">등록</button>&nbsp&nbsp';
+	str +='<button class="btn btn-danger " id="cancel">취소</button>';
+	str +='</div>';
+	str += '</form>;'
+	
+		
+		$("#adminPage").html(str);
+	$(".address_btn").css('backgroundColor', '#555');
+	/* 지정 색상 변경 */
+		$(".address_btn_"+className).css('backgroundColor', '#3c3838');
+}
+$(document).on("click","#regist",function(){
+	
+	let enrollForm = $("#enrollForm");
+
+	e.preventDefault();
+	alert("상품 등록 완료");
+	enrollForm.submit();
+	
+	
+});
+$(document).on("click","#cancel",function(){
+	
+	
+	let orderno = $(this).parent().attr("data-orderno");
+	
+	$.ajax({
+		type:'PUT',
+		url:'/admin/shipping/'+orderno,
+		success:function(list){
+			alert("배송 완료");
+			getOrderList(2);
+		},
+		error: function(){alert("error");
+		}
+		
+	});
+	
+});
+$(document).on("change","input[type='file']", function(e){
+	
+	/* 이미지 존재시 삭제 */
+	if($(".imgDeleteBtn").length > 0){
+		deleteFile();
+	}
+	let formData = new FormData();
+	let fileInput = $('input[name="productImg"]');
+	let fileList = fileInput[0].files;
+	let fileObj = fileList[0];
+	
+	
+	if(!fileCheck(fileObj.name, fileObj.size)){
+		$("#fileitem").val('');
+		return false;
+	}	
+	alert("통과");
+	formData.append("uploadFile", fileObj);
+	$.ajax({
+		url: '/admin/uploadAjaxAction',
+    	processData : false,
+    	contentType : false,
+    	data : formData,
+    	type : 'POST',
+    	dataType : 'json',
+    	success : function(result){
+    		console.log(result);
+    		showUploadImage(result);
+    	},
+    	error : function(result){
+    		alert("이미지 파일이 아닙니다.");
+    	}
+
+
+	});
+});
+
+let regex = new RegExp("(.*?)\.(jpg|png)$");
+let maxSize = 1048576; //1MB	
+
+function fileCheck(fileName, fileSize){
+
+	if(fileSize >= maxSize){
+		alert("파일 사이즈 초과");
+		return false;
+	}
+		  
+	if(!regex.test(fileName)){
+		alert("해당 종류의 파일은 업로드할 수 없습니다.(JPG,PNG만 허용)");
+		return false;
+	}
+	
+	return true;		
+	
+}
+function showUploadImage(uploadResultArr){
+	if(!uploadResultArr || uploadResultArr.length == 0){return}
+	
+	let uploadResult = $("#uploadResult");
+	
+	let obj = uploadResultArr;
+	
+	let str = "";
+	
+	let originalImgPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+	let thumImgPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+	
+
+	
+	
+	str += "<div id='result_card'>";
+	str += "<img src='/display?fileName=" + thumImgPath +"'>";
+	str += "<div class='imgDeleteBtn' data-file='" + thumImgPath + "'>x</div>";
+	str += "<input type='hidden' name='fileName' value='"+ obj.fileName +"'>";
+	str += "<input type='hidden' name='uuid' value='"+ obj.uuid +"'>";
+	str += "<input type='hidden' name='uploadPath' value='"+ obj.uploadPath +"'>";
+	str += "<input type='hidden' name='thumImgPath' value='"+thumImgPath+"'>";
+	str += "<input type='hidden' name='originalImgPath' value='"+originalImgPath+"'>";
+	str += "</div>";
+	
+		uploadResult.append(str);  
+}
+function deleteFile(){
+	
+	let targetFile = $(".imgDeleteBtn").data("file");
+	
+	let targetDiv = $("#result_card");
+	
+	$.ajax({
+		url: '/admin/deleteFile',
+		data : {fileName : targetFile},
+		dataType : 'text',
+		type : 'POST',
+		success : function(result){
+			console.log(result);
+			
+			targetDiv.remove();
+			$("input[type='file']").val("");
+			
+		},
+		error : function(result){
+			console.log(result);
+			
+			alert("파일을 삭제하지 못하였습니다.")
+		}
+	});
+}
+/* 이미지 삭제 버튼 동작 */
+$(document).on("click", ".imgDeleteBtn", function(e){
+	
+	deleteFile();
+	
+});
+$(document).on("click","#category",function(){
+	$.ajax({
+		url: '/getCategory',
+		type : 'GET',
+		success : function(list){
+			var str = '';
+			
+			$(list).each(function(){
+				
+				str += '<option value="'+this.category+'">'+this.category+'</option>';
+				
+				});
+			$("#category").html(str);
+			
+		},
+		error : function(result){
+			console.log(result);
+			
+			alert("파일을 삭제하지 못하였습니다.")
+		}
+	});
+	
+});
+
 </script>
 </body>
 </html>

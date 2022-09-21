@@ -5,6 +5,7 @@ import java.util.*;
 import org.springframework.stereotype.Repository;
 
 import com.fastcampus.app.domain.BoardDto;
+import com.fastcampus.app.domain.CategoryDto;
 import com.fastcampus.app.domain.ProductDto;
 import com.fastcampus.app.domain.SearchCondition;
 public interface ProductDao {
@@ -16,4 +17,5 @@ public interface ProductDao {
     List<ProductDto> relative(String category);
     List<ProductDto> selectAll() ;
     List<ProductDto> selectCategory(String category);
+    List<CategoryDto> getCategory();
 }
