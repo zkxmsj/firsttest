@@ -13,8 +13,7 @@
 <body>
 <jsp:include page="header.jsp"/>
 <br><br>
- <div class="container">
-            <hr/>
+ <div class="container mt-5 py-5">
             <div class="row">
                 <div class="col-md-10">
                     <table class="table table-condensed">
@@ -169,7 +168,6 @@
     		datatype: 'JSON',
     		success:function(list){
     			var comments = "";
-    			alert(list);
     			$(list).each(function(){
     				comments += '<tr data-cno='+this.cno+' ';
     				comments += 'data-pcno='+this.pcno+' ';

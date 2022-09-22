@@ -44,6 +44,12 @@ public class ProductService {
 	public List<CategoryDto> getCategory(){
 		return productDao.getCategory();
 	}
+	public void registCategory(String category) {
+		productDao.insertCategory(category);
+	}
+	public List<ProductDto> searchProduct(String productName){
+		return productDao.searchProduct(productName);
+	}
 //	public int getTotal() {
 //		try {
 //			return productDao.count();

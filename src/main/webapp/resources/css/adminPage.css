@@ -18,7 +18,7 @@ nes (526 sloc)  8.95 KB
     cursor: pointer;
     padding: 14px 16px;
     font-size: 17px;
-    width: 33%;
+    width: 20%;
 }
 
 .address_btn:hover{

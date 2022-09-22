@@ -17,5 +17,7 @@ public interface ProductDao {
     List<ProductDto> relative(String category);
     List<ProductDto> selectAll() ;
     List<ProductDto> selectCategory(String category);
+    List<ProductDto> searchProduct(String productName);
     List<CategoryDto> getCategory();
+    int insertCategory(String category);
 }

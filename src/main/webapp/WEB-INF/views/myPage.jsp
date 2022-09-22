@@ -39,7 +39,7 @@
 <div class="container mt-5 py-5">
 		<div class="addressInfo_div">
 					<div class="addressInfo_button_div">
-						<button class="address_btn address_btn_1" onclick="getUserInfo(1)" style="background-color: #3c3838;">내 정보</button>
+						<button class="address_btn address_btn_1" onclick="getUserInfo(1)">내 정보</button>
 
 						<button class="address_btn address_btn_2" onclick="getUserOrder(2)">나의 주문 내역</button>
 

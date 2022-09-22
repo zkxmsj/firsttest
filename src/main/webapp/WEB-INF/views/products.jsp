@@ -34,11 +34,15 @@
 <body>
 <jsp:include page="header.jsp"/>
 <section class="py-5">
-		
-   <div class="container px-4 px-lg-5 mt-5" >
-   <div id="category">
+	  <div class="container" id="category">
  
-</div>
+	</div>		
+   <div class="container mt-5  justify-content-center" >
+       <div class="input-group mt-5 mb-5 col-lg-6">       		
+             	<input name="productName" type="text" class="form-control" placeholder="상품명 검색" id="productName" onkeypress="if( event.keyCode == 13 ){search();}">              
+             <button class="btn btn-success" type="button" id="search">검색</button>                
+       </div>   
+ 
 <br><br>
 
             
@@ -51,48 +55,45 @@
 
 </body>
 <script>
+$(document).on("click",".category",function(){
+	let category = $(this).val();
 
+	$.ajax({
+		type:'GET',
+		url:'/productsSearch?category='+category,
+		success:function(data){
+			var str = "";
+			$(data).each(function(){
+				str+='<div class="col mb-5">';
+                str+='<div class="card h-100">';
+                let fileCallPath = encodeURIComponent(this.uploadPath + "/s_" + this.uuid + "_" + this.fileName);
+                    str += "<img class = 'card-img-top' src='/display?fileName=" + fileCallPath +"'>";
+                    str+='<div class="card-body p-4">';
+                        str+='<div class="text-center">';
+                         str+='<h5 class="fw-bolder">'+this.productName+'</h5>';
+                    str+=+this.productPrice+'원';
+                    str+='</div>';
+                    str+='</div>';
+                    str+='<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                    str+='<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product?pno='+this.pno+'">상품정보 보기</a></div>';
+                    str+='</div>';
+                str+='</div>';
+            str+='</div>';
+				 
+  			});
+
+			$("#list").html(str);
+		},
+		error: function(){alert("error");}
+	});
+
+});
 $(document).ready(function(){
 	getCategorytList();	
 	getProductList();
-	$(document).on("change",".form-check-input",function(){
-        if($(".form-check-input").is(":checked")){
-        	var category=$(this).val();
-        	$.ajax({
-        		type:'GET',
-        		url:'/productsSearch?category='+category,
-        		success:function(data){
-        			var str = "";
-        			$(data).each(function(){
-        				str+='<div class="col mb-5">';
-                        str+='<div class="card h-100">';
-                        let fileCallPath = encodeURIComponent(this.uploadPath + "/s_" + this.uuid + "_" + this.fileName);
-                            str += "<img class = 'card-img-top' src='/display?fileName=" + fileCallPath +"'>";
-                            str+='<div class="card-body p-4">';
-                                str+='<div class="text-center">';
-                                 str+='<h5 class="fw-bolder">'+this.productName+'</h5>';
-                            str+=+this.productPrice+'원';
-                            str+='</div>';
-                            str+='</div>';
-                            str+='<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
-                            str+='<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product?pno='+this.pno+'">상품정보 보기</a></div>';
-                            str+='</div>';
-                        str+='</div>';
-                    str+='</div>';
-        				 
-    	  			});
-
-        			$("#list").html(str);
-        		},
-        		error: function(){alert("error");}
-        	});
-        }else{
-            alert("체크박스 체크 해제!");
-        }
     });
     
-    var obj = "<c:out value='${list}'/>";
-    alert(obj);
+ 
    
     function getProductList(){
     	$.ajax({
@@ -103,7 +104,7 @@ $(document).ready(function(){
     			$(data).each(function(){
     				str+='<div class="col mb-5">';
                     str+='<div class="card h-100">';
-                    let fileCallPath = encodeURIComponent(this.uploadPath + "/s_" + this.uuid + "_" + this.fileName);
+                    let fileCallPath = encodeURIComponent(this.uploadPath + "/" + this.uuid + "_" + this.fileName);
                         str += "<img class = 'card-img-top' src='/display?fileName=" + fileCallPath +"'>";
                         str+='<div class="card-body p-4">';
                             str+='<div class="text-center">';
@@ -124,26 +125,23 @@ $(document).ready(function(){
     		error: function(){alert("error");}
     	});
     }
-    function getCategorytList(){
+function getCategorytList(){
     	$.ajax({
     		type:'GET',
     		url:'/getCategory',
     		success:function(data){
     			var str = "";
-    			str+='<div class="form-check form-check-inline ">';
-    		    str+='<input class="form-check-input" type="radio" value="all" name="category" checked>';
-    		    str+='<label class="form-check-label" for="flexCheckDefault">';
-    		    str+='전체보기';
-    		    str+='</label>';
-    		  	str+='</div>';
+    			
+    			str+='<button type="button" class="btn btn-dark category" value="all">전체보기</button>';
+    		    //str+='<input class="form-check-input" type="radio" value="all" name="category" checked>';
+    		    //str+='<label class="form-check-label" for="flexCheckDefault">';
+    		    //str+='전체보기';
+    		    //str+='</label>';
+    		  	
     			$(data).each(function(){
     				
-    				str+='<div class="form-check form-check-inline ">';    				
-    			    str+='<input class="form-check-input" type="radio" value="'+this.category+'" name="category">';
-    			    str+='<label class="form-check-label" for="flexCheckDefault">';
-    			     str+=this.category;
-    			    str+='</label>';
-    			  str+='</div>';
+    				   				
+    				str+='<button type="button" class="btn btn-dark category" value="'+this.category+'">'+this.category+'</button>';
 	  			});
 
     			$("#category").html(str);
@@ -151,7 +149,77 @@ $(document).ready(function(){
     		error: function(){alert("error");}
     	});
     }
-              
+$("#search").click(function(){
+	let productName = $('#productName').val(); 				// 이름 입려갈ㄴ
+	if(productName==''){
+		alert("검색어를 입력해 주세요");
+		return;
+	}
+	$.ajax({
+		type:'GET',
+		url:'/searchProduct?productName='+productName,
+		success:function(data){
+			var str = "";
+			$(data).each(function(){
+				str+='<div class="col mb-5">';
+                str+='<div class="card h-100">';
+                let fileCallPath = encodeURIComponent(this.uploadPath + "/" + this.uuid + "_" + this.fileName);
+                    str += "<img class = 'card-img-top' src='/display?fileName=" + fileCallPath +"'>";
+                    str+='<div class="card-body p-4">';
+                        str+='<div class="text-center">';
+                         str+='<h5 class="fw-bolder">'+this.productName+'</h5>';
+                    str+=+this.productPrice+'원';
+                    str+='</div>';
+                    str+='</div>';
+                    str+='<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                    str+='<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product?pno='+this.pno+'">상품정보 보기</a></div>';
+                    str+='</div>';
+                str+='</div>';
+            str+='</div>';
+				 
+  			});
 
+			$("#list").html(str);
+		},
+		error: function(){alert("error");}
+	});
+	
 });
+function search(){
+	let productName = $('#productName').val(); 				// 이름 입려갈ㄴ
+	if(productName==''){
+		alert("검색어를 입력해 주세요");
+		return;
+	}
+	$.ajax({
+		type:'GET',
+		url:'/searchProduct?productName='+productName,
+		success:function(data){
+			var str = "";
+			$(data).each(function(){
+				str+='<div class="col mb-5">';
+                str+='<div class="card h-100">';
+                let fileCallPath = encodeURIComponent(this.uploadPath + "/" + this.uuid + "_" + this.fileName);
+                    str += "<img class = 'card-img-top' src='/display?fileName=" + fileCallPath +"'>";
+                    str+='<div class="card-body p-4">';
+                        str+='<div class="text-center">';
+                         str+='<h5 class="fw-bolder">'+this.productName+'</h5>';
+                    str+=+this.productPrice+'원';
+                    str+='</div>';
+                    str+='</div>';
+                    str+='<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                    str+='<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product?pno='+this.pno+'">상품정보 보기</a></div>';
+                    str+='</div>';
+                str+='</div>';
+            str+='</div>';
+				 
+  			});
+
+			$("#list").html(str);
+		},
+		error: function(){alert("error");}
+	});
+	
+
+}
 </script>

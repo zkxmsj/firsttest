@@ -11,35 +11,29 @@
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
-	<div class="container">
-            <hr/>
+<%@include file="header.jsp"%>
+	<div class="container mt-5 py-5">
             <div class="row">
                 <div class="col-md-10">
                     <table class="table table-condensed">
                         <thead>
-                            <tr align="center">
-                                <th width="10%">제목</th>
-                                <th width="90%"><input type="text" id="title" value="${boardDto.title }"></th>
+                            <tr>
+                                <th>제목 : <input type="text" id="title" value="${boardDto.title }"></th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>작성일
-                                </td>
-                                <td>
-                                <fmt:formatDate value="${boardDto.reg_date}" pattern="yyyy-MM-dd HH:mm"/>
+                                <td>작성일 : <fmt:formatDate value="${boardDto.reg_date}" pattern="yyyy-MM-dd HH:mm"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td>글쓴이
-                                </td>
-                                <td>
-                                ${boardDto.writer} <span style='float:right'>조회 : ${boardDto.view_cnt }</span>
+                                <td>글쓴이 : ${boardDto.writer} <span style='float:right'>조회 : ${boardDto.view_cnt }</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <textarea cols="200" rows="4" id="content">${boardDto.content}</textarea>
+                                    <textarea cols="150" rows="4" id="content">${boardDto.content}</textarea>
                        
                                 </td>
                             </tr>
@@ -61,6 +55,7 @@
        </div>
           
 </div>
+<%@include file="footer.jsp"%>
 <script>
 $("#modify").click(function(){
 	$("input[name='title']").val($("#title").val());

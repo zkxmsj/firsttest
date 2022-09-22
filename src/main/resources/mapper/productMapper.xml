@@ -57,4 +57,9 @@
     	insert category(category)
     	values(#{category})
     </insert>
+    <select id="searchProduct" parameterType="String" resultType="ProductDto">
+    	select *
+    	from product
+    	where productName LIKE concat('%', #{productName}, '%')
+    </select>
 </mapper>

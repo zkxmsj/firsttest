@@ -40,24 +40,9 @@
         <!-- Product section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/resources/img/${product.productImg}" alt="..." /></div>
-                    <div class="col-md-6">
-                        <div class="small mb-1">${product.category}</div>
-                        <h1 class="display-5 fw-bolder">${product.productName }</h1>
-                        <div class="fs-5 mb-5">
-                            <span> ${product.productPrice}원</span>
-                        </div>
-                        <div class="fs-5 mb-5">수량:${product.productStock}</div>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-                        <div class="d-flex">
-                            <input name="amount" class="form-control text-center me-3 mb-5" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />  
-                        </div>
-                        <button class="btn btn-outline-dark flex-shrink-0 addCart btn-space" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                장바구니 담기
-                            </button>
-                            <a href="/cart"><button class="btn btn-primary flex-shrink-0 btn-space cartList" type="button"><i class="bi-cart-fill me-1"></i>장바구니 가기</button></a>
+                <div class="row gx-4 gx-lg-5 align-items-center" id="product">
+                         
+                    </div>
                     </div>
                 </div>
             </div>
@@ -67,110 +52,10 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">같은 카테고리 상품</h2>
                 
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <c:forEach var="relative" items="${list}">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="/resources/img/${relative.productImg}" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">${relative.productName }</h5>
-                                    <!-- Product price-->
-                                    ${relative.productPrice}원
-                                </div>
-                            </div>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="relative">
+                   
                     
-                          
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product?pno=${relative.pno}">상품 상세보기</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    </c:forEach>
-                      <!--
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                            
-                                    <h5 class="fw-bolder">Special Item</h5>
-                            
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                          
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
-                                </div>
-                            </div>
-                          
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                          
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                          
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                          
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                          
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                          
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                          
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                          
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                          
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                          
-                                    <h5 class="fw-bolder">Popular Item</h5>
-                          
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                          
-                                    $40.00
-                                </div>
-                            </div>
                   
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                                 
-                            </div>
-                        </div>
-                    </div>Product actions-->
                 </div>
             </div>
         </section>
@@ -196,10 +81,12 @@
 	let param = new URLSearchParams(query);
 	let pno = param.get('pno');
 	$(document).ready(function(){
+		getProduct();
     	getCommentList();
+    	getRelativeList();
     	
  	});
-	$(".addCart").click(function(){
+	$(document).on("click",".addCart",function(){
     	let amount = $("input[name=amount]").val();
     	if(isNaN(amount)){
     		alert("숫자만 입력가능합니다.");
@@ -221,7 +108,38 @@
     		}	
     	});	
     });
-	function getCommentList(){
+	function getProduct(){
+		$.ajax({
+    		type:'GET',
+    		url:'/product/'+pno,
+    		success:function(data){
+
+    			var str = "";
+    			let fileCallPath = encodeURIComponent(data.uploadPath + "/" + data.uuid + "_" + data.fileName);
+    			str+='<div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/display?fileName='+fileCallPath+'" alt="..." /></div>';
+            	str+='<div class="col-md-6">';
+               	 str+='<div class="small mb-1">'+data.category+'</div>';
+               	 str+='<h1 class="display-5 fw-bolder">'+data.productName+'</h1>';
+               	 str+='<div class="fs-5 mb-5">';
+                 str+='  <span>'+data.productPrice+'원</span>';
+                 str+='</div>';
+                 str+='<div class="fs-5 mb-5">수량:'+data.productStock+'</div>';
+                 str+='<p class="lead">'+data.productIntro+'</p>';
+                 str+='<div class="d-flex">';
+                 str+='<input name="amount" class="form-control text-center me-3 mb-5" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />';  
+             	 str+='</div>';
+		         str+='<button class="btn btn-outline-dark flex-shrink-0 addCart btn-space" type="button">';
+                 str+='<i class="bi-cart-fill me-1"></i>';
+                 str+='장바구니 담기';
+                 str+='</button>';
+                 str+='<a href="/cart"><button class="btn btn-primary flex-shrink-0 btn-space cartList" type="button"><i class="bi-cart-fill me-1"></i>장바구니 가기</button></a>';
+    			
+    			$("#product").html(str);
+    		},
+    		error: function(){alert("error");}
+    	});
+	}
+function getCommentList(){
     	$.ajax({
     		type:'GET',
     		url:'/review/'+pno,
@@ -238,14 +156,43 @@
     				comments += '<td>'+date+"</td>";
     				comments += '<td><button type="button" class="modifyBtn btn btn-warning">수정</button>&nbsp;&nbsp;<button type="button" class = "delBtn btn btn-danger">삭제</button></td>';
     				comments += "</td>";
-    				comments += "</tr>";	
+    				comments += "</tr>";
+    				
 	  			});
     			
     			$("#commentList").html(comments);
     		},
     		error: function(){alert("error");}
     	});
-    };
+}
+function getRelativeList(){
+	$.ajax({
+		type:'GET',
+		url:'/relative/'+pno,
+		success:function(list){
+			var comments = "";
+			$(list).each(function(){
+				let fileCallPath = encodeURIComponent(this.uploadPath + "/" + this.uuid + "_" + this.fileName);
+    			comments+='<div class="col mb-5"  id="relative">';
+			    comments+='<div class="card h-100">';
+			    comments+='<img class="card-img-top" src="/display?fileName='+fileCallPath+'" alt="..." />';
+			    comments+='<div class="card-body p-4">';
+			    comments+='<div class="text-center">';
+			    comments+='<h5 class="fw-bolder"></h5>';
+			    comments+='</div>';
+			    comments+='</div>';
+				comments+='<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+				comments+='<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product?pno='+this.pno+'">상품 상세보기</a></div>';
+			    comments+='</div>';
+			    comments+='</div>';
+			    comments+='</div>';
+  			});
+			
+			$("#relative").html(comments);
+		},
+		error: function(){alert("error");}
+	});
+}
 	
 </script>
 </body>

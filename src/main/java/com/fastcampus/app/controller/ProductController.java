@@ -24,7 +24,6 @@ import com.fastcampus.app.domain.ProductDto;
 import com.fastcampus.app.service.ProductService;
 
 @Controller
-@RequestMapping
 public class ProductController {
 	@Autowired
 	ProductService service;
@@ -43,12 +42,15 @@ public class ProductController {
 		
 		return new ResponseEntity<>(list,HttpStatus.OK);
 	}
-	@GetMapping("/product")
-	public String productDetail(Model model,int pno) {
+	@GetMapping("/product/{pno}")
+	@ResponseBody
+	public ProductDto productDetail(@PathVariable int pno) {
 		ProductDto dto = service.selectProduct(pno);
-		model.addAttribute("product",dto);
-		List<ProductDto> list = service.relativeList(dto.getCategory());
-		model.addAttribute("list",list);
+		
+		return dto;
+	}
+	@GetMapping("/product")
+	public String productPage(int pno){
 		return "product";
 	}
 	
@@ -76,6 +78,31 @@ public class ProductController {
 	@ResponseBody
 	public List<CategoryDto> getCategory(){
 		List<CategoryDto> list = service.getCategory();
+		return list;
+	}
+	@GetMapping("/relative/{pno}")
+	@ResponseBody
+	public List<ProductDto> getRelative(@PathVariable int pno){
+		ProductDto dto = service.selectProduct(pno);
+		String category = dto.getCategory();
+		List<ProductDto> list = service.relativeList(category);
+		System.out.println(list.get(0).getUploadPath());
+		System.out.println(list.get(0).getCategory());
+		return list;
+	}
+	@GetMapping("/searchProduct")
+	@ResponseBody
+	public List<ProductDto> searchProduct(String productName){
+		System.out.println(productName);
+		List<ProductDto> list = service.searchProduct(productName);
+		System.out.println(list);
+		return list;
+		
+	}
+	@GetMapping("/productList")
+	@ResponseBody
+	public List<ProductDto> productList(){
+		List<ProductDto> list = service.getProductList();
 		return list;
 	}
 }

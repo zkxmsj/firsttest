@@ -74,4 +74,16 @@ public class ProductDaoImpl implements ProductDao{
 		return session.selectList(namespace+"getCategory");
 	}
 
+	@Override
+	public int insertCategory(String category) {
+		// TODO Auto-generated method stub
+		return session.insert(namespace+"insertCategory",category);
+	}
+
+	@Override
+	public List<ProductDto> searchProduct(String productName) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+"searchProduct",productName);
+	}
+
 }

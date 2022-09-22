@@ -71,7 +71,8 @@
           <li><a href="#" class="nav-link px-2 text-white">공지사항</a></li>
           <li><a href="/products" class="nav-link px-2 text-white">상품목록</a></li>
           <li><a href="/board/list" class="nav-link px-2 text-white">게시판</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">유투브</a></li>
+          <li><a href="/admin/adminPage" class="nav-link px-2 text-white">관리자</a></li>
+          <li><a href="/user/myPage" class="nav-link px-2 text-white">마이페이지</a></li>
         </ul>
       </div>
         <div class="text-end">

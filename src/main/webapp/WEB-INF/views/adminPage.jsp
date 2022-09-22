@@ -59,6 +59,8 @@
 						<button class="address_btn address_btn_1" onclick="getUserList(1)" >유저리스트</button>
 						<button class="address_btn address_btn_2" onclick="getOrderList(2)">주문 내역</button>
 						<button class="address_btn address_btn_3" onclick="getRegistForm(3)">상품 등록</button>
+						<button class="address_btn address_btn_4" onclick="getRegistCategory(4)">카테고리 등록</button>
+						<button class="address_btn address_btn_5" onclick="getProductList(5)">상품 목록</button>
 					</div>
 					<div class="addressInfo_input_div_wrap">
 						<div class="addressInfo_input_div addressInfo_input_div_1" style="display: block" id="adminPage">
@@ -242,14 +244,14 @@ function getRegistForm(className){
 	str +='</div>';
 	str +='  <div class="row col-lg-6 container pt-5">';
 	str +='<div class="d-inline-flex align-items-center">';
-	str +='<label class="form-label" style="min-width: 100px">재고</label>';
+	str +='<label class="form-label" style="min-width: 100px">이미지</label>';
 	str += '<input type="file" id="fileitem" class="form-control" name="productImg" style="height : 30px;">'; 
 	str += '<div id="uploadResult">';
 	str += '</div>';
 	str +='</div>';
 	str +='  <div class="col-lg-8 container pt-5">';
-	str +='<button class="btn btn-primary " id="regist">등록</button>&nbsp&nbsp';
-	str +='<button class="btn btn-danger " id="cancel">취소</button>';
+	str +='<button type="button" class="btn btn-primary " id="regist">등록</button>&nbsp&nbsp';
+	str +='<button type="button" class="btn btn-danger " id="cancel">취소</button>';
 	str +='</div>';
 	str += '</form>;'
 	
@@ -263,28 +265,28 @@ $(document).on("click","#regist",function(){
 	
 	let enrollForm = $("#enrollForm");
 
-	e.preventDefault();
 	alert("상품 등록 완료");
 	enrollForm.submit();
 	
 	
 });
+$(document).on("click","#registCategory",function(){
+	
+	let enrollForm = $("#categoryForm");
+
+	alert("카테고리 등록 완료");
+	enrollForm.submit();
+	
+	
+});
 $(document).on("click","#cancel",function(){
+	deleteFile();
+	location.href= "/admin/adminPage";
 	
+});
+$(document).on("click","#esc",function(){
 	
-	let orderno = $(this).parent().attr("data-orderno");
-	
-	$.ajax({
-		type:'PUT',
-		url:'/admin/shipping/'+orderno,
-		success:function(list){
-			alert("배송 완료");
-			getOrderList(2);
-		},
-		error: function(){alert("error");
-		}
-		
-	});
+	location.href= "/admin/adminPage";
 	
 });
 $(document).on("change","input[type='file']", function(e){
@@ -423,6 +425,69 @@ $(document).on("click","#category",function(){
 	});
 	
 });
+function getRegistCategory(className){
+	var str ='<form action="/admin/registCategory" method="post" id="categoryForm">';
+	str +='  <div class=" row col-lg-6 container pt-5">';
+	str +='<div class="d-inline-flex align-items-center">';
+	str +='<label class="form-label" style="min-width: 100px">카테고리명</label>';
+	str += '<input type="text" name="category" class="form-control">';
+	str += '</div>'; 
+	str +='</div>';
+	str +='  <div class="col-lg-8 container pt-5">';
+	str +='<button type="button" class="btn btn-primary " id="registCategory">추가</button>&nbsp&nbsp';
+	str +='<button type="button" class="btn btn-danger " id="esc">취소</button>';
+	str +='</div>';
+	str += '</form>;'
+	
+		
+		$("#adminPage").html(str);
+	$(".address_btn").css('backgroundColor', '#555');
+	/* 지정 색상 변경 */
+		$(".address_btn_"+className).css('backgroundColor', '#3c3838');
+}
+function getProductList(className){
+	$.ajax({
+		type:'GET',
+		url:'/productList',
+		success:function(data){
+			var str = '<table class="table table-hover table-condensed mt-5">';
+			str+= '<tr>';
+			str+='<th>상품번호</th>';
+			str+='<th>상품명</th>';	
+	        str+='<th>상품가격</th>';
+	        str+='<th>상품재고</th>';
+	        str+='<th>카테고리</th>';
+	        str+='</tr>';
+			$(data).each(function(){
+			str+='<tr>';
+			str+='<td>';
+			str+=this.pno;
+			str+='</td>';
+			str+='<td>';
+			str+=this.productName;
+			str+='</td>';
+			str+='<td>';
+			str+=this.productPrice;
+			str+='</td>';
+			str+='<td>';
+			str+=this.productStock;
+			str+='</td>';
+			str+='<td>';
+			str+=this.category;
+			str+='</td>';
+			str+='</tr>';
+
+			});
+			str+='</table>';
+			$("#adminPage").html(str);
+		},
+		error: function(){alert("error");}
+	});
+	/* 모든 색상 동일 */
+	$(".address_btn").css('backgroundColor', '#555');
+/* 지정 색상 변경 */
+	$(".address_btn_"+className).css('backgroundColor', '#3c3838');
+}
 
 </script>
 </body>

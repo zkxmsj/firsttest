@@ -208,6 +208,11 @@ public class AdminController {
 		productService.registProduct(dto);
 		return "adminPage";
 	}
+	@PostMapping("/registCategory")
+	public String registCategory(String category) {
+		productService.registCategory(category);
+		return "adminPage";
+	}
 	
 	
 	
