@@ -1,5 +1,7 @@
 package com.fastcampus.app.domain;
 
+import java.util.List;
+
 public class UserDto {
 	private String userId;
 	private String userPwd;
@@ -8,7 +10,7 @@ public class UserDto {
 	private String userAddr1;
 	private String userAddr2;
 	private String userAddr3;
-	
+	private List<AuthDto> authList;
 	
 	
 	public String getUserId() {
@@ -53,12 +55,20 @@ public class UserDto {
 	public void setUserAddr3(String userAddr3) {
 		this.userAddr3 = userAddr3;
 	}
+	public List<AuthDto> getAuthList() {
+		return authList;
+	}
+	public void setAuthList(List<AuthDto> authList) {
+		this.authList = authList;
+	}
 	@Override
 	public String toString() {
 		return "UserDto [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", userEmail="
 				+ userEmail + ", userAddr1=" + userAddr1 + ", userAddr2=" + userAddr2 + ", userAddr3=" + userAddr3
-				+ "]";
+				+ ", authList=" + authList + "]";
 	}
+	
+	
 	
 	
 	

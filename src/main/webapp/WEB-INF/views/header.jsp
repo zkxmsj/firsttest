@@ -50,8 +50,11 @@
           font-size: 3.5rem;
         }
       }
+      .welcome{
+      	color:white;
+      }
     </style>
-
+	
     
     <!-- Custom styles for this template -->
   </head>
@@ -69,10 +72,12 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
           <li><a href="#" class="nav-link px-2 text-white">공지사항</a></li>
-          <li><a href="/products" class="nav-link px-2 text-white">상품목록</a></li>
+          <li><a href="/products" class="nav-link px-2 text-white">쇼핑하기</a></li>
           <li><a href="/board/list" class="nav-link px-2 text-white">게시판</a></li>
+          <sec:authorize access="hasRole('ROLE_ADMIN')">
           <li><a href="/admin/adminPage" class="nav-link px-2 text-white">관리자</a></li>
-          <li><a href="/user/myPage" class="nav-link px-2 text-white">마이페이지</a></li>
+          </sec:authorize>
+          
         </ul>
       </div>
         <div class="text-end">
@@ -81,7 +86,10 @@
           <a href="/user/register"><button type="button" class="btn btn-warning">회원가입</button></a>
           </sec:authorize>
           <sec:authorize access="isAuthenticated()">
+          	<span class="welcome"><sec:authentication property="principal.user.userName"/>님 반갑습니다.</span>		
           	<form:form action="/logout" methos="post">
+          	<button type="button" class="btn btn-warning" onclick="mycart()">장바구니</button>
+          		<button type="button" class="btn btn-success" onclick="myPage()">마이페이지</button>
           		<button type="submit" class="btn btn-danger">로그아웃</button>
           	</form:form>	
           </sec:authorize>
@@ -90,5 +98,13 @@
 </nav>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+    	function myPage(){
+    		location.href = "/user/myPage";
+    	}
+    	function mycart(){
+    		location.href = "/cart";
+    	}
+    </script>
   </body>
 </html>

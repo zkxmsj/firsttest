@@ -56,7 +56,7 @@ public class ProductController {
 	
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
-		File file = new File("c:\\upload\\" + fileName);
+		File file = new File("C:\\Users\\zkxms\\Documents\\sts\\firstSpring\\src\\main\\webapp\\resources\\img\\" + fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -67,7 +67,6 @@ public class ProductController {
 			header.add("Content-type", Files.probeContentType(file.toPath()));
 			
 			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
-			
 		}catch (IOException e) {
 			e.printStackTrace();
 		}

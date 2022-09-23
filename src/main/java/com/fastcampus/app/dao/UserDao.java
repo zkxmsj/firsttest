@@ -13,4 +13,5 @@ public interface UserDao {
 	public void deleteAll();
 	public List<UserDto> seleteAll();
 	public int idCheck(String id);
+	public UserDto read(String userId);
 }

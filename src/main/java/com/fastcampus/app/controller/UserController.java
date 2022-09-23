@@ -1,6 +1,7 @@
 package com.fastcampus.app.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -79,15 +80,15 @@ public class UserController {
 	}
 	@GetMapping("/userInfo")
 	@ResponseBody
-	public UserDto userInfo(HttpSession seesion) {
-		UserDto dto = service.getUser("admin");
+	public UserDto userInfo(Principal principal) {
+		UserDto dto = service.getUser(principal.getName());
 		return dto;
 	}
 	@GetMapping("/userOrder")
 	@ResponseBody
-	public List<UserOrderDto> userOrder(HttpSession session){
+	public List<UserOrderDto> userOrder(Principal principal){
 		//List<UserOrderDto> list = orderService.selectUserOrder("admin");
-		List<UserOrderDto> list = orderService.selectUserOrder("admin");
+		List<UserOrderDto> list = orderService.selectUserOrder(principal.getName());
 		System.out.println(list);
 		return list;
 	}
@@ -96,7 +97,7 @@ public class UserController {
 		return "registerForm";
 	}
 	@PostMapping("/register")
-	public String register(UserDto dto,HttpSession session) { 
+	public String register(UserDto dto) { 
 		String encPassword = passwordEncoder.encode(dto.getUserPwd());
 		dto.setUserPwd(encPassword);
 		service.insertUser(dto);

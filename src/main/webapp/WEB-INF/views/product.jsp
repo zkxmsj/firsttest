@@ -178,7 +178,7 @@ function getRelativeList(){
 			    comments+='<img class="card-img-top" src="/display?fileName='+fileCallPath+'" alt="..." />';
 			    comments+='<div class="card-body p-4">';
 			    comments+='<div class="text-center">';
-			    comments+='<h5 class="fw-bolder"></h5>';
+			    comments+='<h5 class="fw-bolder">'+this.productName+'</h5>';
 			    comments+='</div>';
 			    comments+='</div>';
 				comments+='<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';

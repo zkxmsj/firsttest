@@ -13,6 +13,7 @@
 		<typeAlias alias="UserOrderDto" type="com.fastcampus.app.domain.UserOrderDto"/>
 		<typeAlias alias="ReviewDto" type="com.fastcampus.app.domain.ReviewDto"/>
 		<typeAlias alias="CategoryDto" type="com.fastcampus.app.domain.CategoryDto"/>
+		<typeAlias alias="AuthDto" type="com.fastcampus.app.domain.AuthDto"/>
 	</typeAliases>
 </configuration>
 	

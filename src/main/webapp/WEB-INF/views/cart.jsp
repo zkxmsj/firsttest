@@ -50,7 +50,7 @@
        <tr>
         <td data-th="Product">
           <div class="row">
-            <div class="col-sm-2 hidden-xs"><img src="/resources/img/${list.productImg}" alt="..." class="img-responsive" width="100" height="100" /></div>
+            <div class="col-sm-2 hidden-xs"><img src="/resources/img/${list.uploadPath}/${list.uuid}_${list.fileName}" alt="..." class="img-responsive" width="100" height="100" /></div>
             <div class="col-sm-12">
               <h4 class="nomargin">${list.productName }</h4>
             </div>
@@ -119,7 +119,7 @@ function getCartList(){
     				 str += '<tr>';
     				 str += '<td data-th="Product">';
     				 str += '<div class="row">';
-    				 str +='<div class="col-sm-2 hidden-xs"><img src="/resources/img/'+this.productImg+'" alt="..." class="img-responsive" width="100" height="100" /></div>';
+    				 str +='<div class="col-sm-2 hidden-xs"><img src="/resources/img/'+this.fileName+'/'+this.fileName+'_'+this.fileName+'" alt="..." class="img-responsive" width="100" height="100" /></div>';
     				 str +='<div class="col-sm-12">';
     				 str +=    '<h4 class="nomargin">'+this.productName+'</h4>';
     				 str +=   '</div>';

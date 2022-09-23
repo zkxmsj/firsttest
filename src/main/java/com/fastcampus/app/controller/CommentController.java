@@ -1,5 +1,6 @@
 package com.fastcampus.app.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -26,8 +27,8 @@ public class CommentController {
 	CommentService commentService;
 	
 	@DeleteMapping("/comments/{cno}")
-	public String remove(@PathVariable int cno,Integer bno,HttpSession session){
-		String commenter="admin";
+	public String remove(@PathVariable int cno,Integer bno,Principal principal){
+		String commenter=principal.getName();
 		commentService.removeCnt(cno, bno, commenter);
 		return "DEL_OK";
 		
@@ -36,21 +37,19 @@ public class CommentController {
 	@GetMapping("/comments")
 	public List<CommentDto> commentList(int bno,HttpSession session){
 		List<CommentDto> list = commentService.getList(bno);
-		System.out.println(session.getAttribute("id"));
-		System.out.println(list);
 		return list;
 	}
 	@PostMapping("/comments")
-	public String writeComment(@RequestBody CommentDto dto,int bno,HttpSession session){
-		dto.setCommenter("admin");
+	public String writeComment(@RequestBody CommentDto dto,int bno,Principal principal){
+		dto.setCommenter(principal.getName());
 		dto.setBno(bno);
 		System.out.println(dto);
 		commentService.write(dto);
 		return "WRT_OK";
 	}
 	@PatchMapping("/comments/{cno}")
-	public String modifyComment(@PathVariable int cno,@RequestBody CommentDto dto,HttpSession session) {
-		dto.setCommenter("admin");
+	public String modifyComment(@PathVariable int cno,@RequestBody CommentDto dto,Principal principal) {
+		dto.setCommenter(principal.getName());
 		commentService.update(dto);
 		
 		return "MODIFY_OK";

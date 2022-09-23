@@ -4,7 +4,7 @@
 
 <mapper namespace="com.fastcampus.app.CartDao">
 	<select id="select" parameterType="String" resultType="CartDto">
-		 select u.userid,productName,productPrice,productImg,c.pno,amount*productPrice sum,amount,cno
+		 select u.userid,productName,productPrice,productImg,c.pno,amount*productPrice sum,amount,cno,p.uploadpath,p.uuid,p.filename
 			from user u,product p,cart c
 			where u.userid =c.userid and p.pno = c.pno and u.userid = #{userId}
 	</select>

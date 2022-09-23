@@ -1,5 +1,6 @@
 package com.fastcampus.app.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fastcampus.app.domain.BoardDto;
 import com.fastcampus.app.domain.CommentDto;
+import com.fastcampus.app.domain.CustomUser;
 import com.fastcampus.app.service.BoardService;
 import com.fastcampus.app.service.CommentService;
 import com.fastcampus.app.domain.PageHandler;
@@ -32,7 +36,6 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public String Boardlist(SearchCondition sc,Model m) {
-				
 		ArrayList<BoardDto> list = (ArrayList<BoardDto>) boardService.getBoardList(sc);
 		int total = boardService.getTotal(sc);
 		PageHandler pageHandler = new PageHandler(sc,total);

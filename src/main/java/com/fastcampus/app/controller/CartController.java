@@ -1,5 +1,6 @@
 package com.fastcampus.app.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -28,40 +29,37 @@ public class CartController {
 	
 	@PostMapping("/cart")
 	@ResponseBody
-	public ResponseEntity addCart(@RequestBody CartDto dto,HttpSession session) {
-		session.setAttribute("userid","admin");
-		dto.setUserId((String)session.getAttribute("userid"));
+	public ResponseEntity addCart(@RequestBody CartDto dto,Principal principal) {
+		dto.setUserId(principal.getName());
 		service.insertCart(dto);
 		
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 	@GetMapping("/cart")
-	public String cart(HttpSession session,Model model) {
-		session.setAttribute("userid","admin");
+	public String cart(Principal principal,Model model) {
 		int total=0;
 		try{
-			total = service.getTotal((String)session.getAttribute("userid"));
+			total = service.getTotal(principal.getName());
 		}
 		catch(Exception e) {
 			total=0;
 		}
-		List<CartDto> list = service.getCart((String)session.getAttribute("userid"));
+		List<CartDto> list = service.getCart(principal.getName());
 		model.addAttribute("total",total);
 		model.addAttribute("list",list);
 		return "cart";
 	}
 	@GetMapping("/cart/user")
 	@ResponseBody
-	public ResponseEntity cartList(HttpSession session,Model model) {
-		session.setAttribute("userid","admin");
-		List<CartDto> list = service.getCart((String)session.getAttribute("userid"));
+	public ResponseEntity cartList(Principal principal,Model model) {
+		List<CartDto> list = service.getCart(principal.getName());
 		
 		return new ResponseEntity<>(list,HttpStatus.OK);
 	}
 	@DeleteMapping("/cart/{pno}/{cno}")
 	@ResponseBody
-	public String deleteCart(@PathVariable int pno,@PathVariable int cno,HttpSession session) {
-		service.deleteCart(cno,pno,(String)session.getAttribute("userid"));
+	public String deleteCart(@PathVariable int pno,@PathVariable int cno,Principal principal) {
+		service.deleteCart(cno,pno,principal.getName());
 		return "삭제 완료";
 		
 	}

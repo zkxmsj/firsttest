@@ -11,26 +11,27 @@
 		<security:form-login default-target-url="/" username-parameter="userId" password-parameter="userPwd"/>
 		<security:logout logout-url="/logout" logout-success-url="/"/>
 		<security:intercept-url pattern="/board/registBoard" access="hasRole('USER')" />
+		<security:intercept-url pattern="/cart/**" access="hasRole('USER')" />
+		<security:intercept-url pattern="/order/**" access="hasRole('USER')" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/**" access="permitAll()" />
 		<security:intercept-url pattern="/user/**" access="permitAll()" />
 		<security:csrf disabled = "true"/>
+		<security:form-login login-page="/login"/>
 
 		<!-- 로그인된 상태에서는 로그인이나 회원가입 화면에 접근 못하도록 함 -->
 		<security:intercept-url pattern="/login" access="isAnonymous()" />
 		<security:intercept-url pattern="/user/register" access="isAnonymous()" />
 	</security:http>
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>		 
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<bean id="customUserDetailsService" class="com.fastcampus.app.security.CustomUserDetailsService"></bean>		 
 
 	<!-- 권한이 없어서 금지된 URI 접속할 때 보여줄 페이지(403 에러 페이지 대체) -->
 
 	<!-- DB 연동 설정 -->
 	<security:authentication-manager>
-		<security:authentication-provider>
-			 <security:user-service>
-			 	<security:user name="admin" password="{noop}1234" authorities="ROLE_USER,ROLE_ADMIN"/>
-                <security:user name="user" password="1234" authorities="ROLE_USER" />
-            </security:user-service>
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+				<security:password-encoder ref="bcryptPasswordEncoder"/>
            </security:authentication-provider>
 	</security:authentication-manager>
 

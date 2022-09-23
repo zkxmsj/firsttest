@@ -73,6 +73,12 @@ public class UserDaoImpl implements UserDao{
 		return session.selectList(namespace+"selectAll");
 	}
 
+	@Override
+	public UserDto read(String userId) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+"read", userId);
+	}
+
 	
 		
 	

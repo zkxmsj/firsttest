@@ -20,6 +20,9 @@
         -moz-user-select: none;
         user-select: none;
       }
+      .ses{
+      	width:500px;
+      }
 
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
@@ -34,16 +37,20 @@
 <body>
 <jsp:include page="header.jsp"/>
 <section class="py-5">
-	  <div class="container" id="category">
+	  <div class="container mb-5 mt-5" id="category">
  
 	</div>		
-   <div class="container mt-5  justify-content-center" >
-       <div class="input-group mt-5 mb-5 col-lg-6">       		
-             	<input name="productName" type="text" class="form-control" placeholder="상품명 검색" id="productName" onkeypress="if( event.keyCode == 13 ){search();}">              
+   <div class="container mt-5" >
+   		
+   		<div class="ses" style="margin:0 auto;">
+       <div class="input-group mt-5 py-5">       		
+             	<input name="productName" type="text" class="form-control" placeholder="상품명 검색" id="productName" onkeypress="if( event.keyCode == 13 ){search();}" >              
              <button class="btn btn-success" type="button" id="search">검색</button>                
-       </div>   
- 
+    	</div>
+    	</div> 
+    </div>
 <br><br>
+	<div class="container mt-5">
 
             
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="list">
@@ -66,7 +73,7 @@ $(document).on("click",".category",function(){
 			$(data).each(function(){
 				str+='<div class="col mb-5">';
                 str+='<div class="card h-100">';
-                let fileCallPath = encodeURIComponent(this.uploadPath + "/s_" + this.uuid + "_" + this.fileName);
+                let fileCallPath = encodeURIComponent(this.uploadPath + "/" + this.uuid + "_" + this.fileName);
                     str += "<img class = 'card-img-top' src='/display?fileName=" + fileCallPath +"'>";
                     str+='<div class="card-body p-4">';
                         str+='<div class="text-center">';

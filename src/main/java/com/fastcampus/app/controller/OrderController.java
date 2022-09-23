@@ -1,5 +1,6 @@
 package com.fastcampus.app.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -29,9 +30,8 @@ public class OrderController {
 	
 	
 	@GetMapping("/order")
-	public String orderPage(HttpSession session,Model model) {
-		session.setAttribute("userid","admin");
-		String userId = (String)session.getAttribute("userid");
+	public String orderPage(Principal principal,Model model) {
+		String userId = principal.getName();
 		int total;
 		try {
 			total = cartService.getTotal(userId);
@@ -54,7 +54,6 @@ public class OrderController {
 	
 	@PostMapping("/order")
 	public String getOrder(OrderDto dto) {
-		System.out.println("컨트롤러 동작");
 		System.out.println(dto);
 		orderService.insertOrder(dto);
 		return "redirect:/orderComplete";
