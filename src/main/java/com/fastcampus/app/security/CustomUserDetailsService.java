@@ -16,7 +16,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		System.out.println(username);
+		System.out.println(username);	
 		UserDto dto = mapper.read(username);
 		System.out.println(dto);
 		return dto == null ? null : new CustomUser(dto);

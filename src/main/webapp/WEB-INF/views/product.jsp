@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,11 +129,13 @@
                  str+='<div class="d-flex">';
                  str+='<input name="amount" class="form-control text-center me-3 mb-5" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />';  
              	 str+='</div>';
+             	 str+='<sec:authorize access="isAuthenticated()">'
 		         str+='<button class="btn btn-outline-dark flex-shrink-0 addCart btn-space" type="button">';
                  str+='<i class="bi-cart-fill me-1"></i>';
                  str+='장바구니 담기';
                  str+='</button>';
                  str+='<a href="/cart"><button class="btn btn-primary flex-shrink-0 btn-space cartList" type="button"><i class="bi-cart-fill me-1"></i>장바구니 가기</button></a>';
+                 str+='</sec:authorize>';
     			
     			$("#product").html(str);
     		},

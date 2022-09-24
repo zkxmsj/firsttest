@@ -5,23 +5,26 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<security:http use-expressions="true">
+	
+	<security:http auto-config="true" use-expressions="true">
 
 		<!-- 정적 리소스는 모두 접근 허용 -->
-		<security:form-login default-target-url="/" username-parameter="userId" password-parameter="userPwd"/>
-		<security:logout logout-url="/logout" logout-success-url="/"/>
+		<security:form-login default-target-url="/" username-parameter="username" password-parameter="password" login-page="/customLogin" />
+		<security:logout logout-url="/logout" logout-success-url="/" invalidate-session="true"/>
 		<security:intercept-url pattern="/board/registBoard" access="hasRole('USER')" />
 		<security:intercept-url pattern="/cart/**" access="hasRole('USER')" />
 		<security:intercept-url pattern="/order/**" access="hasRole('USER')" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/**" access="permitAll()" />
 		<security:intercept-url pattern="/user/**" access="permitAll()" />
+		
 		<security:csrf disabled = "true"/>
-		<security:form-login login-page="/login"/>
 
 		<!-- 로그인된 상태에서는 로그인이나 회원가입 화면에 접근 못하도록 함 -->
-		<security:intercept-url pattern="/login" access="isAnonymous()" />
-		<security:intercept-url pattern="/user/register" access="isAnonymous()" />
+		<security:intercept-url pattern="/customLogin" access="isAnonymous()" />
+		<security:session-management invalid-session-url="/">
+		 	 <security:concurrency-control max-sessions="1" expired-url="/login" error-if-maximum-exceeded="true"/>
+		</security:session-management>
 	</security:http>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	<bean id="customUserDetailsService" class="com.fastcampus.app.security.CustomUserDetailsService"></bean>		 

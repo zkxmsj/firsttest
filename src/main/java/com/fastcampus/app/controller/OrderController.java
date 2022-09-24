@@ -47,16 +47,12 @@ public class OrderController {
 		
 		return "order";
 	}
-	@GetMapping("/orderComplete")
-	public String orderComplete() {
-		return "orderComplete";
-	}
 	
 	@PostMapping("/order")
 	public String getOrder(OrderDto dto) {
 		System.out.println(dto);
 		orderService.insertOrder(dto);
-		return "redirect:/orderComplete";
+		return "redirect:/user/myPage";
 	}  
 	
 }

@@ -1,6 +1,7 @@
 package com.fastcampus.app.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 public class UserDto {
 	private String userId;
@@ -66,6 +67,21 @@ public class UserDto {
 		return "UserDto [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", userEmail="
 				+ userEmail + ", userAddr1=" + userAddr1 + ", userAddr2=" + userAddr2 + ", userAddr3=" + userAddr3
 				+ ", authList=" + authList + "]";
+	}
+	@Override
+	public int hashCode() {
+		return this.userId.hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserDto other = (UserDto) obj;
+		return Objects.equals(userId, other.userId);
 	}
 	
 	

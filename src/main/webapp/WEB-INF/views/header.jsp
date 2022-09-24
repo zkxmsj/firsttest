@@ -82,7 +82,7 @@
       </div>
         <div class="text-end">
         <sec:authorize access="isAnonymous()">
-          <a href="/login"><button type="button" class="btn btn-outline-light me-2">로그인</button></a>
+          <a href="/customLogin"><button type="button" class="btn btn-outline-light me-2">로그인</button></a>
           <a href="/user/register"><button type="button" class="btn btn-warning">회원가입</button></a>
           </sec:authorize>
           <sec:authorize access="isAuthenticated()">

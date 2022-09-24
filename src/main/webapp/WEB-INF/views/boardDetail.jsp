@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,13 +53,19 @@
                                 <td>
                                     <span style='float:right'>
                                         <a href="/board/list"><button type="button" id="list" class="btn btn-info">목록</button></a>
+                                        <sec:authentication property="principal" var="pinfo"/>
+                                        <sec:authorize access="isAuthenticated()">
+                                        	<c:if test="${pinfo.username eq boardDto.writer }">
                                         <a href="/board/modifyBoardForm?bno=${boardDto.bno}"><button type="button" id="modify" class="btn btn-warning">수정</button></a>
                                         <a href="/board/deleteBoard?bno=${boardDto.bno}"><button type="button" id="delete" class="btn btn-danger">삭제</button></a>
+                                        	</c:if>
+                                        </sec:authorize>
                                     </span>
                                 </td>
                             </tr>
                         </thead>
                     </table>
+                    <sec:authorize access="isAuthenticated()">
                     <table id="commentTable" class="table table-condensed"></table>
                     <table class="table table-condensed">
                         <tr>
@@ -71,6 +78,7 @@
                             </td>
                         </tr>
                     </table>
+                    </sec:authorize>
 				</div>
             </div>
             <hr/>
@@ -175,7 +183,12 @@
     				comments += "><td><strong>";
     				comments += this.commenter+"</strong></td>";
     				comments += '<td class="replyCommment"><strong>'+this.comment+"</strong>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+    				comments += '<sec:authentication property="principal" var="pinfo"/>';
+                    comments += '<sec:authorize access="isAuthenticated()">';
+                	comments += '<c:if test="${pinfo.username eq boardDto.writer }">';
     				comments += '<td><button type="button" class="modifyBtn btn btn-warning">수정</button>&nbsp;&nbsp;<button type="button" class = "delBtn btn btn-danger">삭제</button></td>';
+    				comments += '</c:if>';
+    				comments += '</sec:authorize>';
     				comments += "</td>";
     				comments += "</tr>";	
 	  			});

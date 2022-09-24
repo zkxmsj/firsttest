@@ -58,32 +58,35 @@
     </style>
 </head>
 <body>
-    <form action="<c:url value='/login'/>" method="post" onsubmit="return formCheck(this);">
+    <form role="form" action=/login method="post" onsubmit="return formCheck(this);">
         <h3 id="title">Login</h3>
         <div id="msg">
-	    <c:if test="${not empty param.msg}">
-		<i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>            
+	    <c:if test="${not empty error}">
+		<i class="fa fa-exclamation-circle"> ${URLDecoder.decode(error)}</i>            
 	    </c:if>        
 	</div>
-        <input type="text" name="userId" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
-        <input type="password" name="userPwd" placeholder="비밀번호">
+        <input type="text" name="username"  placeholder="아이디 입력" autofocus>
+        <input type="password" name="password" placeholder="비밀번호">
         <!-- input type="text" name="toURL" value="${param.toURL }">-->
-        <button>로그인</button>
+        <button type="button" class="login">로그인</button>
         <div>
             <label><input type="checkbox" name="rememberId" ${empty cookie.id.value ? "": "checked"} > 아이디 기억</label> |
             <a href="">비밀번호 찾기</a> |
-            <a href="">회원가입</a>
+            <a href="/user/register">회원가입</a>
         </div>
-        <script>
+     
+    </form>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script>
             function formCheck(frm) {
                  let msg ='';
      
-                 if(frm.id.value.length==0) {
+                 if(frm.username.value.length==0) {
                      setMessage('id를 입력해주세요.', frm.id);
                      return false;
                  }
      
-                 if(frm.pwd.value.length==0) {
+                 if(frm.password.value.length==0) {
                      setMessage('password를 입력해주세요.', frm.pwd);
                      return false;
                  }
@@ -97,7 +100,9 @@
                      element.select();
                  }
             }
-        </script>
-    </form>
+            $(".login").on("click",function(e){
+            	$("form").submit();
+            })
+</script>
 </body>
 </html>

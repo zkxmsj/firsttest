@@ -1,5 +1,4 @@
 package com.fastcampus.app.controller;
-
 import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,16 +11,15 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fastcampus.app.service.UserService;
 import com.fastcampus.app.dao.UserDao;
 import com.fastcampus.app.domain.UserDto;
 
 @Controller
-@RequestMapping
 public class LoginController {
 	
 	@Autowired
@@ -30,15 +28,17 @@ public class LoginController {
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/login")
-	public String loginForm(HttpServletRequest request) {
-//		String uri = request.getHeader("Referer");
-//	    if (uri != null && !uri.contains("/login")) {
-//	        request.getSession().setAttribute("prevPage", uri);
-//	    }
-//	    System.out.println(uri);
-		return "loginForm";
-		
+	@GetMapping("/customLogin")
+	public void loginInput(String error, String logout, Model model,boolean rememberId) {
+	    System.out.println("error : " + error);
+	    System.out.println("logout : " 	+logout);
+	    System.out.println(rememberId);	
+	    if(error!=null) {
+	    	model.addAttribute("error","아이디 정보를 확인해주세요");
+	    }
+	    if(logout!=null) {
+	    	model.addAttribute("logout","Logout!!");
+	    }
 	}
 
 //	@PostMapping("/login")
@@ -53,7 +53,7 @@ public class LoginController {
 //			String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
 //			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
 //			cookie.setMaxAge(0); // 쿠키를 삭제
-////		       2. 응답에 저장
+//	//	       2. 응답에 저장
 //			response.addCookie(cookie);
 //			return "redirect:/member/login?msg="+msg;
 //			
@@ -65,33 +65,33 @@ public class LoginController {
 ////		       2. 응답에 저장
 //			response.addCookie(cookie);
 //		} else {
-//// 		       1. 쿠키를 삭제
+// 	//	       1. 쿠키를 삭제
 //			Cookie cookie = new Cookie("id", id); // ctrl+shift+o 자동 import
 //			cookie.setMaxAge(0); // 쿠키를 삭제
-////		       2. 응답에 저장
+//	//	       2. 응답에 저장
 //			response.addCookie(cookie);
 //		}
 //		session.setAttribute("id",id);
 //		System.out.println(session.getAttribute("id"));
 //
-////		3. 홈으로 이동
+//		//3. 홈으로 이동
 //		if(session.getAttribute("prevPage")==null)
 //		return "index";
-////		else
-////		return "redirect:"+session.getAttribute("prevPage");
+//		else
+//		return "redirect:"+session.getAttribute("prevPage");
 //	}
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-	        
-		return "redirect:/";
-	}
-
-	private boolean loginCheck(String id, String pwd) {
-		UserDto user = userDao.selectUser(id);
-		System.out.println(user);
-		if(user==null) return false;
-		
-		
-		return user.getUserPwd().equals(pwd);
-	}
+//	@GetMapping("/logout")
+//	public String logout(HttpSession session) {
+//	        
+//		return "redirect:/";
+//	}
+//
+//	private boolean loginCheck(String id, String pwd) {
+//		UserDto user = userDao.selectUser(id);
+//		System.out.println(user);
+//		if(user==null) return false;
+//		
+//		
+//		return user.getUserPwd().equals(pwd);
+//	}
 }

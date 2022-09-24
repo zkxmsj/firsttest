@@ -100,22 +100,18 @@
 						<button class="address_btn address_btn_2" onclick="showAdress('2')">직접 입력</button>
 					</div>
 					<div class="addressInfo_input_div_wrap">
-						<div class="addressInfo_input_div addressInfo_input_div_1" style="display: block">
+						<div class="addressInfo_input_div addressInfo_input_div_1 text-center container" style="display: block">
 							<table>
-								<colgroup>
-									<col width="25%">
-									<col width="*">
-								</colgroup>
 								<tbody>
 									<tr>
-										<th>이름</th>
-										<td>
+										<th>이름 : 
+										
 											${user.userName}
-										</td>
+										</th>
 									</tr>
 									<tr>
-										<th>주소</th>
-										<td>
+										
+										<td>주소 : 
 											${user.userAddr1} ${user.userAddr2}<br>${user.userAddr3}
 											<input class="selectAddress" value="T" type="hidden">
 											<input class="addressee_input" value="${user.userName}" type="hidden">
@@ -127,27 +123,22 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="addressInfo_input_div addressInfo_input_div_2">
-							<table>
-								<colgroup>
-									<col width="25%">
-									<col width="*">
-								</colgroup>
+						<div class="addressInfo_input_div addressInfo_input_div_2 container text-center">
+							<table class="mt-5 mb-5">
 								<tbody>
 									<tr>
-										<th>이름</th>
-										<td>
-											<input class="addressee_input">
-										</td>
+										<th>이름 : <input class="addressee_input"></th>
+										
 									</tr>
 									<tr>
-										<th>주소</th>
-										<td>
+									</tr>
+									<tr>
+										<th>주소 : 
 											<input class="selectAddress" value="F" type="hidden">
-											<input class="address address1_input" readonly="readonly"> <button class="btn btn-primary" onclick="execution_daum_address()">주소 찾기</button><br>
-											<input class="address address2_input" readonly="readonly"><br>
-											<input class="address address3_input" readonly="readonly">
-										</td>
+											<input class="address address1_input" readonly="readonly">
+											<input class="address address2_input" readonly="readonly">
+											<input class="address address3_input" readonly="readonly">&nbsp;&nbsp;<button class="btn btn-primary btn-sm" onclick="execution_daum_address()">주소 찾기</button>
+										</th>
 									</tr>
 								</tbody>
 							</table>
