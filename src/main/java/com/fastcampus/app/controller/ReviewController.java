@@ -1,5 +1,6 @@
 package com.fastcampus.app.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class ReviewController {
 	}
 	@PostMapping("/review/{orderno}")
 	@ResponseBody
-	public String writeReview(@PathVariable int orderno, @RequestBody ReviewDto dto) {
-		dto.setCommenter("admin");
+	public String writeReview(@PathVariable int orderno, @RequestBody ReviewDto dto,Principal principal) {
+		dto.setCommenter(principal.getName());
 		service.insert(dto,orderno);
 		return "success";
 	}

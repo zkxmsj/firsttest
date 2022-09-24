@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fastcampus.app.NoticeDao">
+	<select id="select" parameterType="int" resultType="NoticeDto">
+		 select *
+		 from notice
+		 where bno = #{bno}
+	</select>
+	<insert id="insert" parameterType="NoticeDto">
+		insert into notice(title,content,writer)
+		values(#{title},#{content},#{writer})
+	</insert>
+	<select id="selectAll" resultType="NoticeDto">
+		 select *
+		 from notice
+		 order by bno desc
+	</select>
+	<update id="update" parameterType="NoticeDto">
+        UPDATE notice
+        SET   title = #{title}
+          , content = #{content}
+        WHERE bno = #{bno}
+    </update>
+    <update id="increaseViewCnt" parameterType="int">
+        UPDATE notice
+        SET   view_cnt = view_cnt + 1
+        WHERE bno = #{bno}
+    </update>
+    <delete id="delete" parameterType="map">
+        DELETE FROM notice WHERE bno = #{bno}
+    </delete>
+    <select id="selectPage" parameterType="map" resultType="NoticeDto">
+        select *
+        from notice
+        ORDER BY bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    <select id="count" resultType="int">
+        SELECT count(*) FROM notice
+    </select>
+     <select id="searchSelectPage" parameterType="SearchCondition" resultType="NoticeDto">
+        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM  notice
+        WHERE true
+         <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND writer LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title   LIKE concat('%', #{keyword}, '%')
+                OR   content LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+        ORDER BY bno DESC
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM  notice
+        WHERE true
+         <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND writer LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title   LIKE concat('%', #{keyword}, '%')
+                OR   content LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </select>
+    <update id="updateCommentCnt" parameterType="map">
+        UPDATE notice
+        SET   comment_cnt = comment_cnt + #{cnt}
+        WHERE bno = #{bno}
+    </update>
+</mapper>

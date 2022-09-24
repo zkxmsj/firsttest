@@ -44,7 +44,6 @@ public class OrderController {
 		model.addAttribute("user",userService.getUser(userId));
 		model.addAttribute("total",total);
 		model.addAttribute("list",list);
-		
 		return "order";
 	}
 	

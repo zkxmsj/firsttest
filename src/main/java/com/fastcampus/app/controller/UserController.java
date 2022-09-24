@@ -132,7 +132,7 @@ public class UserController {
 		int checkNum = random.nextInt(888888)+111111;
 		System.out.println(email);
 		System.out.println(checkNum); 	
-		String setFrom = "zkxmsj@naver.com";
+		String setFrom = "slowman1223@naver.com";
         String toMail = email;
         String title = "회원가입 인증 이메일 입니다.";
         String content = 

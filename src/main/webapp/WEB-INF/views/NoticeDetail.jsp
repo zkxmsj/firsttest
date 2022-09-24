@@ -21,7 +21,7 @@
                         <thead>
                             <tr align="center">
                                 <th width="10%">제목</th>
-                                <th width="60%">${boardDto.title }</th>
+                                <th width="60%">${NoticeDto.title }</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,19 +29,19 @@
                                 <td>작성일
                                 </td>
                                 <td>
-                                <fmt:formatDate value="${boardDto.reg_date}" pattern="yyyy-MM-dd HH:mm"/>
+                                <fmt:formatDate value="${NoticeDto.reg_date}" pattern="yyyy-MM-dd HH:mm"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>글쓴이
                                 </td>
                                 <td>
-                                ${boardDto.writer} <span style='float:right'>조회 : ${boardDto.view_cnt }</span>
+                                ${NoticeDto.writer} <span style='float:right'>조회 : ${NoticeDto.view_cnt }</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    ${boardDto.content}
+                                    ${NoticeDto.content}
                        
                                 </td>
                             </tr>
@@ -52,12 +52,12 @@
                             <tr>
                                 <td>
                                     <span style='float:right'>
-                                        <a href="/board/list"><button type="button" id="list" class="btn btn-info">목록</button></a>
+                                        <a href="/notice/list"><button type="button" id="list" class="btn btn-info">목록</button></a>
                                         <sec:authentication property="principal" var="pinfo"/>
                                         <sec:authorize access="isAuthenticated()">
-                                        	<c:if test="${pinfo.username eq boardDto.writer }">
-                                        <a href="/board/modifyBoardForm?bno=${boardDto.bno}"><button type="button" id="modify" class="btn btn-warning">수정</button></a>
-                                        <a href="/board/deleteBoard?bno=${boardDto.bno}"><button type="button" id="delete" class="btn btn-danger">삭제</button></a>
+                                        	<c:if test="${pinfo.username eq NoticeDto.writer }">
+                                        <a href="/notice/modifyNoticeForm?bno=${NoticeDto.bno}"><button type="button" id="modify" class="btn btn-warning">수정</button></a>
+                                        <a href="/notice/deleteNotice?bno=${NoticeDto.bno}"><button type="button" id="delete" class="btn btn-danger">삭제</button></a>
                                         	</c:if>
                                         </sec:authorize>
                                     </span>
@@ -104,7 +104,7 @@
     
 
 
-<c:if test="${id eq boardDto.writer or id eq 'admin'}">
+<c:if test="${id eq NoticeDto.writer or id eq 'admin'}">
 </c:if>
 <div class="container">
     <table class="table table-hover">
@@ -120,10 +120,11 @@
 <script>
 	var user = null;
 
-
+	
 	<sec:authorize access="isAuthenticated()">
 	user = "<c:out value='${pinfo.username}'/>";
 	</sec:authorize>
+
 	let query = window.location.search;
 	let param = new URLSearchParams(query);
 	let bno = param.get('bno');
@@ -141,7 +142,7 @@
     	}else{
     		$.ajax({
     			type:'POST',
-    			url:'/comments/?bno='+bno,
+    			url:'/noticecomments/?bno='+bno,
     			headers : {"content-type": "application/json"},
     			data: JSON.stringify({bno:bno,comment:comment}),
     			success:function(list){
@@ -157,7 +158,7 @@
     	let cno = $(this).closest("tr").attr("data-cno");
     	$.ajax({
     		type:'DELETE',
-    		url:'/comments/'+cno+'?bno='+bno,
+    		url:'/noticecomments/'+cno+'?bno='+bno,
     		success:function(list){
     			getCommentList();	
     		},
@@ -177,7 +178,7 @@
     function getCommentList(){
     	$.ajax({
     		type:'GET',
-    		url:'/comments/?bno='+bno,
+    		url:'/noticecomments/?bno='+bno,
     		async: false,
     		datatype: 'JSON',
     		success:function(list){
@@ -189,10 +190,10 @@
     				comments += "><td><strong>";
     				comments += this.commenter+"</strong></td>";
     				comments += '<td class="replyCommment"><strong>'+this.comment+"</strong>&nbsp;&nbsp;&nbsp;&nbsp;</td>";
-    			   	if(user==this.commenter){
+    				if(user==this.commenter){
     				comments += '<td><button type="button" class="modifyBtn btn btn-warning">수정</button>&nbsp;&nbsp;<button type="button" class = "delBtn btn btn-danger">삭제</button></td>';
-    			   	}
     				comments += "</td>";
+    				}
     				comments += "</tr>";	
 	  			});
     			
@@ -206,7 +207,7 @@
     	var reply = $("#reply").val();
     	$.ajax({
     		type:'PATCH',
-    		url:'/comments/'+cno,
+    		url:'/noticecomments/'+cno,
     		headers : {"content-type": "application/json"},
     		data: JSON.stringify({cno:cno,comment:reply}),
     		success:function(list){

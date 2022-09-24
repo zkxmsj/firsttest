@@ -78,6 +78,14 @@
 
 <jsp:include page="footer.jsp"/>
 <script>
+	var replyer = null;
+
+	<sec:authorize access="isAuthenticated()">
+
+	replyer = '<sec:authentication property="principal.username"/>';
+
+	</sec:authorize>
+
 	let query = window.location.search;
 	let param = new URLSearchParams(query);
 	let pno = param.get('pno');
@@ -157,8 +165,10 @@ function getCommentList(){
     				var time= new Date(this.reg_date);
     				var date=time.toLocaleDateString(); 
     				comments += '<td>'+date+"</td>";
+    				if(replyer==this.commenter){
     				comments += '<td><button type="button" class="modifyBtn btn btn-warning">수정</button>&nbsp;&nbsp;<button type="button" class = "delBtn btn btn-danger">삭제</button></td>';
     				comments += "</td>";
+    				}
     				comments += "</tr>";
     				
 	  			});

@@ -14,6 +14,9 @@
 		<typeAlias alias="ReviewDto" type="com.fastcampus.app.domain.ReviewDto"/>
 		<typeAlias alias="CategoryDto" type="com.fastcampus.app.domain.CategoryDto"/>
 		<typeAlias alias="AuthDto" type="com.fastcampus.app.domain.AuthDto"/>
+		<typeAlias alias="NoticeDto" type="com.fastcampus.app.domain.NoticeDto"/>
+		<typeAlias alias="NoticeCommentDto" type="com.fastcampus.app.domain.NoticeCommentDto"/>
+		
 	</typeAliases>
 </configuration>
 	

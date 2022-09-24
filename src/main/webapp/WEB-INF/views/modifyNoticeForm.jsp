@@ -20,29 +20,29 @@
 <body>
 <jsp:include page="header.jsp"/>
 	<div class="container mt-5 py-5" role="main">
-		<form name="form" id="form" role="form" method="post" action="/board/modifyBoard">
+		<form name="form" id="form" role="form" method="post" action="/notice/modifyNotice">
 			<div class="ses">
 			<div class="mb-3 input-group">
 				<label for="title">제목 : </label>&nbsp;&nbsp;
-				<input type="text" class="form-control ml-5" name="title" id="title" placeholder="제목을 입력해 주세요" value="${BoardDto.title}">
+				<input type="text" class="form-control ml-5" name="title" id="title" placeholder="제목을 입력해 주세요" value="${NoticeDto.title}">
 			</div>
 			</div>
 			<div class="ses">
 			<div class="mb-3 input-group">
 				<label for="reg_id">작성자 : </label>&nbsp;&nbsp;
-				<input type="text" class="form-control" name="writer" id="reg_id" value="${BoardDto.writer }"  readonly >	
+				<input type="text" class="form-control" name="writer" id="reg_id" value="${NoticeDto.writer }"  readonly >	
 			</div>
 			</div>
 			<div class="mb-3">
 				<label for="content">내용</label>	
-				<textarea class="form-control" name="content" id="content" placeholder="내용을 입력해 주세요" >${BoardDto.content }</textarea>
+				<textarea class="form-control" name="content" id="content" placeholder="내용을 입력해 주세요" >${NoticeDto.content }</textarea>
 			</div>
-			<input type="hidden" name="bno" value="${BoardDto.bno }">
+			<input type="hidden" name="bno" value="${NoticeDto.bno }">
 	
 	
 	
-			<input type="hidden" name="view_cnt" value="${BoardDto.view_cnt }">
-			<input type="hidden" name="comment_cnt" value="${BoardDto.comment_cnt}">
+			<input type="hidden" name="view_cnt" value="${NoticeDto.view_cnt }">
+			<input type="hidden" name="comment_cnt" value="${NoticeDto.comment_cnt}">
 		</form>
 		<div class="container text-center">
 			<button type="button" class="btn btn-primary" onclick="backlist()">목록</button>
