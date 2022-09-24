@@ -37,6 +37,16 @@
 
 
     <style>
+    	div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;padding:0;margin:0}
+		a {text-decoration:none;}
+
+		.quickmenu {position:absolute;width:130px;top:50%;margin-top:-50px;right:10px;background:#fff;}
+		.quickmenu ul {position:relative;float:left;width:100%;display:inline-block;*display:inline;}
+		.quickmenu ul li {float:left;width:100%;text-align:center;display:inline-block;*display:inline;}
+		.quickmenu ul li a {position:relative;float:left;width:100%;height:30px;line-height:30px;text-align:center;color:black;font-size:9.5pt;}	
+		.quickmenu ul li:last-child {border-bottom:0;}
+
+		.content {position:relative;min-height:1000px;}
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -53,12 +63,22 @@
       .welcome{
       	color:white;
       }
+      #chatting{
+      	display:none;
+      }
     </style>
 	
     
     <!-- Custom styles for this template -->
   </head>
   <body>
+  <div class="quickmenu">
+  <ul>
+    <li><img src="/resources/img/chat.png" style="width:50px;height:50px;"></li>
+    <li><button type="button" class="btn btn-dark" id="chatopen">채팅방 열기</button></li>
+    <li><button type="button" class="btn btn-warning" id="chatclose">채팅방 닫기</button></li>
+  </ul>
+</div>
   <div>
  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
@@ -97,8 +117,26 @@
     </div>
 </nav>
 </div>
+<div class="container">
+<iframe src="https://service.dongledongle.com/lshchat" frameborder="0" width="100%" height="800" id="chatting" class="mt-5 py-5"></iframe>
+</div>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script>
+    $(document).ready(function(){
+    	  var currentPosition = parseInt($(".quickmenu").css("top"));
+    	  $(window).scroll(function() {
+    	    var position = $(window).scrollTop(); 
+    	    $(".quickmenu").stop().animate({"top":position+currentPosition+"px"},1000);
+    	  });
+    	});
+
+    $("#chatopen").click(function(){
+    	$("#chatting").show();
+    })
+    $("#chatclose").click(function(){
+    	$("#chatting").hide();
+    })
     	function myPage(){
     		location.href = "/user/myPage";
     	}

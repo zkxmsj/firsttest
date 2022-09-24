@@ -21,6 +21,7 @@
           font-size: 3.5rem;
         }
       }
+      
 
     </style>
 	<meta charset="UTF-8">
@@ -29,6 +30,8 @@
 <body>
 <jsp:include page="header.jsp"/>
 <main>
+
+
 <div class="container mt-5">
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
