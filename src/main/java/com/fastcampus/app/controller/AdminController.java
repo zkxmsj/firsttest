@@ -212,6 +212,12 @@ public class AdminController {
 		productService.registCategory(category);
 		return "adminPage";
 	}
+	@GetMapping("/productList")
+	@ResponseBody
+	public List<ProductDto> productList(){
+		List<ProductDto> list = productService.getProductList();
+		return list;
+	}
 	
 	
 	

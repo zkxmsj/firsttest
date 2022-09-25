@@ -9,6 +9,16 @@
 
 <link href="https://getbootstrap.kr/docs/5.1/examples/carousel/carousel.css" rel="stylesheet">
 <style>
+		div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;padding:0;margin:0}
+		a {text-decoration:none;}
+
+		.quickmenu {position:absolute;width:130px;top:50%;margin-top:-50px;right:10px;background:#fff;}
+		.quickmenu ul {position:relative;float:left;width:100%;display:inline-block;*display:inline;}
+		.quickmenu ul li {float:left;width:100%;text-align:center;display:inline-block;*display:inline;}
+		.quickmenu ul li a {position:relative;float:left;width:100%;height:30px;line-height:30px;text-align:center;color:black;font-size:9.5pt;}	
+		.quickmenu ul li:last-child {border-bottom:0;}
+
+		.content {position:relative;min-height:1000px;}
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -21,6 +31,9 @@
           font-size: 3.5rem;
         }
       }
+      #chatting{
+      	display:none;
+      }
       
 
     </style>
@@ -30,8 +43,16 @@
 <body>
 <jsp:include page="header.jsp"/>
 <main>
-
-
+<div class="container">
+<iframe src="https://service.dongledongle.com/lshchat" frameborder="0" width="100%" height="800" id="chatting" class="mt-5 py-5"></iframe>
+</div>
+<div class="quickmenu">
+  <ul>
+    <li><img src="/resources/img/chat.png" style="width:50px;height:50px;"></li>
+    <li><button type="button" class="btn btn-dark" id="chatopen">채팅방 열기</button></li>
+    <li><button type="button" class="btn btn-warning" id="chatclose">채팅방 닫기</button></li>
+  </ul>
+</div>
 <div class="container mt-5">
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -65,5 +86,13 @@
 
 </main>
 <jsp:include page="footer.jsp"/>
-
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script>
+$("#chatopen").click(function(){
+	$("#chatting").show();
+})
+$("#chatclose").click(function(){
+	$("#chatting").hide();
+})
+</script>
 </body>

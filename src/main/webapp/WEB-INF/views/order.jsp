@@ -218,7 +218,7 @@ function requestPay() {
 	    buyer_postcode : '123-456'
 	  }, function (rsp) { // callback
 	      if (rsp.success) {
-	       	alert("성공");
+	       	alert("주문 성공");
 	       	order();
 	      } else {
 	    	  alert("실패");

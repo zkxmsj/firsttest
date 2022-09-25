@@ -14,6 +14,7 @@ public class ProductDto {
 	private String uploadPath;
 	private String uuid;
 	private String fileName;
+	private Integer sellCount;
 	
 	public Integer getPno() {
 		return pno;
@@ -81,14 +82,27 @@ public class ProductDto {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+
+
+	public Integer getSellCount() {
+		return sellCount;
+	}
+
+
+	public void setSellCount(Integer sellCount) {
+		this.sellCount = sellCount;
+	}
+
+
 	@Override
 	public String toString() {
 		return "ProductDto [pno=" + pno + ", productName=" + productName + ", productPrice=" + productPrice
-				+ ", productImg=" + productImg + ", productStock=" + productStock + ", Category=" + category
+				+ ", productImg=" + productImg + ", productStock=" + productStock + ", category=" + category
 				+ ", productIntro=" + productIntro + ", uploadPath=" + uploadPath + ", uuid=" + uuid + ", fileName="
-				+ fileName + "]";
+				+ fileName + ", sellCount=" + sellCount + "]";
 	}
-
+	
+	
 	
 	
 	

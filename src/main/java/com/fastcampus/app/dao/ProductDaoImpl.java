@@ -86,4 +86,13 @@ public class ProductDaoImpl implements ProductDao{
 		return session.selectList(namespace+"searchProduct",productName);
 	}
 
+	@Override
+	public int updateCount(Integer pno, Integer amount) {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+		map.put("amount",amount);
+		map.put("pno",pno);
+		return session.update(namespace+"updateCount",map);
+	}
+
 }

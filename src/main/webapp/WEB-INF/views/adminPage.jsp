@@ -61,9 +61,10 @@
 						<button class="address_btn address_btn_3" onclick="getRegistForm(3)">상품 등록</button>
 						<button class="address_btn address_btn_4" onclick="getRegistCategory(4)">카테고리 등록</button>
 						<button class="address_btn address_btn_5" onclick="getProductList(5)">상품 목록</button>
+						<button class="address_btn address_btn_6" onclick="getChart(6)">상품 판매 현황</button>
 					</div>
-					<div class="addressInfo_input_div_wrap">
-						<div class="addressInfo_input_div addressInfo_input_div_1" style="display: block" id="adminPage">
+					<div class="addressInfo_input_div_wrap container">
+						<div class="addressInfo_input_div addressInfo_input_div_1 container" style="display: block" id="adminPage">
 							
 							
 						</div>
@@ -75,6 +76,7 @@
 <jsp:include page="footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
 function getOrderList(className){
 	
@@ -448,7 +450,7 @@ function getRegistCategory(className){
 function getProductList(className){
 	$.ajax({
 		type:'GET',
-		url:'/productList',
+		url:'/admin/productList',
 		success:function(data){
 			var str = '<table class="table table-hover table-condensed mt-5">';
 			str+= '<tr>';
@@ -488,6 +490,57 @@ function getProductList(className){
 /* 지정 색상 변경 */
 	$(".address_btn_"+className).css('backgroundColor', '#3c3838');
 }
+
+function getChart(className){
+	topList();
+	drawChart();
+	/* 모든 색상 동일 */
+	$(".address_btn").css('backgroundColor', '#555');
+/* 지정 색상 변경 */
+	$(".address_btn_"+className).css('backgroundColor', '#3c3838');
+}
+/*구글 차트*/
+var productName = new Array();
+var count = new Array(); 
+var arrCount = null;
+
+function topList(){
+
+  $.ajax({
+	type:'GET',
+	url:'/admin/productList',
+    dataType:"json",
+    success:function(data){
+    	$.each(data, function(index, value){	
+    		// 차트에 값을 넣어주기 위해 각각 담아줌.
+    		productName[index] = value.productName;
+    		count[index] = value.sellCount;
+    	});
+    	//arrCount = JSON.parse("[" + count + "]");
+
+    	google.charts.load('current', {'packages':['corechart']});
+    	google.charts.setOnLoadCallback(drawChart);
+
+    },error:function(){
+    	//console.log("실패");	
+    }
+  });
+};
+
+function drawChart() {
+  var columArray = ['상품명', '판매량']; // 컬럼 및 효과
+  var dataArray = [];
+  dataArray.push(columArray);
+
+  for(var i=0; i<productName.length; i++){
+  	dataArray.push([productName[i],count[i]]);
+  }
+
+  var data = new google.visualization.arrayToDataTable(dataArray);
+  var options = {'title':'상품별 판매 비율','width':1000, 'height':500};
+  var chart = new google.visualization.PieChart(document.getElementById('adminPage'));
+  chart.draw(data, options);
+};
 
 </script>
 </body>

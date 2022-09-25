@@ -62,4 +62,9 @@
     	from product
     	where productName LIKE concat('%', #{productName}, '%')
     </select>
+    <update id="updateCount" parameterType="map">
+    	update product
+    	set sellcount = sellcount + #{amount}
+    	where pno = #{pno}
+    </update> 
 </mapper>

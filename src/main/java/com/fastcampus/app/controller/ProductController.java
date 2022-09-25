@@ -98,10 +98,4 @@ public class ProductController {
 		return list;
 		
 	}
-	@GetMapping("/productList")
-	@ResponseBody
-	public List<ProductDto> productList(){
-		List<ProductDto> list = service.getProductList();
-		return list;
-	}
 }

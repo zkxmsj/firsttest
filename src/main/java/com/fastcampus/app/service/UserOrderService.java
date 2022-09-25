@@ -39,6 +39,7 @@ public class UserOrderService {
 			orderDto.setTotalPrice(dto.getOrders().get(i).getTotalPrice());
 			userorderDao.insertUserOrder(orderDto);
 			productDao.updateStock(dto.getOrders().get(i).getPno(),dto.getOrders().get(i).getAmount());
+			productDao.updateCount(dto.getOrders().get(i).getPno(),dto.getOrders().get(i).getAmount());
 		}
 		cartDao.deleteAll(dto.getUserId());
 		return 1; 
