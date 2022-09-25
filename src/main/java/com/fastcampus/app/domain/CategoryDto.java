@@ -2,7 +2,7 @@ package com.fastcampus.app.domain;
 
 public class CategoryDto {
 	private String category;
-
+	private Integer count;
 	
 
 	public String getCategory() {
@@ -17,10 +17,25 @@ public class CategoryDto {
 
 
 
+
+	public Integer getCount() {
+		return count;
+	}
+
+
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "CategoryDto [category=" + category + "]";
+		return "CategoryDto [category=" + category + ", count=" + count + "]";
 	}
+	
+	
 	
 	
 	

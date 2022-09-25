@@ -51,7 +51,10 @@
     </select>
     
     <select id="getCategory" resultType="CategoryDto">
-    	select * from category
+    	select c.category,count(p.pno) count
+		from product p,category c
+		where c.category = p.category
+		group by category;
     </select>
     <insert  id="insertCategory">
     	insert category(category)

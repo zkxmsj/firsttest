@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fastcampus.app.NoticeCommentDao">
+    <delete id="deleteAll" parameterType="int">
+        DELETE FROM noticecomment
+        WHERE  bno = #{bno}
+    </delete>
+
+    <select id="count" parameterType="int" resultType="int">
+        SELECT count(*) FROM noticecomment
+        WHERE  bno = #{bno}
+    </select>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM noticecomment WHERE cno = #{cno}
+    </delete>
+
+    <insert id="insert" parameterType="NoticeCommentDto">
+        INSERT INTO noticecomment
+            (bno, pcno, comment, commenter, reg_date)
+        VALUES
+            (#{bno}, #{pcno}, #{comment}, #{commenter}, now())
+    </insert>
+
+    <select id="selectAll" parameterType="int" resultType="NoticeCommentDto">
+        SELECT cno, bno, pcno, comment, commenter, reg_date
+        FROM noticecomment
+        WHERE bno = #{bno}
+        ORDER BY cno ASC
+    </select>
+
+    <select id="select" parameterType="int" resultType="NoticeCommentDto">
+        SELECT cno, bno, pcno, comment, commenter, reg_date
+        FROM noticecomment
+        WHERE cno = #{cno}
+    </select>
+
+    <update id="update" parameterType="NoticeCommentDto">
+        UPDATE noticecomment
+        SET comment = #{comment}
+        WHERE cno = #{cno} and commenter = #{commenter}
+    </update>
+</mapper>
