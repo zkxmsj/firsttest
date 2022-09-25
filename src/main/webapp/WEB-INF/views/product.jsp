@@ -75,6 +75,24 @@
     </tbody>
     </table>
 </div>
+<div class="modal" tabindex="-1" id="testModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">리뷰 수정하기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	<input type="hidden" name="cno" id="cno" value="">
+        <input type="text" name="comment" id="reply" value="">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창 닫기</button>
+        <button type="button" class="btn btn-warning modifysubmit">수정하기</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <jsp:include page="footer.jsp"/>
 <script>
@@ -206,6 +224,44 @@ function getRelativeList(){
 		error: function(){alert("error");}
 	});
 }
+$("#commentList").on("click",".modifyBtn",function(){
+	let cno = $(this).closest("tr").attr("data-cno");
+	var replyComment = $(this).closest("tr");
+	var reply = replyComment.find("td:eq(2)").text().trim();
+	$("#reply").val(reply);
+	$("#cno").val(cno);
+	$('#testModal').modal("show");
+});
+$(".modifysubmit").click(function(){
+	var cno = $("#cno").val();
+	var reply = $("#reply").val();
+	$.ajax({
+		type:'PATCH',
+		url:'/review/'+cno,
+		headers : {"content-type": "application/json"},
+		data: JSON.stringify({cno:cno,comment:reply}),
+		success:function(list){
+			getCommentList();
+			$('#testModal').modal("hide");
+		},
+		error: function(){alert("error");
+		}
+			
+	});
+});
+$("#commentList").on("click",".delBtn",function(){
+	let cno = $(this).closest("tr").attr("data-cno");
+	$.ajax({
+		type:'DELETE',
+		url:'/review/'+cno,
+		success:function(list){
+			getCommentList();	
+		},
+		error: function(){alert("error");
+		}
+			
+	});	
+  });
 	
 </script>
 </body>

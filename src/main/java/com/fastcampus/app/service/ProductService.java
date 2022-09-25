@@ -59,4 +59,7 @@ public class ProductService {
 //			return 0;
 //		}
 //	}
+	public List<ProductDto> getProductCount(){
+		return productDao.getProductCount();
+	}
 }

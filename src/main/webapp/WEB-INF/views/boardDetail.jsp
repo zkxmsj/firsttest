@@ -104,8 +104,6 @@
     
 
 
-<c:if test="${id eq boardDto.writer or id eq 'admin'}">
-</c:if>
 <div class="container">
     <table class="table table-hover">
     <tr>

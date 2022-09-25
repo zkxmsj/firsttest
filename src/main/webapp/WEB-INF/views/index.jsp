@@ -81,6 +81,13 @@
   </button>
   </div>
 </div>
+<div class="text-center mt-5 mb-5	">
+	<h2>베스트 판매 상품</h2>
+</div>
+<div class="container">
+	<div class="row" id="productList">
+	</div>
+</div>
 
 
 
@@ -88,11 +95,44 @@
 <jsp:include page="footer.jsp"/>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script>
+$(document).ready(function(){
+	getProductList();
+});
 $("#chatopen").click(function(){
 	$("#chatting").show();
 })
 $("#chatclose").click(function(){
 	$("#chatting").hide();
 })
+function getProductList(){
+    	$.ajax({
+    		type:'GET',
+    		url:'/topProduct',
+    		datatype: 'JSON',
+    		success:function(list){
+    			var str = "";
+    			$(list).each(function(){
+    				str+='<div class="col mb-5">';
+                    str+='<div class="card h-100">';
+                    let fileCallPath = encodeURIComponent(this.uploadPath + "/" + this.uuid + "_" + this.fileName);
+                        str += "<img class = 'card-img-top' src='/display?fileName=" + fileCallPath +"'	>";
+                        str+='<div class="card-body p-4">';
+                        str+='<div class="text-center">';
+                        str+='<h5 class="fw-bolder">'+this.productName+'</h5>';
+                        str+=+this.productPrice+'원';
+                        str+='</div>';
+                        str+='</div>';
+                        str+='<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                        str+='<div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/product?pno='+this.pno+'">상품정보 보기</a></div>';
+                        str+='</div>';
+                    str+='</div>';
+                str+='</div>';
+	  			});
+    			
+    			$("#productList").html(str);
+    		},
+    		error: function(){alert("error");}
+    	});
+    };
 </script>
 </body>

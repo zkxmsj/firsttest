@@ -21,4 +21,5 @@ public interface ProductDao {
     List<CategoryDto> getCategory();
     int insertCategory(String category);
     int updateCount(Integer pno,Integer amount);
+    List<ProductDto> getProductCount();
 }

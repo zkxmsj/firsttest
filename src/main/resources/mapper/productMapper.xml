@@ -66,5 +66,10 @@
     	update product
     	set sellcount = sellcount + #{amount}
     	where pno = #{pno}
-    </update> 
+    </update>
+    <select id="getProductCount" resultType="ProductDto">
+    	select * from product
+		order by sellcount desc
+		limit 5	;
+    </select>
 </mapper>

@@ -95,4 +95,10 @@ public class ProductDaoImpl implements ProductDao{
 		return session.update(namespace+"updateCount",map);
 	}
 
+	@Override
+	public List<ProductDto> getProductCount() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+"getProductCount");
+	}
+
 }

@@ -14,7 +14,7 @@
     </select>
 
     <delete id="delete" parameterType="int">
-        DELETE FROM comment WHERE cno = #{cno}
+        DELETE FROM review WHERE cno = #{cno}
     </delete>
 
     <insert id="insert" parameterType="CommentDto">
@@ -37,8 +37,8 @@
         WHERE cno = #{cno}
     </select>
 
-    <update id="update" parameterType="CommentDto">
-        UPDATE comment
+    <update id="update" parameterType="ReviewDto">
+        UPDATE review
         SET comment = #{comment}
         WHERE cno = #{cno} and commenter = #{commenter}
     </update>

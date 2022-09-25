@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fastcampus.app.dao.ReviewDao;
+import com.fastcampus.app.domain.CommentDto;
 import com.fastcampus.app.domain.ReviewDto;
 @Service
 public class ReviewService {
@@ -21,5 +22,11 @@ public class ReviewService {
 		dao.review(orderno);
 		dao.insert(dto);
 		
+	}
+	public int update(ReviewDto dto) {
+		return dao.update(dto);
+	}
+	public int delete(int cno) {
+		return dao.delete(cno);
 	}
 }

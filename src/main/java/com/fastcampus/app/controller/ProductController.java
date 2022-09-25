@@ -85,17 +85,19 @@ public class ProductController {
 		ProductDto dto = service.selectProduct(pno);
 		String category = dto.getCategory();
 		List<ProductDto> list = service.relativeList(category);
-		System.out.println(list.get(0).getUploadPath());
-		System.out.println(list.get(0).getCategory());
 		return list;
 	}
 	@GetMapping("/searchProduct")
 	@ResponseBody
 	public List<ProductDto> searchProduct(String productName){
-		System.out.println(productName);
 		List<ProductDto> list = service.searchProduct(productName);
-		System.out.println(list);
 		return list;
 		
+	}
+	@GetMapping("/topProduct")
+	@ResponseBody
+	public List<ProductDto> topProduct(){
+		List<ProductDto> list = service.getProductCount();
+		return list;
 	}
 }

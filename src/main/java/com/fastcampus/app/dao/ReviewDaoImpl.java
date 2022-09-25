@@ -44,4 +44,22 @@ public class ReviewDaoImpl implements ReviewDao{
 			// TODO Auto-generated method stub
 			return session.update(namespace+"review",orderno);
 		}
+
+
+
+
+		@Override
+		public int update(ReviewDto reviewDto) {
+			// TODO Auto-generated method stub
+			return session.update(namespace+"update",reviewDto);
+		}
+
+
+
+
+		@Override
+		public int delete(int cno) {
+			// TODO Auto-generated method stub
+			return session.delete(namespace+"delete",cno);
+		}
 }
