@@ -12,6 +12,10 @@
 		insert into user(userId,userpwd,username,useremail,useraddr1,useraddr2,useraddr3)
 		values(#{userId},#{userPwd},#{userName},#{userEmail},#{userAddr1},#{userAddr2},#{userAddr3})
 	</insert>
+	<insert id="insertAuth" parameterType="String">
+		insert into userAuth(userId,auth)
+		values(#{userId},'ROLE_USER')
+	</insert>
 	<select id="selectAll" resultType="UserDto">
 		 select *
 		 from user

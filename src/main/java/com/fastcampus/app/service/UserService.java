@@ -29,6 +29,7 @@ public class UserService {
 		return dao.selectUser(id);
 	}
 	public int insertUser(UserDto dto){
+		dao.insertUserAuth(dto.getUserId());
 		return dao.insertUser(dto);
 	}
 	public int updateUser(UserDto dto) {

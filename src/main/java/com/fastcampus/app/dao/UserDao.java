@@ -14,4 +14,5 @@ public interface UserDao {
 	public List<UserDto> seleteAll();
 	public int idCheck(String id);
 	public UserDto read(String userId);
+	public int insertUserAuth(String userId);
 }
