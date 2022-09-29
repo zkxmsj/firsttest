@@ -62,4 +62,7 @@ public class ProductService {
 	public List<ProductDto> getProductCount(){
 		return productDao.getProductCount();
 	}
+	public List<CategoryDto> getCategoryList(){
+		return productDao.getCategoryList();
+	}
 }

@@ -101,4 +101,10 @@ public class ProductDaoImpl implements ProductDao{
 		return session.selectList(namespace+"getProductCount");
 	}
 
+	@Override
+	public List<CategoryDto> getCategoryList() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+"getCategoryList");
+	}
+
 }

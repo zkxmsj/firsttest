@@ -80,7 +80,7 @@ public class AdminController {
 	@PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<AttachImageDto> uploadAjaxActionPOST(MultipartFile uploadFile) {
-		String uploadFolder = "C:\\Users\\zkxms\\Documents\\sts\\firstSpring\\src\\main\\webapp\\resources\\img\\";
+		String uploadFolder = "C:\\Users\\com\\Desktop\\Project\\firsttest\\src\\main\\webapp\\resources\\img\\";
 		
 		File checkfile = new File(uploadFile.getOriginalFilename());
 		String type = null;
@@ -176,7 +176,7 @@ public class AdminController {
 		
 		try {
 			/* 썸네일 파일 삭제 */
-			file = new File("C:\\Users\\zkxms\\Documents\\sts\\firstSpring\\src\\main\\webapp\\resources\\img\\" + URLDecoder.decode(fileName, "UTF-8"));
+			file = new File("C:\\Users\\com\\Desktop\\Project\\firsttest\\src\\main\\webapp\\resources\\img\\" + URLDecoder.decode(fileName, "UTF-8"));
 			
 			file.delete();
 			

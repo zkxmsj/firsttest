@@ -56,7 +56,7 @@ public class ProductController {
 	
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
-		File file = new File("C:\\Users\\zkxms\\Documents\\sts\\firstSpring\\src\\main\\webapp\\resources\\img\\" + fileName);
+		File file = new File("C:\\Users\\com\\Desktop\\Project\\firsttest\\src\\main\\webapp\\resources\\img\\" + fileName);
 		
 		ResponseEntity<byte[]> result = null;
 		
@@ -77,6 +77,13 @@ public class ProductController {
 	@ResponseBody
 	public List<CategoryDto> getCategory(){
 		List<CategoryDto> list = service.getCategory();
+		return list;
+	}
+	@GetMapping("/getCategoryList")
+	@ResponseBody
+	public List<CategoryDto> getCategoryList(){
+		List<CategoryDto> list = service.getCategoryList();
+		System.out.println(list);
 		return list;
 	}
 	@GetMapping("/relative/{pno}")

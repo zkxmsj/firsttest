@@ -406,7 +406,7 @@ $(document).on("click", ".imgDeleteBtn", function(e){
 });
 $(document).on("click","#category",function(){
 	$.ajax({
-		url: '/getCategory',
+		url: '/getCategoryList',
 		type : 'GET',
 		success : function(list){
 			var str = '';
@@ -421,8 +421,6 @@ $(document).on("click","#category",function(){
 		},
 		error : function(result){
 			console.log(result);
-			
-			alert("파일을 삭제하지 못하였습니다.")
 		}
 	});
 	

@@ -19,6 +19,7 @@ public interface ProductDao {
     List<ProductDto> selectCategory(String category);
     List<ProductDto> searchProduct(String productName);
     List<CategoryDto> getCategory();
+    List<CategoryDto> getCategoryList();
     int insertCategory(String category);
     int updateCount(Integer pno,Integer amount);
     List<ProductDto> getProductCount();

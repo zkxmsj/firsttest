@@ -49,7 +49,9 @@
         </choose>
         ORDER BY pno asc
     </select>
-    
+    <select id="getCategoryList" resultType="CategoryDto">
+    	select * from category
+    </select>
     <select id="getCategory" resultType="CategoryDto">
     	select c.category,count(p.pno) count
 		from product p,category c
